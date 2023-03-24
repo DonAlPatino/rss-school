@@ -15,8 +15,10 @@ body {
     font-family: Georgia, serif;
 }
 
-.bg-gradient {
-    background:radial-gradient(110.67% 538.64% at 5.73% 50%, #513d2f 0%, #1a1a1c 100%), #211f20;;
+.bg-startscreen {
+    background: url(assets/noise.png),
+    radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%),
+    #211F20;
 }
 
 .container {
@@ -28,6 +30,7 @@ body {
     margin: 0 auto;
     padding: 0 10px;
 }
+
 .list {
     display: flex;
     flex-wrap: wrap;
@@ -44,6 +47,43 @@ body {
 .link.active {
     color: #fafafa;
     border-bottom: 3px solid #f1cdb3;
+}
+
+.section {
+    padding-top: 80px;
+    padding-bottom: 100px;
+}
+
+.section-title {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 35px;
+    line-height: 1.3;
+    letter-spacing: 0.06em;
+    text-align: left;
+
+    color: #545454;
+}
+
+.ss-picture {
+    max-width: 100%;
+    height: auto;
+}
+.btn {
+    padding: 15px 45px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 130%;
+    /* identical to box height, or 22px */
+    letter-spacing: 0.06em;
+    /* color-dark-3xl */
+    color: #292929;
+    /* color-primary */
+    background: #F1CDB3;
+    border-radius: 100px;
+    transition: all 0.3s linear;
 }
 
 /* Header */
@@ -63,10 +103,9 @@ body {
 }
 
 .logo_title {
-/*TODO Граница между блоками */
+    /*TODO Граница между блоками */
     padding-bottom: 10px;
     /* logo_title */
-    font-family: 'Georgia';
     font-style: normal;
     font-weight: 400;
     font-size: 32px;
@@ -81,7 +120,7 @@ body {
 
 .logo_subtitle {
     /* logo_subtitle */
-    font-family: 'Arial';
+    font-family: 'Arial', serif;
     font-style: normal;
     font-weight: 400;
     font-size: 13px;
@@ -96,10 +135,15 @@ body {
 
 .nav-list {
     column-gap: 36px;
+    /*TODO флекс не работает*/
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .nav-link {
-    font-family: "Arial";
+    font-family: "Arial", serif;
     font-style: normal;
     font-weight: 400;
     font-size: 15px;
@@ -108,6 +152,65 @@ body {
     transition: all 0.3s linear;
 }
 
+.nav-item {
+    display: flex;
+    align-items: center;
+}
+
 .nav-link:hover {
     color: #fafafa;
+}
+
+/* Start screen section */
+.ss-content {
+    padding-bottom: 80px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 42px;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.ss-title {
+    max-width: 310px;
+    /* h2 */
+    font-style: normal;
+    font-weight: 400;
+    font-size: 44px;
+    line-height: 130%;
+    /* or 57px */
+
+    display: flex;
+    align-items: center;
+
+    /* color-light-xl */
+
+    color: #FFFFFF;
+}
+
+.ss-text {
+    max-width: 460px;
+    /* paragraph-l */
+
+    font-family: 'Arial', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 160%;
+    /* or 24px */
+
+    display: flex;
+    align-items: center;
+
+    /* color-dark-s */
+
+    color: #CDCDCD;
+}
+
+.btn-filled {
+    background-color: #f1cdb3;
+}
+
+.btn-filled:hover {
+    background-color: #fddcc4;
 }
