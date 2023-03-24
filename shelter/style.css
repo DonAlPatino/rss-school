@@ -206,3 +206,41 @@ body {
 .btn-filled:hover {
     background-color: #fddcc4;
 }
+
+/* About section */
+.about {
+    padding-top: 83px;
+    padding-bottom: 96px;
+}
+
+.about-content {
+    flex-basis: 50.5%;
+    padding-bottom: 8px;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 25px;
+}
+
+.about-title {
+    max-width: 370px;
+}
+
+.section-text {
+    max-width: 430px;
+
+    /* paragraph-l */
+
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 160%;
+    /* or 24px */
+
+
+    /* color-dark-xl */
+
+    color: #4C4C4C;
+}
+
