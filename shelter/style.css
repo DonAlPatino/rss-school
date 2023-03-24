@@ -1,0 +1,113 @@
+/* General */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    max-width: 100%;
+    font-family: Georgia, serif;
+}
+
+.bg-gradient {
+    background:radial-gradient(110.67% 538.64% at 5.73% 50%, #513d2f 0%, #1a1a1c 100%), #211f20;;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1280px;
+    min-width: 1280px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+}
+
+.link {
+    display: block;
+    color: #f1cdb3;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.link.active {
+    color: #fafafa;
+    border-bottom: 3px solid #f1cdb3;
+}
+
+/* Header */
+.header {
+    padding: 60px 0;
+}
+
+.header-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+.logo_title {
+/*TODO Граница между блоками */
+    padding-bottom: 10px;
+    /* logo_title */
+    font-family: 'Georgia';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 110%;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.06em;
+    /* color-primary */
+    color: #F1CDB3;
+
+}
+
+.logo_subtitle {
+    /* logo_subtitle */
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 15px;
+    /* identical to box height */
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.1em;
+    /* color-light-xl */
+    color: #FFFFFF;
+}
+
+.nav-list {
+    column-gap: 36px;
+}
+
+.nav-link {
+    font-family: "Arial";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #cdcdcd;
+    transition: all 0.3s linear;
+}
+
+.nav-link:hover {
+    color: #fafafa;
+}
