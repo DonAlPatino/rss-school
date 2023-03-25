@@ -192,7 +192,6 @@ body {
 }
 
 .ss-title {
-    max-width: 310px;
     /* h2 */
     font-style: normal;
     font-weight: 400;
@@ -245,16 +244,12 @@ body {
     row-gap: 25px;
 }
 
-.about-title {
-    max-width: 370px;
-}
-
 .section-text {
     max-width: 430px;
 
     /* paragraph-l */
 
-    font-family: 'Arial';
+    font-family: 'Arial', serif;
     font-style: normal;
     font-weight: 400;
     font-size: 15px;
@@ -309,7 +304,7 @@ body {
 
 .card:hover {
     background-color: #ffffff;
-    box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
+    box-shadow: 0 2px 35px 14px rgba(13, 13, 13, 0.04);
 }
 
 .card:hover .btn-card {
@@ -319,7 +314,6 @@ body {
 
 .card-title,
 .item-title {
-    font-family: 'Georgia';
     font-style: normal;
     font-weight: 400;
     font-size: 20px;
@@ -332,3 +326,29 @@ body {
 .btn-card {
     padding: 12px 43px 14px;
 }
+
+/* Help section */
+.help-container {
+    flex-direction: column;
+    row-gap: 60px;
+}
+
+.help-title {
+    text-align: center;
+}
+
+.items-list {
+    column-gap: 120px;
+    row-gap: 57px;
+    align-items: center;
+    justify-content: center;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 28px;
+}
+
