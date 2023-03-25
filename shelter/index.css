@@ -172,17 +172,12 @@ body {
     transition: all 0.3s linear;
 }
 
-.nav-item {
-    display: flex;
-    align-items: center;
-}
-
 .nav-link:hover {
     color: #fafafa;
 }
 
-/* Start screen section */
-.ss-content {
+/* Not only section */
+.notonly-content {
     padding-bottom: 80px;
     display: flex;
     flex-direction: column;
@@ -191,7 +186,7 @@ body {
     align-items: flex-start;
 }
 
-.ss-title {
+.notonly-title {
     /* h2 */
     font-style: normal;
     font-weight: 400;
@@ -208,7 +203,7 @@ body {
     color: #FFFFFF;
 }
 
-.ss-text {
+.notonly-text {
     max-width: 460px;
     /* paragraph-l */
 
@@ -218,16 +213,11 @@ body {
     font-size: 15px;
     line-height: 160%;
     /* or 24px */
-
     display: flex;
     align-items: center;
-
     /* color-dark-s */
-
     color: #CDCDCD;
 }
-
-
 
 /* About section */
 .about {
@@ -238,7 +228,6 @@ body {
 .about-content {
     flex-basis: 50.5%;
     padding-bottom: 8px;
-
     display: flex;
     flex-direction: column;
     row-gap: 25px;
@@ -246,22 +235,17 @@ body {
 
 .section-text {
     max-width: 430px;
-
     /* paragraph-l */
-
     font-family: 'Arial', serif;
     font-style: normal;
     font-weight: 400;
     font-size: 15px;
     line-height: 160%;
     /* or 24px */
-
-
     /* color-dark-xl */
-
     color: #4C4C4C;
 }
-/* Friends section */
+/* Our friends section */
 .friends {
     background-color: #f6f6f6;
 }
@@ -295,10 +279,8 @@ body {
     justify-content: center;
     align-items: center;
     row-gap: 30px;
-
     background-color: #fafafa;
     border-radius: 9px;
-
     transition: all 0.3s linear;
 }
 
@@ -319,7 +301,6 @@ body {
     font-size: 20px;
     line-height: 1.15;
     letter-spacing: 0.06em;
-
     color: #545454;
 }
 
@@ -352,7 +333,7 @@ body {
     row-gap: 28px;
 }
 
-/* Donation section */
+/* In additional section */
 .in_addition {
     background-color: #f6f6f6;
 }
@@ -373,28 +354,22 @@ body {
 
 .donation-subtitle {
     /* h5 */
-
     font-style: normal;
     font-weight: 400;
     font-size: 15px;
     line-height: 110%;
     /* identical to box height, or 17px */
-
     display: flex;
     align-items: center;
     letter-spacing: 0.06em;
-
     /* color-dark-l */
-
     color: #545454;
-
 }
 
 .btn-donation {
     height: 43px;
     /* h4 */
     /* color-primary */
-
     background: #F1CDB3;
     border-radius: 9px;
     padding: 10px 15px;
@@ -404,13 +379,10 @@ body {
     font-size: 20px;
     line-height: 115%;
     /* identical to box height, or 23px */
-
     display: flex;
     align-items: center;
     letter-spacing: 0.06em;
-
     /* color-dark-l */
-
     color: #545454;
 }
 
@@ -420,21 +392,16 @@ body {
 
 .legal-text {
     max-width: 380px;
-
     /* donation-description */
-
     font-family: 'Arial', serif;
     font-style: italic;
     font-weight: 400;
     font-size: 12px;
     line-height: 18px;
     /* or 150% */
-
     display: flex;
     align-items: center;
-
     /* color-dark-m */
-
     color: #B2B2B2;
 }
 /* Footer */
@@ -488,6 +455,5 @@ body {
     font-size: 20px;
     line-height: 1.15;
     letter-spacing: 0.06em;
-
     fill: #f1cdb3;
 }
