@@ -352,3 +352,89 @@ body {
     row-gap: 28px;
 }
 
+/* Donation section */
+.donation {
+    background-color: #f6f6f6;
+}
+
+.donation-container {
+    justify-content: center;
+    align-items: center;
+    column-gap: 30px;
+}
+
+.donation-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    row-gap: 20px;
+}
+
+.donation-subtitle {
+    /* h5 */
+    
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 110%;
+    /* identical to box height, or 17px */
+
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.06em;
+
+    /* color-dark-l */
+
+    color: #545454;
+
+}
+
+.btn-donation {
+    height: 43px;
+    /* h4 */
+    /* color-primary */
+
+    background: #F1CDB3;
+    border-radius: 9px;
+    padding: 10px 15px;
+    gap: 10px;
+    font-family: 'Georgia';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 115%;
+    /* identical to box height, or 23px */
+
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.06em;
+
+    /* color-dark-l */
+
+    color: #545454;
+}
+
+.credit-card-number {
+    padding: 0 15px;
+}
+
+.legal-text {
+    max-width: 380px;
+
+    /* donation-description */
+
+    font-family: 'Arial';
+    font-style: italic;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    /* or 150% */
+
+    display: flex;
+    align-items: center;
+
+    /* color-dark-m */
+
+    color: #B2B2B2;
+}
