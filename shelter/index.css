@@ -66,6 +66,7 @@ body {
     text-align: left;
     color: #545454;
 }
+/* General Button */
 
 .btn {
     padding: 15px 45px;
@@ -247,7 +248,7 @@ body {
     color: #4C4C4C;
 }
 /* Our friends section */
-.friends {
+.our_friends {
     background-color: #f6f6f6;
 }
 
