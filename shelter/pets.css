@@ -7,6 +7,8 @@
 
 body {
     margin: 0;
+    max-width: 100%;
+    font-family: Georgia, serif;
     --color-primary-color: #F1CDB3;
     --color-dark: #292929 ;
     --color-grey: #545454 ;
@@ -16,8 +18,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1280px;
-    min-width: 1280px;
+    max-width: 1200px;
+    min-width: 1200px;
     margin: 0 auto;
     padding: 0 10px;
 }
@@ -291,7 +293,7 @@ body {
 .footer-location{
     display: flex;
     flex-direction: column;
-    width: 322px;
+    width: 302px;
     row-gap: 32px;
     padding: 0;
 }
