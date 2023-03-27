@@ -231,7 +231,7 @@ body {
 /* About section */
 
 .about-container{
-    justify-content: flex-start;
+    justify-content: right;
     column-gap: 120px;
 }
 .about-image{
