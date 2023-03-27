@@ -1,4 +1,8 @@
 /* General */
+
+@import url("https://fonts.cdnfonts.com/css/georgia");
+@import url("https://fonts.cdnfonts.com/css/arial");
+
 * {
     margin: 0;
     padding: 0;
@@ -112,26 +116,31 @@ body {
     display: flex;
     flex-direction: column;
     align-items: end;
+    height: 60px;
+    width: 184px;
 }
 
 .logo_title {
     /*TODO Граница между блоками */
     padding-bottom: 10px;
     /* logo_title */
+    font-family: 'Georgia';
     font-style: normal;
     font-weight: 400;
     font-size: 32px;
     line-height: 110%;
+    /* or 35px */
     display: flex;
     align-items: center;
-    letter-spacing: 0.06em;
-    /* color-primary */
+    letter-spacing: 0.05em;
+    /* color-dark-l */
     color: var(--color-grey);
 
 }
 
 .logo_subtitle {
     /* logo_subtitle */
+    padding-left: 4px;
     font-family: 'Arial', serif;
     font-style: normal;
     font-weight: 400;
@@ -276,25 +285,27 @@ body {
 }
 
 .footer-container {
+    padding-top: 40px;
+    align-items: flex-start;
     flex-wrap: wrap;
     column-gap: 120px;
     min-height: 253px;
 }
 
 .footer-contacts {
+    padding-top: 16px;
     width: 302px;
-    padding: 0;
     display: flex;
     flex-direction: column;
     row-gap: 39px;
 }
 
 .footer-location{
+    padding-top: 16px;
     display: flex;
     flex-direction: column;
     width: 322px;
     row-gap: 32px;
-    padding: 0;
 }
 
 .footer-title {

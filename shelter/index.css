@@ -1,5 +1,8 @@
 /* General */
 
+@import url("https://fonts.cdnfonts.com/css/georgia");
+@import url("https://fonts.cdnfonts.com/css/arial");
+
 * {
     margin: 0;
     padding: 0;
@@ -122,6 +125,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: end;
+    height: 60px;
+    width: 184px;
 }
 
 .logo_title {
@@ -134,13 +139,14 @@ body {
     line-height: 110%;
     display: flex;
     align-items: center;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.05em;
     /* color-primary */
     color: #F1CDB3;
 
 }
 
 .logo_subtitle {
+    padding-left: 4px;
     /* logo_subtitle */
     font-family: 'Arial', serif;
     font-style: normal;
@@ -223,6 +229,16 @@ body {
 }
 
 /* About section */
+
+.about-container{
+    justify-content: flex-start;
+    column-gap: 120px;
+}
+.about-image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .about {
     padding-top: 83px;
     padding-bottom: 96px;
@@ -234,6 +250,7 @@ body {
     display: flex;
     flex-direction: column;
     row-gap: 25px;
+    justify-content: space-between;
 }
 
 .section-text {
@@ -370,6 +387,7 @@ body {
 }
 
 .btn-donation {
+    width: 349px;
     height: 43px;
     /* h4 */
     /* color-primary */
@@ -390,7 +408,7 @@ body {
 }
 
 .credit-card-number {
-    padding: 0 15px;
+    padding: -10px 15px;
 }
 
 .legal-text {
@@ -415,6 +433,7 @@ body {
 }
 
 .footer-container {
+    padding-top: 40px;
     flex-wrap: wrap;
     column-gap: 120px;
     min-height: 253px;
@@ -422,7 +441,7 @@ body {
 
 .footer-contacts {
     width: 302px;
-    padding: 0;
+    padding-top: 16px;
     display: flex;
     flex-direction: column;
     row-gap: 39px;
@@ -433,7 +452,7 @@ body {
     flex-direction: column;
     width: 322px;
     row-gap: 32px;
-    padding: 0;
+    padding-top: 16px;
 }
 
 .footer-title {
