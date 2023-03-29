@@ -282,13 +282,13 @@ body {
 }
 /* Footer */
 .footer {
-    padding-top: 18px;
+    padding-top: 40px;
+    max-height: 350px;
     background: url(assets/noise.png),
     radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%);
 }
 
 .footer-container {
-    padding-top: 40px;
     align-items: flex-start;
     flex-wrap: wrap;
     column-gap: 120px;
@@ -309,6 +309,11 @@ body {
     flex-direction: column;
     width: 322px;
     row-gap: 32px;
+}
+
+.footer-img{
+    display: flex;
+    padding-top: 16px;
 }
 
 .footer-title {
