@@ -289,10 +289,10 @@ body {
 }
 
 .footer-container {
-    align-items: flex-start;
     flex-wrap: wrap;
     column-gap: 120px;
     min-height: 253px;
+    align-items: start;
 }
 
 .footer-contacts {
