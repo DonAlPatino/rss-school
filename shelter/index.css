@@ -185,6 +185,10 @@ body {
 }
 
 /* Not only section */
+.notonly-container{
+    padding-top: 60px;
+}
+
 .notonly-content {
     padding-bottom: 80px;
     display: flex;
