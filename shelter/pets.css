@@ -360,11 +360,6 @@ body {
     }
 
     /* friends */
-    .friends {
-        padding-top: 200px;
-        padding-bottom: 76px;
-    }
-
     .friends-title {
         padding-bottom: 30px;
     }
@@ -405,6 +400,91 @@ body {
 
     .footer-section:last-of-type {
         width: 300px;
+    }
+
+}
+
+
+/* 320 <= width <= 768 */
+@media (max-width: 767px) {
+
+    /* general */
+    .section {
+        padding-top: 42px;
+        padding-bottom: 43px;
+    }
+
+    .section-title {
+        font-size: 25px;
+        text-align: center;
+    }
+
+    /* header */
+    .container {
+        max-width: 300px;
+        padding: 0 10px;
+        /*  position: relative;*/
+    }
+
+    .nav {
+        display: none;
+    }
+
+    /*Под меню*/
+
+    /* friends */
+
+
+    .friends-title {
+        padding-bottom: 30px;
+    }
+
+    .cards {
+        padding-bottom: 41px;
+        justify-content: center;
+    }
+
+    .cards-list {
+        justify-content: center;
+        row-gap: 30px;
+    }
+
+    .cards-item:last-child,
+    .cards-item:nth-last-child(2) {
+        display: none;
+    }
+
+    /* footer */
+    .footer {
+        padding-top: 29px;
+    }
+
+    .footer-container {
+        row-gap: 12px;
+    }
+
+    .footer-contacts, .footer-location {
+        min-height: 235px;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .footer-link {
+        justify-content: center;
+    }
+
+    .phone-link {
+        justify-content: center;
+    }
+
+    .address-link {
+        justify-content: flex-start;
+    }
+
+    .footer-img {
+        width: 260px;
+        min-height: auto;
+        padding-top: 0;
     }
 
 }
