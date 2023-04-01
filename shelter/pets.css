@@ -38,8 +38,8 @@ body {
 }
 
 .section {
-    padding-top: 80px;
-    padding-bottom: 100px;
+    padding-top: 5rem;
+    padding-bottom: 6.25rem;
 }
 
 .section-title {
@@ -341,6 +341,9 @@ body {
     letter-spacing: 0.06em;
     fill: var(--color-primary-color);
 }
+.footer-img{
+    padding-top: -26px;
+}
 
 /* ------------- */
 /* Media queries */
@@ -362,6 +365,7 @@ body {
     /* friends */
     .friends-title {
         padding-bottom: 30px;
+
     }
 
     .cards {
@@ -379,9 +383,12 @@ body {
         display: none;
     }
 
+    .our_friends{
+        padding-bottom: 78px;
+    }
     /* footer */
     .footer {
-        padding-top: 31px;
+        padding-top: 30px;
     }
 
     .footer-container {
@@ -394,11 +401,11 @@ body {
         padding-top: 40px;
     }
 
-    .footer-section {
+    .footer-contacts {
         width: 280px;
     }
 
-    .footer-section:last-of-type {
+    .footer-location {
         width: 300px;
     }
 
@@ -420,6 +427,10 @@ body {
     }
 
     /* header */
+
+    .header {
+        padding-left: 10px;
+    }
     .container {
         max-width: 300px;
         padding: 0 10px;
@@ -434,25 +445,42 @@ body {
 
     /* friends */
 
+    .friends {
+        padding-top: 160px;
+        padding-bottom: 42px;
+    }
 
-    .friends-title {
-        padding-bottom: 30px;
+    .friends-container {
+        row-gap: 12px;
     }
 
     .cards {
-        padding-bottom: 41px;
-        justify-content: center;
+        max-width: 270px;
+        padding-bottom: 11px;
+        flex-wrap: wrap;
+        justify-content: space-around;
     }
 
     .cards-list {
-        justify-content: center;
-        row-gap: 30px;
+        width: 270px;
+        row-gap: 11px;
+    }
+    .card {
+        margin-bottom: 19px;
+        row-gap: 0;
     }
 
-    .cards-item:last-child,
-    .cards-item:nth-last-child(2) {
+    .card-title {
+        padding: 30px 0;
+    }
+
+    .cards-item:nth-child(n+4) {
         display: none;
     }
+    .slider-controls {
+        column-gap: 10px;
+    }
+
 
     /* footer */
     .footer {
@@ -463,10 +491,17 @@ body {
         row-gap: 12px;
     }
 
-    .footer-contacts, .footer-location {
+    .footer-contacts{
         min-height: 235px;
         padding-top: 0;
         padding-bottom: 0;
+    }
+
+    .footer-location {
+        min-height: 208px;
+        padding-top: 0;
+        padding-bottom: 0;
+        row-gap: 40px;
     }
 
     .footer-link {
@@ -484,7 +519,7 @@ body {
     .footer-img {
         width: 260px;
         min-height: auto;
-        padding-top: 0;
+        padding-top: 40px;
     }
 
 }

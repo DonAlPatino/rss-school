@@ -75,7 +75,7 @@ body {
 .card-img,
 .footer-img,
 .about-image,
-.item-icon{
+.item-icon {
     max-width: 100%;
     height: auto;
 }
@@ -521,9 +521,10 @@ body {
         padding-top: 30px;
         flex-direction: column;
     }
-.notonly-title{
-    padding-left: 0;
-}
+
+    .notonly-title {
+        padding-left: 0;
+    }
 
     .notonly-content {
         padding-bottom: 97px;
@@ -570,7 +571,6 @@ body {
     }
 
     /* donation */
-
     .donation-container {
         flex-direction: column-reverse;
         row-gap: 58px;
@@ -616,10 +616,10 @@ body {
     }
 
     /* header */
-
-    .header{
+    .header {
         padding-left: 10px;
     }
+
     .container {
         max-width: 300px;
         padding: 0 10px;
@@ -631,13 +631,11 @@ body {
     }
 
     /*Под меню*/
-
-
     /* notonly */
-
-    .notonly-container{
+    .notonly-container {
         padding-top: 30px;
     }
+
     .notonly-content {
         padding-bottom: 105px;
         row-gap: 41px;
@@ -745,7 +743,6 @@ body {
     }
 
     /* donation */
-
     .donation-container {
         row-gap: 42px;
     }
@@ -798,17 +795,17 @@ body {
         row-gap: 12px;
     }
 
-    .footer-contacts{
+    .footer-contacts {
         min-height: 235px;
         padding-top: 0;
         padding-bottom: 0;
     }
 
-     .footer-location {
+    .footer-location {
         min-height: 208px;
         padding-top: 0;
         padding-bottom: 0;
-         row-gap: 40px;
+        row-gap: 40px;
     }
 
     .footer-link {
