@@ -792,11 +792,12 @@ body {
     /* help */
     .help-container {
         row-gap: 40px;
+        align-items: center;
     }
 
     .items-list {
         padding-left: 6px;
-        justify-content: flex-start;
+        justify-content: center;
         gap: 30px;
     }
 
