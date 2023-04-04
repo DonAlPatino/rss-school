@@ -629,11 +629,6 @@ body {
         padding-left: 10px;
     }
 
-    .container {
-        max-width: 300px;
-        min-width: 200px;
-    }
-
     /*Burger open -close menu*/
 
     .overlay.active {
