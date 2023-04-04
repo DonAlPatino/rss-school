@@ -306,13 +306,9 @@ body {
     text-align: center;
 }
 
-.cards {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    column-gap: 53px;
-}
+
+
+
 
 .cards-list {
     width: calc(100% - 52px * 2);
@@ -321,7 +317,6 @@ body {
 
 .card {
     padding-bottom: 30px;
-    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -329,6 +324,7 @@ body {
     background-color: #fafafa;
     border-radius: 9px;
     transition: all 0.3s linear;
+    display: none;
 }
 
 .card:hover {
@@ -354,6 +350,28 @@ body {
 .btn-card {
     padding: 12px 43px 14px;
 }
+
+.cards {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 53px;
+}
+
+/*Slider*/
+.slider-items {
+    display: flex;
+    column-gap: 5.625rem;
+    overflow: hidden;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card.active {
+    display: flex;
+}
+
 
 /* Help section */
 .help-container {
@@ -568,6 +586,11 @@ body {
 
     .cards-item:last-child {
         display: none;
+    }
+
+    /*Slider*/
+    .slider-items {
+        column-gap: 2.5rem;
     }
 
     /* help */
