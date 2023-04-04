@@ -655,8 +655,6 @@ body {
     .container {
         max-width: 300px;
         min-width: 200px;
-        padding: 0 10px;
-        position: relative;
     }
 
     /*Burger open -close menu*/
