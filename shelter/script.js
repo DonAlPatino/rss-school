@@ -83,7 +83,6 @@ function showActiveCards(activeCards) {
 slider.addEventListener('click', (e) => {
 
     const petCards = Array.from(document.querySelectorAll('.card'));
-    const selectedPet = e.target.closest('.card');
     const prevButton = e.target.closest('.btn-prev');
     const nextButton = e.target.closest('.btn-next');
     const prevArrow = e.target.closest('.arrow-prev');
@@ -121,23 +120,5 @@ slider.addEventListener('click', (e) => {
             activeCards.push(petCards[t++])
         }
         showActiveCards(activeCards);
-
-
-    }
-
-    if (selectedPet) {
-        const petName = selectedPet.dataset.pet;
-        const petInfo = pets.find(pet => pet.name == petName);
-        petModal.setContent(petInfo);
-        petModal.open();
     }
 })
-
-const rotateArray = function (nums, k) {
-    console.log(nums)
-    for (let i = 0; i < k; i++) {
-        nums.unshift(nums.pop());
-    }
-    console.log(nums)
-    return nums;
-}
