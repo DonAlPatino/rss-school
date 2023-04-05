@@ -3,6 +3,8 @@
 const burger = document.querySelector('.burger-menu');
 const nav = document.querySelector('.nav');
 const overlay = document.querySelector('.overlay');
+const body = document.querySelector('body');
+
 
 burger.addEventListener('click', toggleMenu);
 
@@ -10,6 +12,7 @@ function toggleMenu() {
     burger.classList.toggle('active');
     overlay.classList.toggle('active');
     nav.classList.toggle('active');
+    body.classList.toggle('stop-scrolling');
 }
 
 window.addEventListener('click', e => {
@@ -18,6 +21,7 @@ window.addEventListener('click', e => {
         burger.classList.remove('active')
         nav.classList.remove('active')
         overlay.classList.remove('active')
+        body.classList.remove('stop-scrolling')
     }
 })
 

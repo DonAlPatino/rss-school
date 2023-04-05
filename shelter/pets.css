@@ -509,7 +509,10 @@ body {
         background-color: #cdcdcd;
     }
 
-
+    body.stop-scrolling {
+        height: 100%;
+        overflow: hidden;
+    }
 
     /* friends */
 

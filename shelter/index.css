@@ -308,9 +308,6 @@ body {
 }
 
 
-
-
-
 .cards-list {
     width: calc(100% - 52px * 2);
     justify-content: space-between;
@@ -654,7 +651,6 @@ body {
     }
 
     /*Burger open -close menu*/
-
     .overlay.active {
         display: block;
         position: absolute;
@@ -718,6 +714,11 @@ body {
 
     .burger-menu:hover .burger-line {
         background-color: #fddcc4;
+    }
+
+    body.stop-scrolling {
+        height: 100%;
+        overflow: hidden;
     }
 
     /* notonly */
@@ -810,8 +811,8 @@ body {
         row-gap: 40px;
         align-items: center;
     }
-/* Получаем смещение по макету. Но ломаем резиновость*/
 
+    /* Получаем смещение по макету. Но ломаем резиновость*/
     .items-list {
         padding: 0 5px;
         max-width: 300px;
