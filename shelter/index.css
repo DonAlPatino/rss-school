@@ -36,7 +36,8 @@ body {
     justify-content: space-between;
     align-items: center;
     max-width: 1220px;
-    min-width: 320px;
+    /*оно
+    min-width: 320px;*/
     margin: 0 auto;
     padding: 0 10px;
 }
@@ -652,11 +653,6 @@ body {
         padding-left: 10px;
     }
 
-    .container {
-        max-width: 300px;
-        min-width: 200px;
-    }
-
     /*Burger open -close menu*/
 
     .overlay.active {
@@ -751,7 +747,6 @@ body {
     .puppy-img {
         width: 260px;
         height: 272px;
-        align-self: center;
     }
 
     /* about */
@@ -815,10 +810,12 @@ body {
         row-gap: 40px;
         align-items: center;
     }
+/* Получаем смещение по макету. Но ломаем резиновость*/
 
     .items-list {
-        padding-left: 6px;
-        justify-content: center;
+        padding: 0 5px;
+        max-width: 300px;
+        justify-content: start;
         gap: 30px;
     }
 
