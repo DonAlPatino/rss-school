@@ -29,10 +29,6 @@ body {
     #211F20;
 }
 
-/*.overlay {
-    display: none;
-}
-*/
 .overlay {
     display: block;
     position: fixed;
@@ -50,7 +46,6 @@ body {
     opacity: 0.6;
     pointer-events: all;
 }
-
 
 .container {
     display: flex;
@@ -822,7 +817,7 @@ body {
     }
 
     /*Burger open -close menu*/
-    .overlay.active {
+  /*  .overlay.active {
         display: block;
         position: absolute;
         top: 0;
@@ -832,7 +827,7 @@ body {
         background: rgba(41, 41, 41, 0.6);
         z-index: 1;
     }
-
+*/
     .nav {
         max-width: 320px;
         position: fixed;
