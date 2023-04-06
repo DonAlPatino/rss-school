@@ -915,3 +915,69 @@ body {
     }
 
 }
+
+@keyframes move-right {
+    from {
+        left: -1080px;
+    }
+    to {
+        left: 0px;
+    }
+}
+
+.transition-right {
+    animation-name: move-right;
+    animation-duration: 2s;
+}
+
+@keyframes move-left {
+    from {
+        left: 0px;
+    }
+    to {
+        left: -1080px;
+    }
+}
+
+.transition-left {
+    animation-name: move-left;
+    animation-duration: 2s;
+}
+
+@media (max-width: 1279px) and (min-width: 768px) {
+    @keyframes move-right {
+        from {
+            left: 0px;
+        }
+        to {
+            left: -620px;
+        }
+    }
+    @keyframes move-left {
+        from {
+            left: -620px;
+        }
+        to {
+            left: 0px;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    @keyframes move-right {
+        from {
+            left: 0px;
+        }
+        to {
+            left: -310px;
+        }
+    }
+    @keyframes move-left {
+        from {
+            left: -310px;
+        }
+        to {
+            left: 0px;
+        }
+    }
+}

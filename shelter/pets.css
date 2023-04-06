@@ -212,19 +212,35 @@ body {
 }
 
 .cards {
-    width: 100%;
+    overflow: hidden;
+/*    width: 100%;
     padding-bottom: 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     column-gap: 40px;
     row-gap: 30px;
+
+ */
 }
 
 .cards-list {
-    justify-content: space-between;
-    row-gap: 30px;
+ /*   justify-content: space-between;
+    row-gap: 30px;*/
+    height: 930px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 30px 40px;
+    flex-shrink: 1;
+    position: relative;
+    padding-top: 0px;
+    transition: 2s;
 }
+
+
 
 .card {
     padding-bottom: 30px;
@@ -380,6 +396,7 @@ body {
     }
 
     .cards-list {
+        height: 1325px;
         max-width: 580px;
         row-gap: 29px;
     }

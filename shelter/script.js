@@ -106,7 +106,9 @@ slider.addEventListener('click', (e) => {
         while (activeCards.length < cardsPerPage) {
             activeCards.push(petCards[t++])
         }
+        petsSlide.classList.add("transition-right");
         showActiveCards(activeCards);
+
     }
 
     if (e.target == prevButton || e.target == prevArrow) {
@@ -124,5 +126,14 @@ slider.addEventListener('click', (e) => {
             activeCards.push(petCards[t++])
         }
         showActiveCards(activeCards);
+        petsSlide.classList.add("transition-left");
     }
 })
+
+petsSlide.addEventListener("animationend", (animationEvent) => {
+    if (animationEvent.animationName === "move-left") {
+        petsSlide.classList.remove("transition-left");
+    } else {
+        petsSlide.classList.remove("transition-right");
+    }
+});

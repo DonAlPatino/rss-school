@@ -1,3 +1,7 @@
+/* Пагинация */
+import pagination from "./js/pagination.js";
+pagination();
+
 /* Open/close burger menu */
 
 const burger = document.querySelector('.burger-menu');
@@ -26,3 +30,5 @@ window.addEventListener('click', e => {
         body.classList.remove('stop-scrolling')
     }
 })
+
+
