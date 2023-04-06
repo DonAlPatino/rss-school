@@ -137,3 +137,12 @@ petsSlide.addEventListener("animationend", (animationEvent) => {
         petsSlide.classList.remove("transition-right");
     }
 });
+
+window.addEventListener('resize', () => {
+    checkCardsPerPage();
+    const petCards = Array.from(document.querySelectorAll('.card'));
+    const displayedCard = document.querySelector('.card.active').dataset.pet;
+    const index = pets.findIndex(card => card.name == displayedCard);
+    const activeCards = petCards.slice(index, index + cardsPerPage);
+    showActiveCards(activeCards);
+})
