@@ -3,6 +3,8 @@
 const burger = document.querySelector('.burger-menu');
 const nav = document.querySelector('.nav');
 const overlay = document.querySelector('.overlay');
+const body = document.querySelector('body');
+
 
 burger.addEventListener('click', toggleMenu);
 
@@ -10,16 +12,8 @@ function toggleMenu() {
     burger.classList.toggle('active');
     overlay.classList.toggle('active');
     nav.classList.toggle('active');
+    body.classList.toggle('stop-scrolling');
 }
-
-window.addEventListener('click', e => {
-    const target = e.target;
-    if (!target.closest('.nav') && !target.closest('.burger-menu')) {
-        burger.classList.remove('active')
-        nav.classList.remove('active')
-        overlay.classList.remove('active')
-    }
-})
 
 /* SLIDER */
 
@@ -88,6 +82,9 @@ slider.addEventListener('click', (e) => {
     const prevArrow = e.target.closest('.arrow-prev');
     const nextArrow = e.target.closest('.arrow-next');
     const len = petCards.length;
+    //popup
+    const selectedPet = e.target.closest('.card');
+
 
     if (e.target == nextButton || e.target == nextArrow) {
         checkCardsPerPage();
@@ -102,7 +99,9 @@ slider.addEventListener('click', (e) => {
         while (activeCards.length < cardsPerPage) {
             activeCards.push(petCards[t++])
         }
+   //     petsSlide.classList.add("transition-right");
         showActiveCards(activeCards);
+
     }
 
     if (e.target == prevButton || e.target == prevArrow) {
@@ -120,5 +119,100 @@ slider.addEventListener('click', (e) => {
             activeCards.push(petCards[t++])
         }
         showActiveCards(activeCards);
+ //       petsSlide.classList.add("transition-left");
+    }
+    if (selectedPet) {
+        const petName = selectedPet.dataset.pet;
+        const petInfo = pets.find(pet => pet.name == petName);
+        petModal.setContent(petInfo);
+        petModal.open();
+    }
+
+})
+/*
+petsSlide.addEventListener("animationend", (animationEvent) => {
+    if (animationEvent.animationName === "move-left") {
+        petsSlide.classList.remove("transition-left");
+    } else {
+        petsSlide.classList.remove("transition-right");
+    }
+});
+*/
+window.addEventListener('resize', () => {
+    checkCardsPerPage();
+    const petCards = Array.from(document.querySelectorAll('.card'));
+    const displayedCard = document.querySelector('.card.active').dataset.pet;
+    const index = pets.findIndex(card => card.name == displayedCard);
+    const activeCards = petCards.slice(index, index + cardsPerPage);
+    showActiveCards(activeCards);
+})
+
+//Popup modal windows
+const modalWindow = {};
+let isModalOpen = false;
+
+modalWindow.init = function() {
+    const modalElement = document.createElement('div');
+    modalElement.classList.add('modal');
+    document.body.prepend(modalElement);
+
+    const modal = {
+        open() {
+            modalElement.classList.add('active');
+            overlay.classList.add('active');
+            isModalOpen = true;
+        },
+        close() {
+            modalElement.classList.remove('active');
+            overlay.classList.remove('active');
+            isModalOpen = false;
+        }
+    };
+
+    modalElement.addEventListener('click', e => {
+        if (e.target.classList.contains('close-btn')) {
+            modal.close();
+        }
+    });
+
+    return Object.assign(modal, {
+        setContent(content) {
+            modalElement.innerHTML = `
+            <button class="close-btn">&times;</button>
+            <div class="modal-image-block">
+                <img src="${content.img}" alt="${content.name}">
+            </div>
+            <div class="modal-text-block">
+                <div class="modal-title">
+                    <h3 class="header-3">${content.name}</h3>
+                    <h4 class="header-4">${content.type} - ${content.breed}</h4>
+                </div>
+                <h5 class="header-5">${content.description}</h5>
+                <ul class="modal-list">
+                    <li class="header-5"><b>Age:</b> ${content.age}</li>
+                    <li class="header-5"><b>Inoculations:</b> ${content.inoculations}</li>
+                    <li class="header-5"><b>Diseases:</b> ${content.diseases}</li>
+                    <li class="header-5"><b>Parasites:</b> ${content.parasites}</li>
+                </ul>
+            </div>
+        `;
+        }
+    });
+}
+
+const petModal = modalWindow.init();
+
+//General
+
+overlay.addEventListener('click', e => {
+    const target = e.target;
+    if (!target.closest('.nav') && !target.closest('.burger-menu')) {
+        burger.classList.remove('active');
+        nav.classList.remove('active');
+        overlay.classList.remove('active');
+        body.classList.remove('stop-scrolling');
+        if (isModalOpen) {
+            petModal.close();
+        }
     }
 })
