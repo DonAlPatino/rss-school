@@ -339,38 +339,62 @@ body {
     border-radius: 9px;
     transition: all 0.3s linear;
     display: none;
+   }
+
+.card.active {
+    display: flex;
+    animation-name: open;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+    animation-delay: 0s;
+}
+
+@keyframes open {
+    0% {
+        display: block;
+        opacity: 0;
+        visibility: hidden;
+    }
+    100% {
+        display: block;
+        opacity: 1;
+        visibility: visible;
+    }
 }
 
 .card:hover {
-    background-color: #ffffff;
-    box-shadow: 0 2px 35px 14px rgba(13, 13, 13, 0.04);
+ background-color: #ffffff;
+ box-shadow: 0 2px 35px 14px rgba(13, 13, 13, 0.04);
 }
 
 .card:hover .btn-card {
-    background-color: #fddcc4;
-    border-color: #fddcc4;
+ background-color: #fddcc4;
+ border-color: #fddcc4;
 }
 
 .card-title,
 .item-title {
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 1.15;
-    letter-spacing: 0.06em;
-    color: #545454;
+ font-style: normal;
+ font-weight: 400;
+ font-size: 20px;
+ line-height: 1.15;
+ letter-spacing: 0.06em;
+ color: #545454;
 }
 
 .btn-card {
-    padding: 12px 43px 14px;
+ padding: 12px 43px 14px;
 }
 
 .cards {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    column-gap: 53px;
+ width: 100%;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ column-gap: 53px;
 }
 
 /*Slider*/
@@ -380,10 +404,6 @@ body {
     overflow: hidden;
     align-items: center;
     justify-content: space-between;
-}
-
-.card.active {
-    display: flex;
 }
 
 
@@ -788,6 +808,7 @@ body {
         padding-bottom: 0;
         margin-right: .9rem;
     }
+
     .header-5 {
         font-size: 13px;
     }
@@ -817,17 +838,17 @@ body {
     }
 
     /*Burger open -close menu*/
-  /*  .overlay.active {
-        display: block;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: rgba(41, 41, 41, 0.6);
-        z-index: 1;
-    }
-*/
+    /*  .overlay.active {
+          display: block;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background: rgba(41, 41, 41, 0.6);
+          z-index: 1;
+      }
+  */
     .nav {
         max-width: 320px;
         position: fixed;
@@ -1118,71 +1139,3 @@ body {
     }
 
 }
-
-/*
-@keyframes move-right {
-    from {
-        left: -1080px;
-    }
-    to {
-        left: 0px;
-    }
-}
-
-.transition-right {
-    animation-name: move-right;
-    animation-duration: 2s;
-}
-
-@keyframes move-left {
-    from {
-        left: 0px;
-    }
-    to {
-        left: -1080px;
-    }
-}
-
-.transition-left {
-    animation-name: move-left;
-    animation-duration: 2s;
-}
-
-@media (max-width: 1279px) and (min-width: 768px) {
-    @keyframes move-right {
-        from {
-            left: 0px;
-        }
-        to {
-            left: -620px;
-        }
-    }
-    @keyframes move-left {
-        from {
-            left: -620px;
-        }
-        to {
-            left: 0px;
-        }
-    }
-}
-
-@media (max-width: 767px) {
-    @keyframes move-right {
-        from {
-            left: 0px;
-        }
-        to {
-            left: -310px;
-        }
-    }
-    @keyframes move-left {
-        from {
-            left: -310px;
-        }
-        to {
-            left: 0px;
-        }
-    }
-}
-*/

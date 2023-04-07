@@ -79,14 +79,14 @@ slider.addEventListener('click', (e) => {
     const petCards = Array.from(document.querySelectorAll('.card'));
     const prevButton = e.target.closest('.btn-prev');
     const nextButton = e.target.closest('.btn-next');
-    const prevArrow = e.target.closest('.arrow-prev');
-    const nextArrow = e.target.closest('.arrow-next');
+//    const prevArrow = e.target.closest('.arrow-prev');
+//    const nextArrow = e.target.closest('.arrow-next');
     const len = petCards.length;
     //popup
     const selectedPet = e.target.closest('.card');
 
-
-    if (e.target == nextButton || e.target == nextArrow) {
+//e.target == nextButton || e.target == nextArrow)
+    if (nextButton) {
         checkCardsPerPage();
         if (index >= len - cardsPerPage) {
             index = 0;
@@ -99,12 +99,12 @@ slider.addEventListener('click', (e) => {
         while (activeCards.length < cardsPerPage) {
             activeCards.push(petCards[t++])
         }
-   //     petsSlide.classList.add("transition-right");
+
         showActiveCards(activeCards);
 
     }
-
-    if (e.target == prevButton || e.target == prevArrow) {
+//e.target == prevButton || e.target == prevArrow
+    if (prevButton) {
         checkCardsPerPage();
 
         if (index < cardsPerPage) {
@@ -119,7 +119,7 @@ slider.addEventListener('click', (e) => {
             activeCards.push(petCards[t++])
         }
         showActiveCards(activeCards);
- //       petsSlide.classList.add("transition-left");
+
     }
     if (selectedPet) {
         const petName = selectedPet.dataset.pet;
@@ -129,15 +129,7 @@ slider.addEventListener('click', (e) => {
     }
 
 })
-/*
-petsSlide.addEventListener("animationend", (animationEvent) => {
-    if (animationEvent.animationName === "move-left") {
-        petsSlide.classList.remove("transition-left");
-    } else {
-        petsSlide.classList.remove("transition-right");
-    }
-});
-*/
+
 window.addEventListener('resize', () => {
     checkCardsPerPage();
     const petCards = Array.from(document.querySelectorAll('.card'));
