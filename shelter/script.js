@@ -99,7 +99,7 @@ slider.addEventListener('click', (e) => {
         while (activeCards.length < cardsPerPage) {
             activeCards.push(petCards[t++])
         }
-   //     petsSlide.classList.add("transition-right");
+
         showActiveCards(activeCards);
 
     }
@@ -119,7 +119,7 @@ slider.addEventListener('click', (e) => {
             activeCards.push(petCards[t++])
         }
         showActiveCards(activeCards);
- //       petsSlide.classList.add("transition-left");
+
     }
     if (selectedPet) {
         const petName = selectedPet.dataset.pet;

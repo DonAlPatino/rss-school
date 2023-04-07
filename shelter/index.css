@@ -341,7 +341,8 @@ body {
     display: none;
    }
 
-.card.active {display: flex;
+.card.active {
+    display: flex;
     animation-name: open;
     animation-duration: 2s;
     animation-iteration-count: 1;
