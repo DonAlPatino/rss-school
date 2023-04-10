@@ -548,11 +548,6 @@ body {
         row-gap: 29px;
     }
 
-    .cards-item:last-child,
-    .cards-item:nth-last-child(2) {
-        display: none;
-    }
-
     .our_friends{
         padding-bottom: 78px;
     }
