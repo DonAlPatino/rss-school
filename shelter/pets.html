@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="pets.css">
 </head>
 <body>
+<div class="overlay"></div>
 <!-- Header start -->
 <header class="header">
     <div class="container header-container">
@@ -28,6 +29,11 @@
                 <li class="nav-item"><a href="#contacts" class="link nav-link">Contacts</a></li>
             </ul>
         </nav>
+        <div class="burger-menu">
+            <span class="burger-line"></span>
+            <span class="burger-line"></span>
+            <span class="burger-line"></span>
+        </div>
     </div>
 </header>
 <!-- Header finish -->
@@ -37,64 +43,11 @@
         <h2 class="section-title friends-title">Our friends who <br>
             are looking for a house</h2>
         <div class="cards">
+            <div class = "cards-list"></div>
+            <!--
             <ul class="list cards-list">
-                <li class="cards-item">
-                    <div class="card">
-                        <img class="card-img" src="assets/pets/katrine.png" alt="Kitty Katrine">
-                        <h3 class="card-title">Katrine</h3>
-                        <a class="link btn btn-ghost btn-card" href="#">Learn more</a>
-                    </div>
-                </li>
-                <li class="cards-item">
-                    <div class="card">
-                        <img class="card-img" src="assets/pets/jennifer.png" alt="Dog Jennifer">
-                        <h3 class="card-title">Jennifer</h3>
-                        <a class="link btn btn-ghost btn-card" href="#">Learn more</a>
-                    </div>
-                </li>
-                <li class="cards-item">
-                    <div class="card">
-                        <img class="card-img" src="assets/pets/woody.png" alt="Dog Woody">
-                        <h3 class="card-title">Woody</h3>
-                        <a class="link btn btn-ghost btn-card" href="#">Learn more</a>
-                    </div>
-                </li>
-                <li class="cards-item">
-                    <div class="card">
-                        <img class="card-img" src="assets/pets/sophia.png" alt="Dog Sophia">
-                        <h3 class="card-title">Sophia</h3>
-                        <a class="link btn btn-ghost btn-card" href="#">Learn more</a>
-                    </div>
-                </li>
-                <li class="cards-item">
-                    <div class="card">
-                        <img class="card-img" src="assets/pets/timmy.png" alt="Kitty Timmy">
-                        <h3 class="card-title">Timmy</h3>
-                        <a class="link btn btn-ghost btn-card" href="#">Learn more</a>
-                    </div>
-                </li>
-                <li class="cards-item">
-                    <div class="card">
-                        <img class="card-img" src="assets/pets/charly.png" alt="Dog Charly">
-                        <h3 class="card-title">Charly</h3>
-                        <a class="link btn btn-ghost btn-card" href="#">Learn more</a>
-                    </div>
-                </li>
-                <li class="cards-item">
-                    <div class="card">
-                        <img class="card-img" src="assets/pets/scarlett.png" alt="Dog Scarlett">
-                        <h3 class="card-title">Scarlett</h3>
-                        <a class="link btn btn-ghost btn-card" href="#">Learn more</a>
-                    </div>
-                </li>
-                <li class="cards-item">
-                    <div class="card">
-                        <img class="card-img" src="assets/pets/freddie.png" alt="Kitty Freddie">
-                        <h3 class="card-title">Freddie</h3>
-                        <a class="link btn btn-ghost btn-card" href="#">Learn more</a>
-                    </div>
-                </li>
             </ul>
+            -->
         </div>
         <div class="slider-controls">
             <button class="btn btn-ghost btn-start disabled">&lt;&lt;</button>
@@ -134,5 +87,6 @@
              height="310">
     </div>
 </footer>
+<script type="module" src="pets.js"></script>
 </body>
 </html>
