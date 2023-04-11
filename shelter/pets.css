@@ -23,6 +23,11 @@ body {
     --color-light-s: #FAFAFA;
 }
 
+body.stop-scrolling {
+    height: 100%;
+    overflow: hidden;
+}
+
 .overlay {
     display: block;
     position: fixed;
@@ -689,11 +694,6 @@ body {
 
     .burger-line.active {
         background-color: #cdcdcd;
-    }
-
-    body.stop-scrolling {
-        height: 100%;
-        overflow: hidden;
     }
 
     /* friends */
