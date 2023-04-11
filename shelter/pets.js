@@ -59,6 +59,7 @@ export default async function pagination() {
             const petInfo = pets.find(pet => pet.name == petName);
             petModal.setContent(petInfo);
             petModal.open();
+            body.classList.remove('stop-scrolling');
         });
     }
 
@@ -76,6 +77,7 @@ export default async function pagination() {
             const petInfo = pets.find(pet => pet.name == petName);
             petModal.setContent(petInfo);
             petModal.open();
+            body.classList.toggle('stop-scrolling');
         }
 
     })
@@ -228,11 +230,13 @@ modalWindow.init = function() {
             modalElement.classList.add('active');
             overlay.classList.add('active');
             isModalOpen = true;
+            body.classList.remove('stop-scrolling');
         },
         close() {
             modalElement.classList.remove('active');
             overlay.classList.remove('active');
             isModalOpen = false;
+            body.classList.remove('stop-scrolling');
         }
     };
 

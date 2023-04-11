@@ -153,11 +153,13 @@ modalWindow.init = function() {
             modalElement.classList.add('active');
             overlay.classList.add('active');
             isModalOpen = true;
+            body.classList.add('stop-scrolling');
         },
         close() {
             modalElement.classList.remove('active');
             overlay.classList.remove('active');
             isModalOpen = false;
+            body.classList.remove('stop-scrolling');
         }
     };
 

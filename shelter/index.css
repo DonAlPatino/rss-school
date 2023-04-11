@@ -23,6 +23,11 @@ body {
     --color-grey: #545454;
 }
 
+body.stop-scrolling {
+    height: 100%;
+    overflow: hidden;
+}
+
 .bg-startscreen {
     background: url(assets/noise.png),
     radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%),
