@@ -4,6 +4,7 @@ const burger = document.querySelector('.burger-menu');
 const nav = document.querySelector('.nav');
 const overlay = document.querySelector('.overlay');
 const body = document.querySelector('body');
+const NavLink = document.querySelectorAll('.nav-link');
 
 
 burger.addEventListener('click', toggleMenu);
@@ -14,6 +15,10 @@ function toggleMenu() {
     nav.classList.toggle('active');
     body.classList.toggle('stop-scrolling');
 }
+
+NavLink.forEach((element) => element.addEventListener('click', () => {
+        toggleMenu();
+}))
 
 /* SLIDER */
 

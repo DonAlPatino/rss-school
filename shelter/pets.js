@@ -9,6 +9,7 @@ const burger_lines = document.querySelectorAll('.burger-line');
 const nav = document.querySelector('.nav');
 const overlay = document.querySelector('.overlay');
 const body = document.querySelector('body');
+const NavLink = document.querySelectorAll('.nav-link');
 
 burger.addEventListener('click', toggleMenu);
 function toggleMenu() {
@@ -21,6 +22,10 @@ function toggleMenu() {
     body.classList.toggle('stop-scrolling');
 
 }
+
+NavLink.forEach((element) => element.addEventListener('click', () => {
+    toggleMenu();
+}))
 
 /* Пагинация */
 
