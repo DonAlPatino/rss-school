@@ -1,5 +1,4 @@
-body, html
-{
+body, html {
     padding: 1rem;
 }
 
@@ -19,7 +18,7 @@ body, html
     /* logo_title */
     font-style: normal;
     font-weight: 400;
-    font-size: 32px;
+    font-size: 2em;
     line-height: 110%;
     display: flex;
     align-items: center;
@@ -27,14 +26,25 @@ body, html
     /* color-primary */
     color: #F1CDB3;
 }
+
+.moveCount,
+.timer {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 2em;
+    line-height: 1.3;
+    letter-spacing: 0.06em;
+    color: #545454;
+}
+
 .game_container {
     display: flex;
     border: 1px solid #CCC;
     margin-bottom: 10px;
     padding: 15px;
 }
-.row
-{
+
+.row {
     display: flex;
 }
 
@@ -51,4 +61,19 @@ body, html
     transition-property: background-color, box-shadow;
     transition-duration: 1s;
     transition-timing-function: ease-out;
+}
+
+.cell__revealed {
+    background-color: #DDD;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+.cell__flagged {
+    font-family: "FontAwesome";
+}
+
+.cell__flagged:after {
+    content: '\f024';
 }
