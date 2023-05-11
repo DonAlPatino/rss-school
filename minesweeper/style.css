@@ -1,0 +1,54 @@
+body, html
+{
+    padding: 1rem;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1220px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+.header {
+    /*TODO Граница между блоками */
+    padding-bottom: 10px;
+    /* logo_title */
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 110%;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.05em;
+    /* color-primary */
+    color: #F1CDB3;
+}
+.game_container {
+    display: flex;
+    border: 1px solid #CCC;
+    margin-bottom: 10px;
+    padding: 15px;
+}
+.row
+{
+    display: flex;
+}
+
+.cell {
+    width: 35px;
+    height: 25px;
+    border: 1px solid #CCC;
+    padding: 10px 5px 5px 5px;
+    background-color: #EEE;
+    font-size: 16px;
+    text-align: center;
+    box-shadow: inset 5px 5px 10px #FFF, inset -3px -3px 5px #777;
+    cursor: pointer;
+    transition-property: background-color, box-shadow;
+    transition-duration: 1s;
+    transition-timing-function: ease-out;
+}
