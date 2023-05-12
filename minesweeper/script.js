@@ -38,13 +38,28 @@ class Cell {
     this.isFlagged = false;
   }
 }
+
 function render() {
   let content = '';
   for (let r = 0; r < rows; r += 1) {
     content += '<div class="row">';
     for (let c = 0; c < cols; c += 1) {
-
-      content += `<div class="cell" data-xpos="${c}" data-ypos="${r}"></div>`;
+      const addClass = '';
+      /*
+            Load data from localStore
+            let addClass = '';
+            const cell = data[r][c];
+            console.log(cell);
+            // assign proper text and class to cells (needed when loading a game)
+            let add_class = '';
+                  let txt = '';
+                  if (cell.isFlagged) {
+                    add_class = 'flagged';
+                  } else if (cell.isRevealed) {
+                    add_class = `revealed}`;
+                    txt = (!cellObj.isMine ? cellObj.value || '' : '');
+                  } */
+      content += `<div class="cell" ${addClass}" data-xpos="${c}" data-ypos="${r}"></div>`;
     }
     content += '</div>';
   }
@@ -96,9 +111,14 @@ gameContainer.addEventListener('click', (e) => {
     document.getElementById('idMovesCount').textContent = (moveCount += 1).toString();
     target.classList.add('cell__revealed');
     init([target.getAttribute('data-ypos')], [target.getAttribute('data-xpos')]);
-    console.log(data);
+    const cell = data[target.getAttribute('data-ypos')][target.getAttribute('data-xpos')];
+    if (cell.isMine) {
+      target.classList.add('cell__mined');
+      console.log('You are lost');
+    }
   }
-});
+})
+;
 
 // right click to flag
 gameContainer.addEventListener('contextmenu', (e) => {

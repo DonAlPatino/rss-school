@@ -70,10 +70,12 @@ body, html {
     box-shadow: none;
 }
 
-.cell__flagged {
+.cell__flagged:after {
     font-family: "FontAwesome";
+    content: '\f024';
 }
 
-.cell__flagged:after {
-    content: '\f024';
+.cell__mined:after  {
+    font-family: "FontAwesome";
+    content: '\f1e2';
 }
