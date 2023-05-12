@@ -66,8 +66,6 @@ body, html {
 
 .cell__revealed {
     background-color: #DDD;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
     box-shadow: none;
 }
 
@@ -76,8 +74,11 @@ body, html {
     content: '\f024';
 }
 
-.cell__mined:after  {
-    font-family: "FontAwesome";
-    content: '\f1e2';
+.cell__mined  {
     background-color: red;
+    font-family: "FontAwesome";
+
+}
+.cell__mined:after  {
+    content: '\f1e2';
 }

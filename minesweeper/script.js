@@ -75,7 +75,6 @@ function render() {
 }
 
 function init(y, x) {
-  console.log(y, x);
   for (let r = 0; r < rows; r++) {
     data[r] = [];
     for (let c = 0; c < cols; c++) {
