@@ -34,13 +34,33 @@ container.appendChild(timerContainer);
 const gameContainer = document.createElement('div');
 gameContainer.className = 'gameContainer';
 
+function playSound(soundFile) {
+  new Audio(soundFile).play().then(() => { console.log('sound'); });
+}
+function getAdjacentCells(r, c) {
+  const results = [];
+  for (
+    let rowPos = r > 0 ? -1 : 0;
+    rowPos <= (r < rows - 1 ? 1 : 0);
+    rowPos++
+  ) {
+    for (
+      let colPos = c > 0 ? -1 : 0;
+      colPos <= (c < cols - 1 ? 1 : 0);
+      colPos++
+    ) {
+      results.push(data[r + rowPos][c + colPos]);
+    }
+  }
+  return results;
+}
 class Cell {
   constructor(xpos, ypos) {
     this.xpos = xpos;
     this.ypos = ypos;
     this.value = 0;
     this.isMine = false;
-    this.isRevealed = false;
+    this.isOpen = false;
     this.isFlagged = false;
   }
 }
@@ -65,7 +85,7 @@ function render() {
                     add_class = `revealed}`;
                     txt = (!cellObj.isMine ? cellObj.value || '' : '');
                   } */
-      content += `<div class="cell" ${addClass}" data-xpos="${c}" data-ypos="${r}"></div>`;
+      content += `<div class="cell ${addClass}" data-xpos="${c}" data-ypos="${r}"></div>`;
     }
     content += '</div>';
   }
@@ -75,24 +95,6 @@ function render() {
 }
 
 function init(y, x) {
-  function getAdjacentCells(r, c) {
-    const results = [];
-    for (
-      let rowPos = r > 0 ? -1 : 0;
-      rowPos <= (r < rows - 1 ? 1 : 0);
-      rowPos++
-    ) {
-      for (
-        let colPos = c > 0 ? -1 : 0;
-        colPos <= (c < cols - 1 ? 1 : 0);
-        colPos++
-      ) {
-        results.push(data[r + rowPos][c + colPos]);
-      }
-    }
-    return results;
-  }
-
   for (let r = 0; r < rows; r++) {
     data[r] = [];
     for (let c = 0; c < cols; c++) {
@@ -147,6 +149,7 @@ gameContainer.addEventListener('click', (e) => {
   const { target } = e;
 
   if (target.classList.contains('cell')) {
+    playSound('sounds/click.wav');
     if (gameStatus === 'stop') {
       gameStatus = 'play';
       init([target.getAttribute('data-ypos')], [target.getAttribute('data-xpos')]);
@@ -155,8 +158,10 @@ gameContainer.addEventListener('click', (e) => {
       document.getElementById('idStatus').textContent = gameStatus;
       document.getElementById('idMovesCount').textContent = (moveCount += 1).toString();
       target.classList.add('cell__revealed');
+
       const cell = data[target.getAttribute('data-ypos')][target.getAttribute('data-xpos')];
       if (cell.isMine) {
+        playSound('sounds/lose_flowergarden_long.wav');
         target.classList.add('cell__mined');
         gameStatus = 'lost';
         document.getElementById('idStatus').textContent = gameStatus;
@@ -172,12 +177,14 @@ gameContainer.addEventListener('click', (e) => {
 gameContainer.addEventListener('contextmenu', (e) => {
   e.preventDefault();
   const { target } = e;
-
+  // TODO
+  // До инита данных нет и все крэшится
   if (target.classList.contains('cell')) {
     if (gameStatus !== 'lost') {
-      document.getElementById('idMovesCount').textContent = (moveCount += 1).toString();
+      // document.getElementById('idMovesCount').textContent = (moveCount += 1).toString();
       target.classList.add('cell__flagged');
-      // target.textContent = (! cell.isMine ? cell.value || "" : "");
+      const cell = data[target.getAttribute('data-xpos')][target.getAttribute('data-ypos')];
+      cell.isFlagged = true;
     }
   }
 });
