@@ -1,3 +1,5 @@
+import Cell from './cell.js';
+
 const rows = 10; // number of rows in the grid
 const cols = 10; // number of columns in the grid
 const mines = 10; // number of mines in the grid
@@ -35,7 +37,7 @@ const gameContainer = document.createElement('div');
 gameContainer.className = 'gameContainer';
 
 function playSound(soundFile) {
-  new Audio(soundFile).play().then(() => { console.log('sound'); });
+  new Audio(soundFile).play().then(() => {});
 }
 function getAdjacentCells(r, c) {
   const results = [];
@@ -53,16 +55,6 @@ function getAdjacentCells(r, c) {
     }
   }
   return results;
-}
-class Cell {
-  constructor(xpos, ypos) {
-    this.xpos = xpos;
-    this.ypos = ypos;
-    this.value = 0;
-    this.isMine = false;
-    this.isOpen = false;
-    this.isFlagged = false;
-  }
 }
 
 function render() {
@@ -94,7 +86,7 @@ function render() {
   container.appendChild(gameContainer);
 }
 
-function init(y, x) {
+function initData(y, x) {
   for (let r = 0; r < rows; r++) {
     data[r] = [];
     for (let c = 0; c < cols; c++) {
@@ -106,12 +98,15 @@ function init(y, x) {
   while (assignedMines < mines) {
     const rowIndex = Math.floor(Math.random() * rows);
     const colIndex = Math.floor(Math.random() * cols);
-    if (rowIndex === y && colIndex === x) continue;
-    const cell = data[rowIndex][colIndex];
-    if (!cell.isMine) {
-      cell.isMine = true;
-      cell.value = 'M';
-      assignedMines++;
+    /* const rowIndex = 0;
+     const colIndex = 3; */
+    if (!(rowIndex === parseInt(y, 10) && colIndex === parseInt(x, 10))) {
+      const cell = data[rowIndex][colIndex];
+      if (!cell.isMine) {
+        cell.isMine = true;
+        cell.value = 'M';
+        assignedMines++;
+      }
     }
   }
 
@@ -140,9 +135,9 @@ function pad(val) {
 }
 
 /* setInterval(() => {
-  document.getElementById('second').innerHTML = pad(++sec%60);
-  document.getElementById('minute').innerHTML = pad(parseInt(sec/60,10));
-}, 1000); */
+    document.getElementById('second').innerHTML = pad(++sec%60);
+    document.getElementById('minute').innerHTML = pad(parseInt(sec/60,10));
+  }, 1000); */
 
 // left click to reveal
 gameContainer.addEventListener('click', (e) => {
@@ -152,7 +147,7 @@ gameContainer.addEventListener('click', (e) => {
     playSound('sounds/click.wav');
     if (gameStatus === 'stop') {
       gameStatus = 'play';
-      init([target.getAttribute('data-ypos')], [target.getAttribute('data-xpos')]);
+      initData([target.getAttribute('data-ypos')], [target.getAttribute('data-xpos')]);
     }
     if (gameStatus !== 'lost') {
       document.getElementById('idStatus').textContent = gameStatus;
