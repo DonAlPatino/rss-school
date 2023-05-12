@@ -75,6 +75,24 @@ function render() {
 }
 
 function init(y, x) {
+  function getAdjacentCells(r, c) {
+    const results = [];
+    for (
+      let rowPos = r > 0 ? -1 : 0;
+      rowPos <= (r < rows - 1 ? 1 : 0);
+      rowPos++
+    ) {
+      for (
+        let colPos = c > 0 ? -1 : 0;
+        colPos <= (c < cols - 1 ? 1 : 0);
+        colPos++
+      ) {
+        results.push(data[r + rowPos][c + colPos]);
+      }
+    }
+    return results;
+  }
+
   for (let r = 0; r < rows; r++) {
     data[r] = [];
     for (let c = 0; c < cols; c++) {
@@ -94,6 +112,23 @@ function init(y, x) {
       assignedMines++;
     }
   }
+
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      if (!data[r][c].isMine) {
+        let adjCells = 0;
+        let mineCount = 0;
+        adjCells = getAdjacentCells(r, c);
+        for (let i = adjCells.length; i--;) {
+          if (adjCells[i].isMine) {
+            mineCount++;
+          }
+        }
+        data[r][c].value = mineCount;
+      }
+    }
+  }
+  console.log(data);
 }
 
 render();
@@ -126,6 +161,8 @@ gameContainer.addEventListener('click', (e) => {
         target.classList.add('cell__mined');
         gameStatus = 'lost';
         document.getElementById('idStatus').textContent = gameStatus;
+      } else {
+        target.textContent = cell.value;
       }
     }
   }
