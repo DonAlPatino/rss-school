@@ -128,7 +128,6 @@ function init(y, x) {
       }
     }
   }
-  console.log(data);
 }
 
 render();
@@ -162,7 +161,8 @@ gameContainer.addEventListener('click', (e) => {
         gameStatus = 'lost';
         document.getElementById('idStatus').textContent = gameStatus;
       } else {
-        target.textContent = cell.value;
+        if (cell.value > 0) target.textContent = cell.value;
+        target.classList.add(`cell__${cell.value}`);
       }
     }
   }

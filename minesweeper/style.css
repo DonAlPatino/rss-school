@@ -82,3 +82,35 @@ body, html {
 .cell__mined:after  {
     content: '\f1e2';
 }
+
+.cell__1 {
+    color: blue;
+}
+
+.cell__2 {
+    color: green;
+}
+
+.cell__3 {
+    color: red;
+}
+
+.cell__4 {
+    color: purple;
+}
+
+.cell__5 {
+    color: maroon;
+}
+
+.cell__6 {
+    color: turquoise;
+}
+
+.cell__7 {
+    color: black;
+}
+
+.cell__8 {
+    color: white;
+}
