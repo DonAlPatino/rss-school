@@ -2,6 +2,7 @@ const rows = 10; // number of rows in the grid
 const cols = 10; // number of columns in the grid
 const mines = 10; // number of mines in the grid
 let moveCount = 0;
+const data = [];
 
 const { body } = document;
 
@@ -26,6 +27,17 @@ container.appendChild(timerContainer);
 
 const gameContainer = document.createElement('div');
 gameContainer.className = 'gameContainer';
+
+class Cell {
+  constructor(xpos, ypos) {
+    this.xpos = xpos;
+    this.ypos = ypos;
+    this.value = 0;
+    this.isMine = false;
+    this.isRevealed = false;
+    this.isFlagged = false;
+  }
+}
 function render() {
   let content = '';
   for (let r = 0; r < rows; r += 1) {
@@ -40,7 +52,41 @@ function render() {
   gameContainer.innerHTML = content;
   container.appendChild(gameContainer);
 }
+
+function init(y, x) {
+  console.log(y, x);
+  for (let r = 0; r < rows; r++) {
+    data[r] = [];
+    for (let c = 0; c < cols; c++) {
+      data[r].push(new Cell(c, r));
+    }
+  }
+
+  let assignedMines = 0;
+  while (assignedMines < mines) {
+    const rowIndex = Math.floor(Math.random() * rows);
+    const colIndex = Math.floor(Math.random() * cols);
+    if (rowIndex === y && colIndex === x) continue;
+    const cell = data[rowIndex][colIndex];
+    if (!cell.isMine) {
+      cell.isMine = true;
+      cell.value = 'M';
+      assignedMines++;
+    }
+  }
+}
+
 render();
+const sec = 0;
+
+function pad(val) {
+  return val > 9 ? val : `0${val}`;
+}
+
+/* setInterval(() => {
+  document.getElementById('second').innerHTML = pad(++sec%60);
+  document.getElementById('minute').innerHTML = pad(parseInt(sec/60,10));
+}, 1000); */
 
 // left click to reveal
 gameContainer.addEventListener('click', (e) => {
@@ -48,7 +94,9 @@ gameContainer.addEventListener('click', (e) => {
 
   if (target.classList.contains('cell')) {
     document.getElementById('idMovesCount').textContent = (moveCount += 1).toString();
-    target.classList.add('cell__flagged');
+    target.classList.add('cell__revealed');
+    init([target.getAttribute('data-ypos')], [target.getAttribute('data-xpos')]);
+    console.log(data);
   }
 });
 
@@ -59,7 +107,7 @@ gameContainer.addEventListener('contextmenu', (e) => {
 
   if (target.classList.contains('cell')) {
     document.getElementById('idMovesCount').textContent = (moveCount += 1).toString();
-    target.classList.add('cell__revealed');
+    target.classList.add('cell__flagged');
     // target.textContent = (! cell.isMine ? cell.value || "" : "");
   }
 });
