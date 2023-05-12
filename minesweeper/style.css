@@ -28,7 +28,8 @@ body, html {
 }
 
 .moveCount,
-.timer {
+.timer,
+.status {
     font-style: normal;
     font-weight: 400;
     font-size: 2em;
@@ -78,4 +79,5 @@ body, html {
 .cell__mined:after  {
     font-family: "FontAwesome";
     content: '\f1e2';
+    background-color: red;
 }

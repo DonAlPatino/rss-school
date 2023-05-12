@@ -3,6 +3,7 @@ const cols = 10; // number of columns in the grid
 const mines = 10; // number of mines in the grid
 let moveCount = 0;
 const data = [];
+let gameStatus = 'stop';
 
 const { body } = document;
 
@@ -14,6 +15,11 @@ const header = document.createElement('header');
 header.className = 'header';
 header.innerHTML = '<h1>Minesweeper</h1>';
 container.appendChild(header);
+
+const statusContainer = document.createElement('div');
+statusContainer.className = 'status';
+statusContainer.innerHTML = 'Статус игры: <span id="idStatus"></span>';
+container.appendChild(statusContainer);
 
 const moveCountContainer = document.createElement('div');
 moveCountContainer.className = 'moveCount';
@@ -108,17 +114,23 @@ gameContainer.addEventListener('click', (e) => {
   const { target } = e;
 
   if (target.classList.contains('cell')) {
-    document.getElementById('idMovesCount').textContent = (moveCount += 1).toString();
-    target.classList.add('cell__revealed');
-    init([target.getAttribute('data-ypos')], [target.getAttribute('data-xpos')]);
-    const cell = data[target.getAttribute('data-ypos')][target.getAttribute('data-xpos')];
-    if (cell.isMine) {
-      target.classList.add('cell__mined');
-      console.log('You are lost');
+    if (gameStatus === 'stop') {
+      gameStatus = 'play';
+      init([target.getAttribute('data-ypos')], [target.getAttribute('data-xpos')]);
+    }
+    if (gameStatus !== 'lost') {
+      document.getElementById('idStatus').textContent = gameStatus;
+      document.getElementById('idMovesCount').textContent = (moveCount += 1).toString();
+      target.classList.add('cell__revealed');
+      const cell = data[target.getAttribute('data-ypos')][target.getAttribute('data-xpos')];
+      if (cell.isMine) {
+        target.classList.add('cell__mined');
+        gameStatus = 'lost';
+        document.getElementById('idStatus').textContent = gameStatus;
+      }
     }
   }
-})
-;
+});
 
 // right click to flag
 gameContainer.addEventListener('contextmenu', (e) => {
@@ -126,8 +138,10 @@ gameContainer.addEventListener('contextmenu', (e) => {
   const { target } = e;
 
   if (target.classList.contains('cell')) {
-    document.getElementById('idMovesCount').textContent = (moveCount += 1).toString();
-    target.classList.add('cell__flagged');
-    // target.textContent = (! cell.isMine ? cell.value || "" : "");
+    if (gameStatus !== 'lost') {
+      document.getElementById('idMovesCount').textContent = (moveCount += 1).toString();
+      target.classList.add('cell__flagged');
+      // target.textContent = (! cell.isMine ? cell.value || "" : "");
+    }
   }
 });
