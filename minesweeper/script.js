@@ -4,6 +4,8 @@ const rows = 10; // number of rows in the grid
 const cols = 10; // number of columns in the grid
 const mines = 10; // number of mines in the grid
 let moveCount = 0;
+let open = 0;
+
 const data = [];
 let gameStatus = 'stop';
 
@@ -38,6 +40,12 @@ gameContainer.className = 'gameContainer';
 
 function playSound(soundFile) {
   new Audio(soundFile).play().then(() => {});
+}
+
+function win() {
+  gameStatus = 'Win';
+  document.getElementById('idStatus').textContent = gameStatus;
+  playSound('sounds/win.wav');
 }
 function getAdjacentCells(r, c) {
   const results = [];
@@ -150,6 +158,7 @@ gameContainer.addEventListener('click', (e) => {
       initData([target.getAttribute('data-ypos')], [target.getAttribute('data-xpos')]);
     }
     if (gameStatus !== 'lost') {
+      open++;
       document.getElementById('idStatus').textContent = gameStatus;
       document.getElementById('idMovesCount').textContent = (moveCount += 1).toString();
       target.classList.add('cell__revealed');
@@ -163,6 +172,9 @@ gameContainer.addEventListener('click', (e) => {
       } else {
         if (cell.value > 0) target.textContent = cell.value;
         target.classList.add(`cell__${cell.value}`);
+      }
+      if (open + mines === rows * cols) {
+        win();
       }
     }
   }
@@ -180,6 +192,9 @@ gameContainer.addEventListener('contextmenu', (e) => {
       target.classList.add('cell__flagged');
       const cell = data[target.getAttribute('data-xpos')][target.getAttribute('data-ypos')];
       cell.isFlagged = true;
+    }
+    if (open + mines === rows * cols) {
+      win();
     }
   }
 });
