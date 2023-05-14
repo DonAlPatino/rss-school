@@ -4,7 +4,7 @@ const rows = 10; // number of rows in the grid
 const cols = 10; // number of columns in the grid
 const mines = 10; // number of mines in the grid
 let moveCount = 0;
-let open = 0;
+let openCells = 0;
 
 const data = [];
 let gameStatus = 'stop';
@@ -147,6 +147,23 @@ function pad(val) {
     document.getElementById('minute').innerHTML = pad(parseInt(sec/60,10));
   }, 1000); */
 
+function openCell(cell) {
+  if (!cell.isOpen) {
+    openCells++;
+    cell.isOpen = true;
+    const target = cell.getElement();
+    if (cell.value > 0) {
+      target.textContent = cell.value;
+      target.classList.add(`cell__${cell.value}`);
+    } else if (cell.value === 0) {
+      target.classList.add('cell__opened');
+      const adjCells = getAdjacentCells(cell.ypos, cell.xpos);
+      for (let i = 0, len = adjCells.length; i < len; i++) {
+        openCell(adjCells[i], target);
+      }
+    }
+  }
+}
 // left click to reveal
 gameContainer.addEventListener('click', (e) => {
   const { target } = e;
@@ -158,22 +175,18 @@ gameContainer.addEventListener('click', (e) => {
       initData([target.getAttribute('data-ypos')], [target.getAttribute('data-xpos')]);
     }
     if (gameStatus !== 'lost') {
-      open++;
+      const cell = data[target.getAttribute('data-ypos')][target.getAttribute('data-xpos')];
       document.getElementById('idStatus').textContent = gameStatus;
       document.getElementById('idMovesCount').textContent = (moveCount += 1).toString();
-      target.classList.add('cell__revealed');
-
-      const cell = data[target.getAttribute('data-ypos')][target.getAttribute('data-xpos')];
       if (cell.isMine) {
         playSound('sounds/lose_flowergarden_long.wav');
         target.classList.add('cell__mined');
         gameStatus = 'lost';
         document.getElementById('idStatus').textContent = gameStatus;
       } else {
-        if (cell.value > 0) target.textContent = cell.value;
-        target.classList.add(`cell__${cell.value}`);
+        openCell(cell);
       }
-      if (open + mines === rows * cols) {
+      if (openCells + mines === rows * cols) {
         win();
       }
     }
@@ -193,7 +206,7 @@ gameContainer.addEventListener('contextmenu', (e) => {
       const cell = data[target.getAttribute('data-xpos')][target.getAttribute('data-ypos')];
       cell.isFlagged = true;
     }
-    if (open + mines === rows * cols) {
+    if (openCells + mines === rows * cols) {
       win();
     }
   }

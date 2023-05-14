@@ -64,7 +64,7 @@ body, html {
     transition-timing-function: ease-out;
 }
 
-.cell__revealed {
+.cell__opened {
     background-color: #DDD;
     box-shadow: none;
 }
