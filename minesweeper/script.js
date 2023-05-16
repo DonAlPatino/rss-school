@@ -40,7 +40,6 @@ container.appendChild(timerContainer);
 const gameContainer = document.createElement('div');
 gameContainer.className = 'gameContainer';
 
-
 function win() {
   gameStatus = 'Win';
   document.getElementById('idStatus').textContent = gameStatus;
@@ -100,14 +99,16 @@ function render() {
   container.appendChild(gameContainer);
 }
 
-function initData(y, x) {
+function initData() {
   for (let r = 0; r < rows; r++) {
     data[r] = [];
     for (let c = 0; c < cols; c++) {
       data[r].push(new Cell(c, r));
     }
   }
+}
 
+function minedData(y, x) {
   let assignedMines = 0;
   while (assignedMines < mines) {
     const rowIndex = Math.floor(Math.random() * rows);
@@ -142,6 +143,7 @@ function initData(y, x) {
 }
 
 render();
+initData();
 
 function openCell(cell) {
   if (!cell.isOpen) {
@@ -174,7 +176,7 @@ gameContainer.addEventListener('click', (e) => {
     playSound('sounds/click.wav');
     if (gameStatus === 'stop') {
       gameStatus = 'play';
-      initData([target.getAttribute('data-ypos')], [target.getAttribute('data-xpos')]);
+      minedData([target.getAttribute('data-ypos')], [target.getAttribute('data-xpos')]);
       window.timerId = setInterval(() => {
         gameDuration++;
         document.getElementById('hour').innerHTML = pad(parseInt(gameDuration / 3600, 10));
