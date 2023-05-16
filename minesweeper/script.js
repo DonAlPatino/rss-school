@@ -108,7 +108,7 @@ function initData() {
   }
 }
 
-function minedData(y, x) {
+function mineData(y, x) {
   let assignedMines = 0;
   while (assignedMines < mines) {
     const rowIndex = Math.floor(Math.random() * rows);
@@ -147,10 +147,15 @@ initData();
 
 function openCell(cell) {
   if (!cell.isOpen) {
+    const target = cell.getElement();
+    /* if (cell.isFlagged) {
+      const adjCells = getAdjacentCells(cell.ypos, cell.xpos);
+      for (let i = 0, len = adjCells.length; i < len; i++) {
+        openCell(adjCells[i], target);
+      }
+    } else { */
     openCells++;
     cell.isOpen = true;
-    const target = cell.getElement();
-    target.classList.remove('cell__flagged');
     if (cell.value > 0) {
       target.textContent = cell.value;
       target.classList.add(`cell__${cell.value}`);
@@ -162,6 +167,7 @@ function openCell(cell) {
       }
     }
   }
+//  }
 }
 
 function pad(val) {
@@ -176,28 +182,35 @@ gameContainer.addEventListener('click', (e) => {
     playSound('sounds/click.wav');
     if (gameStatus === 'stop') {
       gameStatus = 'play';
-      minedData([target.getAttribute('data-ypos')], [target.getAttribute('data-xpos')]);
+      mineData([target.getAttribute('data-ypos')], [target.getAttribute('data-xpos')]);
       window.timerId = setInterval(() => {
         gameDuration++;
-        document.getElementById('hour').innerHTML = pad(parseInt(gameDuration / 3600, 10));
-        document.getElementById('minute').innerHTML = pad(parseInt(gameDuration / 60, 10));
-        document.getElementById('second').innerHTML = pad(gameDuration % 60);
-        // document.getElementById('millisecond').innerHTML = pad(parseInt(gameDuration % 10, 10) * 10);
-      }, 1000);
+        const milliseconds = (gameDuration % 10) * 10;
+        const hours = Math.floor(gameDuration / 36000);
+        const minutes = Math.floor((gameDuration - hours * 36000) / 600);
+        const seconds = Math.floor((gameDuration - (hours * 36000 + minutes * 600)) / 10);
+        document.getElementById('hour').innerHTML = pad(hours);
+        document.getElementById('minute').innerHTML = pad(minutes);
+        document.getElementById('second').innerHTML = pad(seconds);
+        document.getElementById('millisecond').innerHTML = pad(milliseconds);
+      }, 100);
     }
     if (gameStatus !== 'lost') {
       const cell = data[target.getAttribute('data-ypos')][target.getAttribute('data-xpos')];
       document.getElementById('idStatus').textContent = gameStatus;
       document.getElementById('idMovesCount').textContent = (moveCount += 1).toString();
-      if (cell.isMine) {
+      if (cell.isFlagged) {
+        cell.isFlagged = false;
+        target.classList.remove('cell__flagged');
+      } else if (cell.isMine) {
         target.classList.add('cell__mined');
         lost();
       } else {
         openCell(cell);
       }
-      if (openCells + mines === rows * cols) {
-        win();
-      }
+    }
+    if (openCells + mines === rows * cols) {
+      win();
     }
   }
 });
@@ -211,9 +224,9 @@ gameContainer.addEventListener('contextmenu', (e) => {
   if (target.classList.contains('cell')) {
     if (gameStatus !== 'lost') {
       target.classList.toggle('cell__flagged');
-      const cell = data[target.getAttribute('data-xpos')][target.getAttribute('data-ypos')];
-      if (!cell.isFlagged) cell.isFlagged = true;
-      else cell.isFlagged = false;
+      const cell = data[target.getAttribute('data-ypos')][target.getAttribute('data-xpos')];
+      if (cell.isFlagged) cell.isFlagged = false;
+      else cell.isFlagged = true;
     }
     if (openCells + mines === rows * cols) {
       win();
