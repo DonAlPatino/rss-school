@@ -1,4 +1,5 @@
 import Cell from './cell.js';
+import playSound from './playsound.js';
 
 const rows = 10; // number of rows in the grid
 const cols = 10; // number of columns in the grid
@@ -8,6 +9,7 @@ let openCells = 0;
 
 const data = [];
 let gameStatus = 'stop';
+let gameDuration = 0;
 
 const { body } = document;
 
@@ -32,20 +34,24 @@ container.appendChild(moveCountContainer);
 
 const timerContainer = document.createElement('div');
 timerContainer.className = 'timer';
-timerContainer.innerHTML = '<span id="hour">00</span>:<span id="minute">00</span>:<span id="second">00</span>:<span id="millisecond">000</span>';
+timerContainer.innerHTML = '<span id="hour">00</span>:<span id="minute">00</span>:<span id="second">00</span>:<span id="millisecond">00</span>';
 container.appendChild(timerContainer);
 
 const gameContainer = document.createElement('div');
 gameContainer.className = 'gameContainer';
 
-function playSound(soundFile) {
-  new Audio(soundFile).play().then(() => {});
-}
 
 function win() {
   gameStatus = 'Win';
   document.getElementById('idStatus').textContent = gameStatus;
   playSound('sounds/win.wav');
+  window.clearInterval(window.timerId);
+}
+function lost() {
+  playSound('sounds/lose_flowergarden_long.wav');
+  gameStatus = 'lost';
+  document.getElementById('idStatus').textContent = gameStatus;
+  window.clearInterval(window.timerId);
 }
 function getAdjacentCells(r, c) {
   const results = [];
@@ -136,16 +142,6 @@ function initData(y, x) {
 }
 
 render();
-const sec = 0;
-
-function pad(val) {
-  return val > 9 ? val : `0${val}`;
-}
-
-/* setInterval(() => {
-    document.getElementById('second').innerHTML = pad(++sec%60);
-    document.getElementById('minute').innerHTML = pad(parseInt(sec/60,10));
-  }, 1000); */
 
 function openCell(cell) {
   if (!cell.isOpen) {
@@ -164,6 +160,11 @@ function openCell(cell) {
     }
   }
 }
+
+function pad(val) {
+  return val > 9 ? val : `0${val}`;
+}
+
 // left click to reveal
 gameContainer.addEventListener('click', (e) => {
   const { target } = e;
@@ -173,16 +174,21 @@ gameContainer.addEventListener('click', (e) => {
     if (gameStatus === 'stop') {
       gameStatus = 'play';
       initData([target.getAttribute('data-ypos')], [target.getAttribute('data-xpos')]);
+      window.timerId = setInterval(() => {
+        gameDuration++;
+        document.getElementById('hour').innerHTML = pad(parseInt(gameDuration / 3600, 10));
+        document.getElementById('minute').innerHTML = pad(parseInt(gameDuration / 60, 10));
+        document.getElementById('second').innerHTML = pad(gameDuration % 60);
+        // document.getElementById('millisecond').innerHTML = pad(parseInt(gameDuration % 10, 10) * 10);
+      }, 1000);
     }
     if (gameStatus !== 'lost') {
       const cell = data[target.getAttribute('data-ypos')][target.getAttribute('data-xpos')];
       document.getElementById('idStatus').textContent = gameStatus;
       document.getElementById('idMovesCount').textContent = (moveCount += 1).toString();
       if (cell.isMine) {
-        playSound('sounds/lose_flowergarden_long.wav');
         target.classList.add('cell__mined');
-        gameStatus = 'lost';
-        document.getElementById('idStatus').textContent = gameStatus;
+        lost();
       } else {
         openCell(cell);
       }
@@ -201,7 +207,6 @@ gameContainer.addEventListener('contextmenu', (e) => {
   // До инита данных нет и все крэшится
   if (target.classList.contains('cell')) {
     if (gameStatus !== 'lost') {
-      // document.getElementById('idMovesCount').textContent = (moveCount += 1).toString();
       target.classList.add('cell__flagged');
       const cell = data[target.getAttribute('data-xpos')][target.getAttribute('data-ypos')];
       cell.isFlagged = true;
