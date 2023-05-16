@@ -148,6 +148,7 @@ function openCell(cell) {
     openCells++;
     cell.isOpen = true;
     const target = cell.getElement();
+    target.classList.remove('cell__flagged');
     if (cell.value > 0) {
       target.textContent = cell.value;
       target.classList.add(`cell__${cell.value}`);
@@ -207,9 +208,10 @@ gameContainer.addEventListener('contextmenu', (e) => {
   // До инита данных нет и все крэшится
   if (target.classList.contains('cell')) {
     if (gameStatus !== 'lost') {
-      target.classList.add('cell__flagged');
+      target.classList.toggle('cell__flagged');
       const cell = data[target.getAttribute('data-xpos')][target.getAttribute('data-ypos')];
-      cell.isFlagged = true;
+      if (!cell.isFlagged) cell.isFlagged = true;
+      else cell.isFlagged = false;
     }
     if (openCells + mines === rows * cols) {
       win();
