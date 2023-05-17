@@ -54,7 +54,7 @@ mineRemainContainer.innerHTML = `Неоткрыто мин: <span id="idMineRema
 container.appendChild(mineRemainContainer);
 
 const sndBtn = document.createElement('div');
-sndBtn.className = 'switch-btn switch-on';
+sndBtn.innerHTML = '<span class ="sndBtn">Sound on/off  </span><span class="switch-btn switch-on"></span>';
 container.appendChild(sndBtn);
 
 sndBtn.addEventListener('click', (e) => {
@@ -64,7 +64,7 @@ sndBtn.addEventListener('click', (e) => {
 });
 
 const themeBtn = document.createElement('div');
-themeBtn.className = 'switch-btn';
+themeBtn.innerHTML = '<span class ="themeBtn">Light</span><span class="switch-btn"></span><span class ="themeBtn">Dark</span>';
 container.appendChild(themeBtn);
 
 themeBtn.addEventListener('click', (e) => {

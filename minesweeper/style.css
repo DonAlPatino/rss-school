@@ -31,7 +31,9 @@ body, html {
 .timer,
 .status,
 .mineRemain,
-.usedFlag {
+.usedFlag,
+.sndBtn,
+.themeBtn {
     font-style: normal;
     font-weight: 400;
     font-size: 2em;
