@@ -93,11 +93,19 @@ function getElement(cell) {
   return document.querySelector(`.cell[data-xpos="${cell.xpos}"][data-ypos="${cell.ypos}"]`);
 }
 function win() {
+  let winners = [];
   localStorage.removeItem('minesweeper.data');
   gameStatus = 'Win';
   document.getElementById('idStatus').textContent = gameStatus;
   playSound('sounds/win.wav', soundOn);
   window.clearInterval(window.timerId);
+  const winner = { moveCount, gameDuration };
+  if (localStorage['minesweeper.winner']) {
+    winners = JSON.parse(localStorage['minesweeper.winner']);
+    if (winners.length > 9) winners.shift();
+  }
+  winners.push(winner);
+  localStorage['minesweeper.winner'] = JSON.stringify(winners);
 }
 function lost() {
   localStorage.removeItem('minesweeper.data');
@@ -109,8 +117,17 @@ function lost() {
 function saveGame() {
   const stateData = {
     data,
-    rows, cols, mines, moveCount, openCells, gameStatus,
-    gameDuration, usedFlag, mineRemain, soundOn, darkTheme,
+    rows,
+    cols,
+    mines,
+    moveCount,
+    openCells,
+    gameStatus,
+    gameDuration,
+    usedFlag,
+    mineRemain,
+    soundOn,
+    darkTheme,
   };
   const state = JSON.stringify(stateData);
   localStorage['minesweeper.data'] = state;

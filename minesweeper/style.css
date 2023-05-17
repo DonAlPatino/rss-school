@@ -119,8 +119,8 @@ body, html {
 
 .switch-btn {
     display: inline-block;
-    width: 4.3em; /* ширина */
-    height: 2.3em; /* высота */
+    width: 4.4em; /* ширина */
+    height: 2.4em; /* высота */
     border-radius: 1em; /* радиус скругления */
     background: #bfbfbf; /* цвет фона */
     z-index: 0;
