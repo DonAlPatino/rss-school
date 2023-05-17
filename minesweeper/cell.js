@@ -7,9 +7,5 @@ class Cell {
     this.isOpen = false;
     this.isFlagged = false;
   }
-
-  getElement() {
-    return document.querySelector(`.cell[data-xpos="${this.xpos}"][data-ypos="${this.ypos}"]`);
-  }
 }
 export default Cell;

@@ -1,9 +1,9 @@
 import Cell from './cell.js';
 import playSound from './playsound.js';
 
-const rows = 10; // number of rows in the grid
-const cols = 10; // number of columns in the grid
-const mines = 10; // number of mines in the grid
+let rows = 10; // number of rows in the grid
+let cols = 10; // number of columns in the grid
+let mines = 10; // number of mines in the grid
 let moveCount = 0;
 let openCells = 0;
 
@@ -36,15 +36,27 @@ const timerContainer = document.createElement('div');
 timerContainer.className = 'timer';
 timerContainer.innerHTML = '<span id="hour">00</span>:<span id="minute">00</span>:<span id="second">00</span>:<span id="millisecond">00</span>';
 container.appendChild(timerContainer);
+
 if (localStorage['minesweeper.data']) {
   const loadGameButton = document.createElement('div');
   loadGameButton.className = 'loadGame';
   loadGameButton.innerHTML = '<button> Load game </button>';
   container.appendChild(loadGameButton);
+  loadGameButton.addEventListener('click', () => {
+    loadGame();
+  });
 }
+
 const gameContainer = document.createElement('div');
 gameContainer.className = 'gameContainer';
 
+function pad(val) {
+  return val > 9 ? val : `0${val}`;
+}
+
+function getElement(cell) {
+  return document.querySelector(`.cell[data-xpos="${cell.xpos}"][data-ypos="${cell.ypos}"]`);
+}
 function win() {
   localStorage.removeItem('minesweeper.data');
   gameStatus = 'Win';
@@ -60,10 +72,34 @@ function lost() {
   window.clearInterval(window.timerId);
 }
 function saveGame() {
-  const state = JSON.stringify(data);
+  const stateData = {
+    data, rows, cols, mines, moveCount, openCells, gameStatus, gameDuration,
+  };
+  const state = JSON.stringify(stateData);
   localStorage['minesweeper.data'] = state;
 }
-
+function loadGame() {
+  if (localStorage['minesweeper.data']) {
+    const stateData = JSON.parse(localStorage['minesweeper.data']);
+    ({
+      data, rows, cols, mines, moveCount, openCells, gameStatus, gameDuration,
+    } = stateData);
+    render(1);
+    document.getElementById('idStatus').textContent = gameStatus;
+    document.getElementById('idMovesCount').textContent = moveCount;
+    window.timerId = setInterval(() => {
+      gameDuration++;
+      const milliseconds = (gameDuration % 10) * 10;
+      const hours = Math.floor(gameDuration / 36000);
+      const minutes = Math.floor((gameDuration - hours * 36000) / 600);
+      const seconds = Math.floor((gameDuration - (hours * 36000 + minutes * 600)) / 10);
+      document.getElementById('hour').innerHTML = pad(hours);
+      document.getElementById('minute').innerHTML = pad(minutes);
+      document.getElementById('second').innerHTML = pad(seconds);
+      document.getElementById('millisecond').innerHTML = pad(milliseconds);
+    }, 100);
+  }
+}
 function getAdjacentCells(r, c) {
   const results = [];
   for (
@@ -91,12 +127,11 @@ function render(flag) {
       let txt = '';
       if (flag) {
         const cell = data[r][c];
-        console.log(cell);
         // assign proper text and class to cells (needed when loading a game)
         if (cell.isFlagged) {
           addClass = 'cell__flagged';
         } else if (cell.isOpen) {
-          addClass = 'cell__opened';
+          addClass = `cell__opened cell__${cell.value}`;
           txt = (!cell.isMine ? cell.value || '' : '');
         }
       }
@@ -109,12 +144,6 @@ function render(flag) {
   container.appendChild(gameContainer);
 }
 
-function loadGame() {
-  if (localStorage['minesweeper.data']) {
-    data = JSON.parse(localStorage['minesweeper.data']);
-    render(1);
-  }
-}
 function initData() {
   for (let r = 0; r < rows; r++) {
     data[r] = [];
@@ -163,7 +192,7 @@ initData();
 
 function openCell(cell) {
   if (!cell.isOpen) {
-    const target = cell.getElement();
+    const target = getElement(cell);
     /* if (cell.isFlagged) {
       const adjCells = getAdjacentCells(cell.ypos, cell.xpos);
       for (let i = 0, len = adjCells.length; i < len; i++) {
@@ -184,10 +213,6 @@ function openCell(cell) {
     }
   }
 //  }
-}
-
-function pad(val) {
-  return val > 9 ? val : `0${val}`;
 }
 
 // left click to reveal
