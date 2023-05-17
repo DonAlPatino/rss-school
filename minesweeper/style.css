@@ -116,3 +116,36 @@ body, html {
 .cell__8 {
     color: white;
 }
+
+.switch-btn {
+    display: inline-block;
+    width: 4.3em; /* ширина */
+    height: 2.3em; /* высота */
+    border-radius: 1em; /* радиус скругления */
+    background: #bfbfbf; /* цвет фона */
+    z-index: 0;
+    margin: 0;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    transition-duration: 300ms; /* анимация */
+}
+.switch-btn::after {
+    content: "";
+    height: 2em; /* высота кнопки */
+    width: 2em; /* ширина кнопки */
+    border-radius: 1em;
+    background: #fff; /* цвет кнопки */
+    top: 3px; /* положение кнопки по вертикали относительно основы */
+    left: 3px; /* положение кнопки по горизонтали относительно основы */
+    transition-duration: 300ms; /* анимация */
+    position: absolute;
+    z-index: 1;
+}
+.switch-on {
+    background: #F1CDB3;
+}
+.switch-on::after {
+    left: 2em;
+}

@@ -14,6 +14,9 @@ let gameDuration = 0;
 let usedFlag = 0;
 let mineRemain = mines - usedFlag;
 
+let soundOn = true;
+let darkTheme = false;
+
 const { body } = document;
 
 const container = document.createElement('div');
@@ -50,6 +53,25 @@ mineRemainContainer.className = 'mineRemain';
 mineRemainContainer.innerHTML = `Неоткрыто мин: <span id="idMineRemain">${mineRemain}</span>`;
 container.appendChild(mineRemainContainer);
 
+const sndBtn = document.createElement('div');
+sndBtn.className = 'switch-btn switch-on';
+container.appendChild(sndBtn);
+
+sndBtn.addEventListener('click', (e) => {
+  const { target } = e;
+  target.classList.toggle('switch-on');
+  soundOn = !soundOn;
+});
+
+const themeBtn = document.createElement('div');
+themeBtn.className = 'switch-btn';
+container.appendChild(themeBtn);
+
+themeBtn.addEventListener('click', (e) => {
+  const { target } = e;
+  target.classList.toggle('switch-on');
+});
+
 if (localStorage['minesweeper.data']) {
   const loadGameButton = document.createElement('div');
   loadGameButton.className = 'loadGame';
@@ -74,45 +96,55 @@ function win() {
   localStorage.removeItem('minesweeper.data');
   gameStatus = 'Win';
   document.getElementById('idStatus').textContent = gameStatus;
-  playSound('sounds/win.wav');
+  playSound('sounds/win.wav', soundOn);
   window.clearInterval(window.timerId);
 }
 function lost() {
   localStorage.removeItem('minesweeper.data');
-  playSound('sounds/lose_flowergarden_long.wav');
+  playSound('sounds/lose_flowergarden_long.wav', soundOn);
   gameStatus = 'lost';
   document.getElementById('idStatus').textContent = gameStatus;
   window.clearInterval(window.timerId);
 }
 function saveGame() {
   const stateData = {
-    data, rows, cols, mines, moveCount, openCells, gameStatus, gameDuration,
+    data,
+    rows, cols, mines, moveCount, openCells, gameStatus,
+    gameDuration, usedFlag, mineRemain, soundOn, darkTheme,
   };
   const state = JSON.stringify(stateData);
   localStorage['minesweeper.data'] = state;
+}
+function startTimer() {
+  window.timerId = setInterval(() => {
+    gameDuration++;
+    const milliseconds = (gameDuration % 10) * 10;
+    const hours = Math.floor(gameDuration / 36000);
+    const minutes = Math.floor((gameDuration - hours * 36000) / 600);
+    const seconds = Math.floor((gameDuration - (hours * 36000 + minutes * 600)) / 10);
+    document.getElementById('hour').innerHTML = pad(hours);
+    document.getElementById('minute').innerHTML = pad(minutes);
+    document.getElementById('second').innerHTML = pad(seconds);
+    document.getElementById('millisecond').innerHTML = pad(milliseconds);
+  }, 100);
 }
 function loadGame() {
   if (localStorage['minesweeper.data']) {
     const stateData = JSON.parse(localStorage['minesweeper.data']);
     ({
-      data, rows, cols, mines, moveCount, openCells, gameStatus, gameDuration,
+      data, rows, cols, mines, moveCount, openCells, gameStatus,
+      gameDuration, usedFlag, mineRemain, soundOn, darkTheme,
     } = stateData);
     render(1);
     document.getElementById('idStatus').textContent = gameStatus;
     document.getElementById('idMovesCount').textContent = moveCount;
     document.getElementById('idUsedFlag').textContent = usedFlag.toString();
     document.getElementById('idMineRemain').textContent = mineRemain.toString();
-    window.timerId = setInterval(() => {
-      gameDuration++;
-      const milliseconds = (gameDuration % 10) * 10;
-      const hours = Math.floor(gameDuration / 36000);
-      const minutes = Math.floor((gameDuration - hours * 36000) / 600);
-      const seconds = Math.floor((gameDuration - (hours * 36000 + minutes * 600)) / 10);
-      document.getElementById('hour').innerHTML = pad(hours);
-      document.getElementById('minute').innerHTML = pad(minutes);
-      document.getElementById('second').innerHTML = pad(seconds);
-      document.getElementById('millisecond').innerHTML = pad(milliseconds);
-    }, 100);
+    if (themeBtn) document.getElementsByClassName('switch-btn')[0].className = 'switch-btn switch-on';
+    else document.getElementsByClassName('switch-btn')[0].className = 'switch-btn';
+    if (soundOn) document.getElementsByClassName('switch-btn')[0].className = 'switch-btn switch-on';
+    else document.getElementsByClassName('switch-btn')[0].className = 'switch-btn';
+    startTimer();
   }
 }
 function getAdjacentCells(r, c) {
@@ -142,7 +174,6 @@ function render(flag) {
       let txt = '';
       if (flag) {
         const cell = data[r][c];
-        // assign proper text and class to cells (needed when loading a game)
         if (cell.isFlagged) {
           addClass = 'cell__flagged';
         } else if (cell.isOpen) {
@@ -202,7 +233,7 @@ function mineData(y, x) {
   }
 }
 
-render(0);
+render();
 initData();
 
 function openCell(cell) {
@@ -235,21 +266,11 @@ gameContainer.addEventListener('click', (e) => {
   const { target } = e;
 
   if (target.classList.contains('cell')) {
-    playSound('sounds/click.wav');
+    playSound('sounds/click.wav', soundOn);
     if (gameStatus === 'stop') {
       gameStatus = 'play';
       mineData([target.getAttribute('data-ypos')], [target.getAttribute('data-xpos')]);
-      window.timerId = setInterval(() => {
-        gameDuration++;
-        const milliseconds = (gameDuration % 10) * 10;
-        const hours = Math.floor(gameDuration / 36000);
-        const minutes = Math.floor((gameDuration - hours * 36000) / 600);
-        const seconds = Math.floor((gameDuration - (hours * 36000 + minutes * 600)) / 10);
-        document.getElementById('hour').innerHTML = pad(hours);
-        document.getElementById('minute').innerHTML = pad(minutes);
-        document.getElementById('second').innerHTML = pad(seconds);
-        document.getElementById('millisecond').innerHTML = pad(milliseconds);
-      }, 100);
+      startTimer();
     }
     if (gameStatus !== 'lost') {
       const cell = data[target.getAttribute('data-ypos')][target.getAttribute('data-xpos')];
