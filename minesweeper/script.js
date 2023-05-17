@@ -7,7 +7,7 @@ const mines = 10; // number of mines in the grid
 let moveCount = 0;
 let openCells = 0;
 
-const data = [];
+let data = [];
 let gameStatus = 'stop';
 let gameDuration = 0;
 
@@ -36,22 +36,34 @@ const timerContainer = document.createElement('div');
 timerContainer.className = 'timer';
 timerContainer.innerHTML = '<span id="hour">00</span>:<span id="minute">00</span>:<span id="second">00</span>:<span id="millisecond">00</span>';
 container.appendChild(timerContainer);
-
+if (localStorage['minesweeper.data']) {
+  const loadGameButton = document.createElement('div');
+  loadGameButton.className = 'loadGame';
+  loadGameButton.innerHTML = '<button> Load game </button>';
+  container.appendChild(loadGameButton);
+}
 const gameContainer = document.createElement('div');
 gameContainer.className = 'gameContainer';
 
 function win() {
+  localStorage.removeItem('minesweeper.data');
   gameStatus = 'Win';
   document.getElementById('idStatus').textContent = gameStatus;
   playSound('sounds/win.wav');
   window.clearInterval(window.timerId);
 }
 function lost() {
+  localStorage.removeItem('minesweeper.data');
   playSound('sounds/lose_flowergarden_long.wav');
   gameStatus = 'lost';
   document.getElementById('idStatus').textContent = gameStatus;
   window.clearInterval(window.timerId);
 }
+function saveGame() {
+  const state = JSON.stringify(data);
+  localStorage['minesweeper.data'] = state;
+}
+
 function getAdjacentCells(r, c) {
   const results = [];
   for (
@@ -70,27 +82,25 @@ function getAdjacentCells(r, c) {
   return results;
 }
 
-function render() {
+function render(flag) {
   let content = '';
   for (let r = 0; r < rows; r += 1) {
     content += '<div class="row">';
     for (let c = 0; c < cols; c += 1) {
-      const addClass = '';
-      /*
-            Load data from localStore
-            let addClass = '';
-            const cell = data[r][c];
-            console.log(cell);
-            // assign proper text and class to cells (needed when loading a game)
-            let add_class = '';
-                  let txt = '';
-                  if (cell.isFlagged) {
-                    add_class = 'flagged';
-                  } else if (cell.isRevealed) {
-                    add_class = `revealed}`;
-                    txt = (!cellObj.isMine ? cellObj.value || '' : '');
-                  } */
-      content += `<div class="cell ${addClass}" data-xpos="${c}" data-ypos="${r}"></div>`;
+      let addClass = '';
+      let txt = '';
+      if (flag) {
+        const cell = data[r][c];
+        console.log(cell);
+        // assign proper text and class to cells (needed when loading a game)
+        if (cell.isFlagged) {
+          addClass = 'cell__flagged';
+        } else if (cell.isOpen) {
+          addClass = 'cell__opened';
+          txt = (!cell.isMine ? cell.value || '' : '');
+        }
+      }
+      content += `<div class="cell ${addClass}" data-xpos="${c}" data-ypos="${r}">${txt}</div>`;
     }
     content += '</div>';
   }
@@ -99,6 +109,12 @@ function render() {
   container.appendChild(gameContainer);
 }
 
+function loadGame() {
+  if (localStorage['minesweeper.data']) {
+    data = JSON.parse(localStorage['minesweeper.data']);
+    render(1);
+  }
+}
 function initData() {
   for (let r = 0; r < rows; r++) {
     data[r] = [];
@@ -142,7 +158,7 @@ function mineData(y, x) {
   }
 }
 
-render();
+render(0);
 initData();
 
 function openCell(cell) {
@@ -197,20 +213,20 @@ gameContainer.addEventListener('click', (e) => {
     }
     if (gameStatus !== 'lost') {
       const cell = data[target.getAttribute('data-ypos')][target.getAttribute('data-xpos')];
-      document.getElementById('idStatus').textContent = gameStatus;
-      document.getElementById('idMovesCount').textContent = (moveCount += 1).toString();
-      if (cell.isFlagged) {
-        cell.isFlagged = false;
-        target.classList.remove('cell__flagged');
-      } else if (cell.isMine) {
-        target.classList.add('cell__mined');
-        lost();
-      } else {
-        openCell(cell);
+      if (!cell.isFlagged) {
+        document.getElementById('idStatus').textContent = gameStatus;
+        document.getElementById('idMovesCount').textContent = (moveCount += 1).toString();
+        if (cell.isMine) {
+          target.classList.add('cell__mined');
+          lost();
+        } else {
+          openCell(cell);
+          saveGame();
+        }
       }
-    }
-    if (openCells + mines === rows * cols) {
-      win();
+      if (openCells + mines === rows * cols) {
+        win();
+      }
     }
   }
 });
@@ -227,6 +243,7 @@ gameContainer.addEventListener('contextmenu', (e) => {
       const cell = data[target.getAttribute('data-ypos')][target.getAttribute('data-xpos')];
       if (cell.isFlagged) cell.isFlagged = false;
       else cell.isFlagged = true;
+      saveGame();
     }
     if (openCells + mines === rows * cols) {
       win();
