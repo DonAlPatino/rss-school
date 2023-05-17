@@ -29,7 +29,9 @@ body, html {
 
 .moveCount,
 .timer,
-.status {
+.status,
+.mineRemain,
+.usedFlag {
     font-style: normal;
     font-weight: 400;
     font-size: 2em;

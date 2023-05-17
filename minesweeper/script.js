@@ -11,6 +11,9 @@ let data = [];
 let gameStatus = 'stop';
 let gameDuration = 0;
 
+let usedFlag = 0;
+let mineRemain = mines - usedFlag;
+
 const { body } = document;
 
 const container = document.createElement('div');
@@ -36,6 +39,16 @@ const timerContainer = document.createElement('div');
 timerContainer.className = 'timer';
 timerContainer.innerHTML = '<span id="hour">00</span>:<span id="minute">00</span>:<span id="second">00</span>:<span id="millisecond">00</span>';
 container.appendChild(timerContainer);
+
+const usedFlagContainer = document.createElement('div');
+usedFlagContainer.className = 'usedFlag';
+usedFlagContainer.innerHTML = `Использовано флагов: <span id="idUsedFlag">${usedFlag}</span>`;
+container.appendChild(usedFlagContainer);
+
+const mineRemainContainer = document.createElement('div');
+mineRemainContainer.className = 'mineRemain';
+mineRemainContainer.innerHTML = `Неоткрыто мин: <span id="idMineRemain">${mineRemain}</span>`;
+container.appendChild(mineRemainContainer);
 
 if (localStorage['minesweeper.data']) {
   const loadGameButton = document.createElement('div');
@@ -87,6 +100,8 @@ function loadGame() {
     render(1);
     document.getElementById('idStatus').textContent = gameStatus;
     document.getElementById('idMovesCount').textContent = moveCount;
+    document.getElementById('idUsedFlag').textContent = usedFlag.toString();
+    document.getElementById('idMineRemain').textContent = mineRemain.toString();
     window.timerId = setInterval(() => {
       gameDuration++;
       const milliseconds = (gameDuration % 10) * 10;
@@ -131,7 +146,7 @@ function render(flag) {
         if (cell.isFlagged) {
           addClass = 'cell__flagged';
         } else if (cell.isOpen) {
-          addClass = `cell__opened cell__${cell.value}`;
+          addClass = (cell.value > 0) ? `cell__${cell.value}` : 'cell__opened';
           txt = (!cell.isMine ? cell.value || '' : '');
         }
       }
@@ -266,8 +281,17 @@ gameContainer.addEventListener('contextmenu', (e) => {
     if (gameStatus !== 'lost') {
       target.classList.toggle('cell__flagged');
       const cell = data[target.getAttribute('data-ypos')][target.getAttribute('data-xpos')];
-      if (cell.isFlagged) cell.isFlagged = false;
-      else cell.isFlagged = true;
+      if (cell.isFlagged) {
+        cell.isFlagged = false;
+        usedFlag--;
+        mineRemain = mines - usedFlag;
+      } else {
+        cell.isFlagged = true;
+        usedFlag++;
+        mineRemain = mines - usedFlag;
+      }
+      document.getElementById('idUsedFlag').textContent = usedFlag.toString();
+      document.getElementById('idMineRemain').textContent = mineRemain.toString();
       saveGame();
     }
     if (openCells + mines === rows * cols) {
