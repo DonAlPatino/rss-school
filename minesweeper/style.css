@@ -154,3 +154,10 @@ body, html {
 .switch-on::after {
     left: 1em;
 }
+
+@media (max-width: 767px) {
+    .menu__block {
+        flex-direction: column;
+        gap: 0;
+    }
+}

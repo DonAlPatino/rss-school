@@ -27,13 +27,13 @@ let content = '';
 
 content += `<header class="header"><h1>Minesweeper</h1></header>`;
 content += '<div class = menu__block>';
-content += `<div>Click: <span id="idMovesCount">0</span></div>`;
-content += `<div>Status: <span id="idStatus">Stop</span></div>`;
-content += `<div>Time:<span id = "hour">00</span>:<span id="minute">00</span >:<span id="second">00</span>:<span id="millisecond">00</span></div>`;
+content += `<span>Click: <span id="idMovesCount">0</span></span>`;
+content += `<span>Status: <span id="idStatus">Stop</span></span>`;
+content += `<span>Time:<span id = "hour">00</span>:<span id="minute">00</span >:<span id="second">00</span>:<span id="millisecond">00</span></span>`;
 content += '</div>';
 content += '<div class = menu__block>';
-content += `<div>Used Flag: <span id="idUsedFlag">0</span></div>`;
-content += `<div>Mines: <span id="idMineRemain">10</span></div>`;
+content += `<span>Used Flag: <span id="idUsedFlag">0</span></span>`;
+content += `<span>Mines: <span id="idMineRemain">10</span></span>`;
 content += '</div>';
 content += '<div class = menu__block>';
 content += '<div class = swtContainer><span>Sound on/off  </span><span id="idSndBtn" class="switch-btn switch-on"></span></div>';
