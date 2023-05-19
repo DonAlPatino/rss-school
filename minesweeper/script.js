@@ -1,5 +1,6 @@
 import Cell from './cell.js';
 import playSound from './playsound.js';
+import { pad, getElement } from './util.js';
 
 let rows = 10; // number of rows in the grid
 let cols = 10; // number of columns in the grid
@@ -8,7 +9,7 @@ let moveCount = 0;
 let openCells = 0;
 
 let data = [];
-let gameStatus = 'stop';
+let gameStatus = 'Stop';
 let gameDuration = 0;
 
 let usedFlag = 0;
@@ -26,6 +27,11 @@ body.appendChild(container);
 let content = '';
 
 content += `<header class="header"><h1>Minesweeper</h1></header>`;
+content += '<div class = menu__block>';
+content += `<button class = "btn">Easy</button>`;
+content += `<button class = "btn">Medium</button>`;
+content += `<button class = "btn">Hard</button>`;
+content += '</div>';
 content += '<div class = menu__block>';
 content += `<span>Click: <span id="idMovesCount">0</span></span>`;
 content += `<span>Status: <span id="idStatus">Stop</span></span>`;
@@ -54,6 +60,18 @@ themeBtn.addEventListener('click', (e) => {
   target.classList.toggle('switch-on');
 });
 
+const btnLevel = document.querySelectorAll('.btn');
+btnLevel.forEach((element) => element.addEventListener('click', (e) => {
+  const { target } = e;
+  switch (target.innerHTML) {
+    case 'Medium': rows = 15; cols = 15; mines = 15; break;
+    case 'Hard': rows = 25; cols = 25; mines = 25; break;
+    default: rows = 10; cols = 10; mines = 10; break;
+  }
+  render(0);
+  initData();
+}));
+
 if (localStorage['minesweeper.data']) {
   const loadGameButton = document.createElement('div');
   loadGameButton.className = 'loadGame';
@@ -67,13 +85,6 @@ if (localStorage['minesweeper.data']) {
 const gameContainer = document.createElement('div');
 gameContainer.className = 'gameContainer';
 
-function pad(val) {
-  return val > 9 ? val : `0${val}`;
-}
-
-function getElement(cell) {
-  return document.querySelector(`.cell[data-xpos="${cell.xpos}"][data-ypos="${cell.ypos}"]`);
-}
 function win() {
   let winners = [];
   localStorage.removeItem('minesweeper.data');
@@ -164,7 +175,7 @@ function getAdjacentCells(r, c) {
 }
 
 function render(flag) {
-  let content = '';
+  content = '';
   for (let r = 0; r < rows; r += 1) {
     content += '<div class="row">';
     for (let c = 0; c < cols; c += 1) {
@@ -265,8 +276,8 @@ gameContainer.addEventListener('click', (e) => {
 
   if (target.classList.contains('cell')) {
     playSound('sounds/click.wav', soundOn);
-    if (gameStatus === 'stop') {
-      gameStatus = 'play';
+    if (gameStatus !== 'Play') {
+      gameStatus = 'Play';
       mineData([target.getAttribute('data-ypos')], [target.getAttribute('data-xpos')]);
       startTimer();
     }

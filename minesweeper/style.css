@@ -45,6 +45,23 @@ body, html {
     gap: 1em;
 }
 
+.btn {
+    padding: 1em 2em;
+    font-style: normal;
+    line-height: 130%;
+    letter-spacing: 0.06em;
+    border-radius: 5em;
+    transition: all 0.3s linear;
+    background-color: transparent;
+    border: 2px solid #F1CDB3;
+}
+
+.btn:hover {
+    background-color: #fddcc4;
+    border-color: #fddcc4;
+}
+
+
 .game_container {
     display: flex;
     border: 1px solid #CCC;
