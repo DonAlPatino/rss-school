@@ -23,50 +23,32 @@ const container = document.createElement('div');
 container.className = 'container';
 body.appendChild(container);
 
-const header = document.createElement('header');
-header.className = 'header';
-header.innerHTML = '<h1>Minesweeper</h1>';
-container.appendChild(header);
+let content = '';
 
-const statusContainer = document.createElement('div');
-statusContainer.className = 'status';
-statusContainer.innerHTML = 'Статус игры: <span id="idStatus"></span>';
-container.appendChild(statusContainer);
+content += `<header class="header"><h1>Minesweeper</h1></header>`;
+content += '<div class = menu__block>';
+content += `<div>Click: <span id="idMovesCount">0</span></div>`;
+content += `<div>Status: <span id="idStatus">Stop</span></div>`;
+content += `<div>Time:<span id = "hour">00</span>:<span id="minute">00</span >:<span id="second">00</span>:<span id="millisecond">00</span></div>`;
+content += '</div>';
+content += '<div class = menu__block>';
+content += `<div>Used Flag: <span id="idUsedFlag">0</span></div>`;
+content += `<div>Mines: <span id="idMineRemain">10</span></div>`;
+content += '</div>';
+content += '<div class = menu__block>';
+content += '<div class = swtContainer><span>Sound on/off  </span><span id="idSndBtn" class="switch-btn switch-on"></span></div>';
+content += '<div class = swtContainer><span>Light</span><span id="idThemeBtn" class="switch-btn"></span><span>Dark</span></div>';
+content += '</div>';
+container.innerHTML = content;
 
-const moveCountContainer = document.createElement('div');
-moveCountContainer.className = 'moveCount';
-moveCountContainer.innerHTML = 'Количество кликов: <span id="idMovesCount"></span>';
-container.appendChild(moveCountContainer);
-
-const timerContainer = document.createElement('div');
-timerContainer.className = 'timer';
-timerContainer.innerHTML = '<span id="hour">00</span>:<span id="minute">00</span>:<span id="second">00</span>:<span id="millisecond">00</span>';
-container.appendChild(timerContainer);
-
-const usedFlagContainer = document.createElement('div');
-usedFlagContainer.className = 'usedFlag';
-usedFlagContainer.innerHTML = `Использовано флагов: <span id="idUsedFlag">${usedFlag}</span>`;
-container.appendChild(usedFlagContainer);
-
-const mineRemainContainer = document.createElement('div');
-mineRemainContainer.className = 'mineRemain';
-mineRemainContainer.innerHTML = `Неоткрыто мин: <span id="idMineRemain">${mineRemain}</span>`;
-container.appendChild(mineRemainContainer);
-
-const sndBtn = document.createElement('div');
-sndBtn.innerHTML = '<span class ="sndBtn">Sound on/off  </span><span class="switch-btn switch-on"></span>';
-container.appendChild(sndBtn);
-
+const sndBtn = document.getElementById('idSndBtn');
 sndBtn.addEventListener('click', (e) => {
   const { target } = e;
   target.classList.toggle('switch-on');
   soundOn = !soundOn;
 });
 
-const themeBtn = document.createElement('div');
-themeBtn.innerHTML = '<span class ="themeBtn">Light</span><span class="switch-btn"></span><span class ="themeBtn">Dark</span>';
-container.appendChild(themeBtn);
-
+const themeBtn = document.getElementById('idThemeBtn');
 themeBtn.addEventListener('click', (e) => {
   const { target } = e;
   target.classList.toggle('switch-on');
@@ -110,7 +92,7 @@ function win() {
 function lost() {
   localStorage.removeItem('minesweeper.data');
   playSound('sounds/lose_flowergarden_long.wav', soundOn);
-  gameStatus = 'lost';
+  gameStatus = 'Lost';
   document.getElementById('idStatus').textContent = gameStatus;
   window.clearInterval(window.timerId);
 }
@@ -129,8 +111,7 @@ function saveGame() {
     soundOn,
     darkTheme,
   };
-  const state = JSON.stringify(stateData);
-  localStorage['minesweeper.data'] = state;
+  localStorage['minesweeper.data'] = JSON.stringify(stateData);
 }
 function startTimer() {
   window.timerId = setInterval(() => {
@@ -289,7 +270,7 @@ gameContainer.addEventListener('click', (e) => {
       mineData([target.getAttribute('data-ypos')], [target.getAttribute('data-xpos')]);
       startTimer();
     }
-    if (gameStatus !== 'lost') {
+    if (gameStatus !== 'Lost') {
       const cell = data[target.getAttribute('data-ypos')][target.getAttribute('data-xpos')];
       if (!cell.isFlagged) {
         document.getElementById('idStatus').textContent = gameStatus;
@@ -316,21 +297,23 @@ gameContainer.addEventListener('contextmenu', (e) => {
   // TODO
   // До инита данных нет и все крэшится
   if (target.classList.contains('cell')) {
-    if (gameStatus !== 'lost') {
-      target.classList.toggle('cell__flagged');
+    if (gameStatus !== 'Lost') {
       const cell = data[target.getAttribute('data-ypos')][target.getAttribute('data-xpos')];
-      if (cell.isFlagged) {
-        cell.isFlagged = false;
-        usedFlag--;
-        mineRemain = mines - usedFlag;
-      } else {
-        cell.isFlagged = true;
-        usedFlag++;
-        mineRemain = mines - usedFlag;
+      if (!cell.isOpen) {
+        target.classList.toggle('cell__flagged');
+        if (cell.isFlagged) {
+          cell.isFlagged = false;
+          usedFlag--;
+          mineRemain = mines - usedFlag;
+        } else {
+          cell.isFlagged = true;
+          usedFlag++;
+          mineRemain = mines - usedFlag;
+        }
+        document.getElementById('idUsedFlag').textContent = usedFlag.toString();
+        document.getElementById('idMineRemain').textContent = mineRemain.toString();
+        saveGame();
       }
-      document.getElementById('idUsedFlag').textContent = usedFlag.toString();
-      document.getElementById('idMineRemain').textContent = mineRemain.toString();
-      saveGame();
     }
     if (openCells + mines === rows * cols) {
       win();

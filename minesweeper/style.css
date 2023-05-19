@@ -27,19 +27,22 @@ body, html {
     color: #F1CDB3;
 }
 
-.moveCount,
-.timer,
-.status,
-.mineRemain,
-.usedFlag,
-.sndBtn,
-.themeBtn {
+.menu__block {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
     font-style: normal;
     font-weight: 400;
     font-size: 2em;
     line-height: 1.3;
     letter-spacing: 0.06em;
     color: #545454;
+}
+
+.swtContainer{
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
 }
 
 .game_container {
@@ -121,9 +124,9 @@ body, html {
 
 .switch-btn {
     display: inline-block;
-    width: 4.4em; /* ширина */
-    height: 2.4em; /* высота */
-    border-radius: 1em; /* радиус скругления */
+    width: 2.2em; /* ширина */
+    height: 1.2em; /* высота */
+    border-radius: 0.5em; /* радиус скругления */
     background: #bfbfbf; /* цвет фона */
     z-index: 0;
     margin: 0;
@@ -135,9 +138,9 @@ body, html {
 }
 .switch-btn::after {
     content: "";
-    height: 2em; /* высота кнопки */
-    width: 2em; /* ширина кнопки */
-    border-radius: 1em;
+    height: 1em; /* высота кнопки */
+    width: 1em; /* ширина кнопки */
+    border-radius: 0.5em;
     background: #fff; /* цвет кнопки */
     top: 3px; /* положение кнопки по вертикали относительно основы */
     left: 3px; /* положение кнопки по горизонтали относительно основы */
@@ -149,5 +152,5 @@ body, html {
     background: #F1CDB3;
 }
 .switch-on::after {
-    left: 2em;
+    left: 1em;
 }
