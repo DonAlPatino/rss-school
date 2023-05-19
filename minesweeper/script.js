@@ -68,6 +68,7 @@ btnLevel.forEach((element) => element.addEventListener('click', (e) => {
     case 'Hard': rows = 25; cols = 25; mines = 25; break;
     default: rows = 10; cols = 10; mines = 10; break;
   }
+  gameStatus = 'Stop';
   render(0);
   initData();
 }));
