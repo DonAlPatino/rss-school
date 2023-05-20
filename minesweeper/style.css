@@ -30,6 +30,7 @@ body, html {
 .menu__block {
     display: flex;
     flex-direction: row;
+    text-align: center;
     gap: 1em;
     font-style: normal;
     font-weight: 400;
@@ -45,7 +46,8 @@ body, html {
     gap: 1em;
 }
 
-.btn {
+.btn, input {
+    text-align: center;
     padding: 1em 2em;
     font-style: normal;
     line-height: 130%;
@@ -61,6 +63,10 @@ body, html {
     border-color: #fddcc4;
 }
 
+.btn_select {
+    background-color: #fddcc4;
+    border-color: #fddcc4;
+}
 
 .game_container {
     display: flex;
@@ -77,7 +83,7 @@ body, html {
     width: 2em;
     height: 1.5em;
     border: 1px solid #CCC;
-    padding: 10px 5px 5px 5px;
+    padding: 0.6em 0.3em 0.3em 0.3em;
     background-color: #EEE;
     font-size: 16px;
     text-align: center;
@@ -176,12 +182,13 @@ body, html {
     .menu__block {
         flex-direction: column;
         gap: 0;
+        font-size: 1em;
     }
     .cell {
         width: 1em;
         height: 0.75em;
         border: 1px solid #CCC;
-        padding: 10px 5px 5px 5px;
+        padding: 0.6em 0.3em 0.3em 0.3em;
         background-color: #EEE;
         font-size: 0.5em;
     }

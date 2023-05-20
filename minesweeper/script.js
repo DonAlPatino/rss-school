@@ -5,13 +5,13 @@ import { pad, getElement } from './util.js';
 let rows = 10; // number of rows in the grid
 let cols = 10; // number of columns in the grid
 let mines = 10; // number of mines in the grid
-let moveCount = 0;
-let openCells = 0;
 
 let data = [];
+
 let gameStatus = 'Stop';
 let gameDuration = 0;
-
+let moveCount = 0;
+let openCells = 0;
 let usedFlag = 0;
 let mineRemain = mines - usedFlag;
 
@@ -26,20 +26,30 @@ body.appendChild(container);
 
 let content = '';
 
-content += `<header class="header"><h1>Minesweeper</h1></header>`;
+content += '<header class="header"><h1>Minesweeper</h1></header>';
 content += '<div class = menu__block>';
-content += `<button class = "btn">Easy</button>`;
-content += `<button class = "btn">Medium</button>`;
-content += `<button class = "btn">Hard</button>`;
+if (localStorage['minesweeper.data']) {
+  content += '<button class = "btn">Load</button>';
+}
+content += '<input id="idMines" class = "input" type="text" value="10" size="2" maxlength="2">';
+/* content += '<button class = "btn">Easy</button>';
+content += '<button class = "btn">Medium</button>';
+content += '<button class = "btn">Hard</button>'; */
+content += '<select class = "btn" name="level" id="idLevel">';
+content += '<option class = "btn" selected value="Easy">Easy</option>';
+content += '<option value="Medium">Medium</option>';
+content += '<option value="Hard">Hard</option>';
+content += '</select>';
+content += '<button class = "btn">Start</button>';
 content += '</div>';
 content += '<div class = menu__block>';
-content += `<span>Click: <span id="idMovesCount">0</span></span>`;
-content += `<span>Status: <span id="idStatus">Stop</span></span>`;
-content += `<span>Time:<span id = "hour">00</span>:<span id="minute">00</span >:<span id="second">00</span>:<span id="millisecond">00</span></span>`;
+content += '<span>Click: <span id="idMovesCount">0</span></span>';
+content += '<span>Status: <span id="idStatus">Stop</span></span>';
+content += '<span>Time:<span id = "hour">00</span>:<span id="minute">00</span >:<span id="second">00</span>:<span id="millisecond">00</span></span>';
 content += '</div>';
 content += '<div class = menu__block>';
-content += `<span>Used Flag: <span id="idUsedFlag">0</span></span>`;
-content += `<span>Mines: <span id="idMineRemain">10</span></span>`;
+content += '<span>Used Flag: <span id="idUsedFlag">0</span></span>';
+content += '<span>Remain Mines: <span id="idMineRemain">10</span></span>';
 content += '</div>';
 content += '<div class = menu__block>';
 content += '<div class = swtContainer><span>Sound on/off  </span><span id="idSndBtn" class="switch-btn switch-on"></span></div>';
@@ -60,31 +70,90 @@ themeBtn.addEventListener('click', (e) => {
   target.classList.toggle('switch-on');
 });
 
+function startGame() {
+  window.clearInterval(window.timerId);
+  gameStatus = 'Start';
+  gameDuration = 0;
+  moveCount = 0;
+  openCells = 0;
+  usedFlag = 0;
+  mineRemain = mines - usedFlag;
+  render(false);
+  document.getElementById('idStatus').textContent = gameStatus;
+  document.getElementById('idMovesCount').textContent = moveCount;
+  document.getElementById('idUsedFlag').textContent = usedFlag.toString();
+  document.getElementById('idMineRemain').textContent = mineRemain.toString();
+  startTimer();
+}
+
 const btnLevel = document.querySelectorAll('.btn');
 btnLevel.forEach((element) => element.addEventListener('click', (e) => {
   const { target } = e;
+  const minesInput = document.getElementById('idMines');
+  mines = parseInt(minesInput.value, 10);
   switch (target.innerHTML) {
-    case 'Medium': rows = 15; cols = 15; mines = 15; break;
-    case 'Hard': rows = 25; cols = 25; mines = 25; break;
-    default: rows = 10; cols = 10; mines = 10; break;
+    case 'Load': loadGame(); break;
+    case 'Start': startGame(); break;
+    default: break;
   }
-  gameStatus = 'Stop';
-  render(0);
-  initData();
 }));
 
-if (localStorage['minesweeper.data']) {
-  const loadGameButton = document.createElement('div');
-  loadGameButton.className = 'loadGame';
-  loadGameButton.innerHTML = '<button> Load game </button>';
-  container.appendChild(loadGameButton);
-  loadGameButton.addEventListener('click', () => {
-    loadGame();
-  });
-}
+const selectLevel = document.getElementById('idLevel');
+selectLevel.addEventListener('click', (e) => {
+  const { target } = e;
+  const level = target.value;
+  switch (level) {
+    case 'Medium':
+      rows = 15;
+      cols = 15;
+      break;
+    case 'Hard':
+      rows = 25;
+      cols = 25;
+      break;
+    default:
+      rows = 10;
+      cols = 10;
+      break;
+  }
+});
 
 const gameContainer = document.createElement('div');
 gameContainer.className = 'gameContainer';
+
+function render(loadData) {
+  content = '';
+  for (let r = 0; r < rows; r += 1) {
+    content += '<div class="row">';
+    for (let c = 0; c < cols; c += 1) {
+      let addClass = '';
+      let txt = '';
+      if (loadData) {
+        const cell = data[r][c];
+        if (cell.isFlagged) {
+          addClass = 'cell__flagged';
+        } else if (cell.isOpen) {
+          addClass = (cell.value > 0) ? `cell__${cell.value}` : 'cell__opened';
+          txt = (!cell.isMine ? cell.value || '' : '');
+        }
+      } else {
+        for (let r = 0; r < rows; r++) {
+          data[r] = [];
+          for (let c = 0; c < cols; c++) {
+            data[r].push(new Cell(c, r));
+          }
+        }
+      }
+      content += `<div class="cell ${addClass}" data-xpos="${c}" data-ypos="${r}">${txt}</div>`;
+    }
+    content += '</div>';
+  }
+
+  gameContainer.innerHTML = content;
+  container.appendChild(gameContainer);
+}
+
+render(false);
 
 function win() {
   let winners = [];
@@ -145,7 +214,7 @@ function loadGame() {
       data, rows, cols, mines, moveCount, openCells, gameStatus,
       gameDuration, usedFlag, mineRemain, soundOn, darkTheme,
     } = stateData);
-    render(1);
+    render(true);
     document.getElementById('idStatus').textContent = gameStatus;
     document.getElementById('idMovesCount').textContent = moveCount;
     document.getElementById('idUsedFlag').textContent = usedFlag.toString();
@@ -173,40 +242,6 @@ function getAdjacentCells(r, c) {
     }
   }
   return results;
-}
-
-function render(flag) {
-  content = '';
-  for (let r = 0; r < rows; r += 1) {
-    content += '<div class="row">';
-    for (let c = 0; c < cols; c += 1) {
-      let addClass = '';
-      let txt = '';
-      if (flag) {
-        const cell = data[r][c];
-        if (cell.isFlagged) {
-          addClass = 'cell__flagged';
-        } else if (cell.isOpen) {
-          addClass = (cell.value > 0) ? `cell__${cell.value}` : 'cell__opened';
-          txt = (!cell.isMine ? cell.value || '' : '');
-        }
-      }
-      content += `<div class="cell ${addClass}" data-xpos="${c}" data-ypos="${r}">${txt}</div>`;
-    }
-    content += '</div>';
-  }
-
-  gameContainer.innerHTML = content;
-  container.appendChild(gameContainer);
-}
-
-function initData() {
-  for (let r = 0; r < rows; r++) {
-    data[r] = [];
-    for (let c = 0; c < cols; c++) {
-      data[r].push(new Cell(c, r));
-    }
-  }
 }
 
 function mineData(y, x) {
@@ -243,11 +278,8 @@ function mineData(y, x) {
   }
 }
 
-render();
-initData();
-
 function openCell(cell) {
-  if (!cell.isOpen) {
+  if (!cell.isOpen && !cell.isFlagged) {
     const target = getElement(cell);
     /* if (cell.isFlagged) {
       const adjCells = getAdjacentCells(cell.ypos, cell.xpos);
@@ -277,12 +309,11 @@ gameContainer.addEventListener('click', (e) => {
 
   if (target.classList.contains('cell')) {
     playSound('sounds/click.wav', soundOn);
-    if (gameStatus !== 'Play') {
+    if (gameStatus === 'Start') {
       gameStatus = 'Play';
       mineData([target.getAttribute('data-ypos')], [target.getAttribute('data-xpos')]);
-      startTimer();
     }
-    if (gameStatus !== 'Lost') {
+    if (gameStatus === 'Play') {
       const cell = data[target.getAttribute('data-ypos')][target.getAttribute('data-xpos')];
       if (!cell.isFlagged) {
         document.getElementById('idStatus').textContent = gameStatus;
@@ -309,7 +340,7 @@ gameContainer.addEventListener('contextmenu', (e) => {
   // TODO
   // До инита данных нет и все крэшится
   if (target.classList.contains('cell')) {
-    if (gameStatus !== 'Lost') {
+    if (gameStatus === 'Start' || gameStatus === 'Play') {
       const cell = data[target.getAttribute('data-ypos')][target.getAttribute('data-xpos')];
       if (!cell.isOpen) {
         target.classList.toggle('cell__flagged');
