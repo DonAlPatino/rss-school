@@ -28,17 +28,17 @@ let content = '';
 content += '<div class = "overlay"></div>';
 content += '<header class = "header"><h1>Minesweeper</h1></header>';
 content += '<div class = menu__block>';
+content += '<button class = "btn">Top</button>';
 if (localStorage['minesweeper.data']) {
   content += '<button class = "btn">Load</button>';
 }
 content += '<input id="idMines" class = "input" type="text" value="10" size="2" maxlength="2">';
 content += '<select class = "btn" name="level" id="idLevel">';
-content += '<option class = "btn" selected value="Easy">Easy</option>';
+content += '<option selected value="Easy">Easy</option>';
 content += '<option value="Medium">Medium</option>';
 content += '<option value="Hard">Hard</option>';
 content += '</select>';
 content += '<button class = "btn">Start</button>';
-content += '<button class = "btn">Top</button>';
 content += '</div>';
 content += '<div class = menu__block>';
 content += '<span>Click: <span id="idMovesCount">0</span></span>';
@@ -66,6 +66,7 @@ const themeBtn = document.getElementById('idThemeBtn');
 themeBtn.addEventListener('click', (e) => {
   const { target } = e;
   target.classList.toggle('switch-on');
+  container.classList.toggle('theme-dark');
 });
 
 function startGame() {
@@ -386,25 +387,21 @@ gameContainer.addEventListener('contextmenu', (e) => {
 
 // Popup modal windows
 const modalWindow = {};
-let isModalOpen = false;
 
 modalWindow.init = function () {
-
   const modalElement = document.createElement('div');
   modalElement.classList.add('modal');
-  document.body.prepend(modalElement);
+  container.prepend(modalElement);
 
   const modal = {
     open() {
       modalElement.classList.add('active');
       overlay.classList.add('active');
-      isModalOpen = true;
       body.classList.add('stop-scrolling');
     },
     close() {
       modalElement.classList.remove('active');
       overlay.classList.remove('active');
-      isModalOpen = false;
       body.classList.remove('stop-scrolling');
     },
   };

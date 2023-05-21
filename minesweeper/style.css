@@ -1,10 +1,5 @@
-body, html {
+body{
     padding: 1rem;
-    --color-primary: #F1CDB3;
-    --color-primary-light: #FDDCC4;
-    --color-light-s: #FAFAFA;
-    --color-dark: #292929;
-    --color-grey: #545454;
 }
 
 .overlay {
@@ -34,6 +29,30 @@ body, html {
     max-width: 1220px;
     margin: 0 auto;
     padding: 0 10px;
+    color:black;
+    --color-primary: #F1CDB3;
+    --color-primary-light: #FDDCC4;
+    --color-light-s: #FAFAFA;
+    --color-dark: #292929;
+    --color-grey: #545454;
+    --color-cell: #EEE;
+    --color-cellopen: #DDD;
+    --color-1: #FFF;
+    --color-2: #777;
+}
+
+.container.theme-dark{
+    background: black;
+    color:white;
+    --color-primary: grey;
+    --color-primary-light: grey;
+    --color-light-s: #FAFAFA;
+    --color-dark: #292929;
+    --color-grey: white;
+    --color-cell: #545454;
+    --color-cellopen: grey;
+    --color-2: #FFF;
+    --color-1: #777;
 }
 
 .header {
@@ -48,7 +67,7 @@ body, html {
     align-items: center;
     letter-spacing: 0.05em;
     /* color-primary */
-    color: #F1CDB3;
+    color: var(--color-primary);
 }
 
 .menu__block {
@@ -61,7 +80,7 @@ body, html {
     font-size: 2em;
     line-height: 1.3;
     letter-spacing: 0.06em;
-    color: #545454;
+    color: var(--color-grey);
 }
 
 .swtContainer{
@@ -79,17 +98,18 @@ body, html {
     border-radius: 5em;
     transition: all 0.3s linear;
     background-color: transparent;
-    border: 2px solid #F1CDB3;
+    border: 2px solid var(--color-primary);
+    color: var(--color-grey);
 }
 
 .btn:hover {
-    background-color: #fddcc4;
-    border-color: #fddcc4;
+    background-color: var(--color-primary-light);
+    border-color: var(--color-primary-light);
 }
 
 .btn_select {
-    background-color: #fddcc4;
-    border-color: #fddcc4;
+    background-color: var(--color-primary-light);
+    border-color: var(--color-primary-light);
 }
 
 .game_container {
@@ -116,9 +136,9 @@ body, html {
     padding: 0.6em 0.3em 0.3em 0.3em;
     */
     border: 1px solid #CCC;
-    background-color: #EEE;
+    background-color: var(--color-cell);
     text-align: center;
-    box-shadow: inset 0.3em 0.3em 0.6em #FFF, inset -0.2em -0.2em 0.3em #777;
+    box-shadow: inset 0.3em 0.3em 0.6em var(--color-1), inset -0.2em -0.2em 0.3em var(--color-2);
     cursor: pointer;
     transition-property: background-color, box-shadow;
     transition-duration: 1s;
@@ -126,7 +146,7 @@ body, html {
 }
 
 .cell__opened {
-    background-color: #DDD;
+    background-color: var(--color-cellopen);
     box-shadow: none;
 }
 
@@ -203,7 +223,7 @@ body, html {
     z-index: 1;
 }
 .switch-on {
-    background: #F1CDB3;
+    background: var(--color-primary);
 }
 .switch-on::after {
     left: 1em;
@@ -263,7 +283,7 @@ body, html {
     font-size: 2em;
     line-height: 110%;
     letter-spacing: 0.05em;
-    color: #F1CDB3;
+    color: var(--color-primary);
 }
 
 @media (max-width: 900px) {
