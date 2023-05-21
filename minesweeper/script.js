@@ -25,18 +25,16 @@ container.className = 'container';
 body.appendChild(container);
 
 let content = '';
-
-content += '<header class="header"><h1>Minesweeper</h1></header>';
+content += '<div class = "overlay"></div>';
+content += '<header class = "header"><h1>Minesweeper</h1></header>';
 content += '<div class = menu__block>';
+content += '<button class = "btn">Top</button>';
 if (localStorage['minesweeper.data']) {
   content += '<button class = "btn">Load</button>';
 }
 content += '<input id="idMines" class = "input" type="text" value="10" size="2" maxlength="2">';
-/* content += '<button class = "btn">Easy</button>';
-content += '<button class = "btn">Medium</button>';
-content += '<button class = "btn">Hard</button>'; */
 content += '<select class = "btn" name="level" id="idLevel">';
-content += '<option class = "btn" selected value="Easy">Easy</option>';
+content += '<option selected value="Easy">Easy</option>';
 content += '<option value="Medium">Medium</option>';
 content += '<option value="Hard">Hard</option>';
 content += '</select>';
@@ -68,6 +66,7 @@ const themeBtn = document.getElementById('idThemeBtn');
 themeBtn.addEventListener('click', (e) => {
   const { target } = e;
   target.classList.toggle('switch-on');
+  container.classList.toggle('theme-dark');
 });
 
 function startGame() {
@@ -91,9 +90,23 @@ btnLevel.forEach((element) => element.addEventListener('click', (e) => {
   const { target } = e;
   const minesInput = document.getElementById('idMines');
   mines = parseInt(minesInput.value, 10);
+  let topResults = 'Scoring table:';
   switch (target.innerHTML) {
     case 'Load': loadGame(); break;
     case 'Start': startGame(); break;
+    case 'Top':
+      if (localStorage['minesweeper.winner']) {
+        const res = JSON.parse(localStorage['minesweeper.winner']);
+        for (let i = 0; i < res.length; i++) {
+          topResults += `<li>${res[i].moveCount} moves in ${res[i].gameDuration / 10} seconds</li>`;
+        }
+        topResults = `<ul>${topResults}</ul>`;
+      } else {
+        topResults = 'List is empty';
+      }
+      modal.setContent(topResults);
+      modal.open();
+      break;
     default: break;
   }
 }));
@@ -118,6 +131,7 @@ selectLevel.addEventListener('click', (e) => {
   }
 });
 
+const overlay = document.querySelector('.overlay');
 const gameContainer = document.createElement('div');
 gameContainer.className = 'gameContainer';
 
@@ -169,6 +183,10 @@ function win() {
   }
   winners.push(winner);
   localStorage['minesweeper.winner'] = JSON.stringify(winners);
+  const sec = gameDuration / 10;
+  const info = `Hooray! You found all mines in ${sec} seconds and ${moveCount} moves!`;
+  modal.setContent(info);
+  modal.open();
 }
 function lost() {
   localStorage.removeItem('minesweeper.data');
@@ -176,6 +194,9 @@ function lost() {
   gameStatus = 'Lost';
   document.getElementById('idStatus').textContent = gameStatus;
   window.clearInterval(window.timerId);
+  const info = ' Game over. Try again';
+  modal.setContent(info);
+  modal.open();
 }
 function saveGame() {
   const stateData = {
@@ -363,3 +384,42 @@ gameContainer.addEventListener('contextmenu', (e) => {
     }
   }
 });
+
+// Popup modal windows
+const modalWindow = {};
+
+modalWindow.init = function () {
+  const modalElement = document.createElement('div');
+  modalElement.classList.add('modal');
+  container.prepend(modalElement);
+
+  const modal = {
+    open() {
+      modalElement.classList.add('active');
+      overlay.classList.add('active');
+      body.classList.add('stop-scrolling');
+    },
+    close() {
+      modalElement.classList.remove('active');
+      overlay.classList.remove('active');
+      body.classList.remove('stop-scrolling');
+    },
+  };
+
+  modalElement.addEventListener('click', e => {
+    if (e.target.classList.contains('close-btn')) {
+      modal.close();
+    }
+  });
+
+  return Object.assign(modal, {
+    setContent(modalContent) {
+      modalElement.innerHTML = `
+            <button class="close-btn">&times;</button>
+<div class="popup">${modalContent}</div>
+        `;
+    },
+  });
+};
+
+const modal = modalWindow.init();
