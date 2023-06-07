@@ -1,10 +1,10 @@
-import { INewsApiResponse, INewsApiSourcesResponse} from "../../types";
+import {NewsResp} from "../../types";
 class Loader {
     constructor(private readonly baseLink: string, private readonly options:Record<string, string>) {}
 
     getResp(
         { endpoint, options = {} }: { endpoint: string; options?: Record<string, string> },
-        callback = (data: INewsApiResponse|INewsApiSourcesResponse):void => {
+        callback = (data:NewsResp):void => {
             if (!data) console.error('No callback for GET response');
         }
     ):void {
@@ -32,7 +32,7 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    load(method:string, endpoint:string, callback:(data: INewsApiResponse|INewsApiSourcesResponse) => void, options = {}):void {
+    load(method:string, endpoint:string, callback:(data: NewsResp) => void, options = {}):void {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
             .then((res) => res.json())

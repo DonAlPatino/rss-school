@@ -1,3 +1,10 @@
+export enum Endpoints {
+    SOURCES = "sources",
+    NEWS = "everything",
+}
+
+export type NewsResp =  INewsApiResponse|INewsApiSourcesResponse;
+
 /**
  * If the request was successful or not. Options: ok, error. In the case of error a code and message property will be populated.
  */

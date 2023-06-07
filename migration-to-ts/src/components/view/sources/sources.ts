@@ -1,9 +1,8 @@
 import './sources.css';
-import '../../../types'
 import {INewsApiSourceItem} from "../../../types";
 
-class Sources {
-    draw(data:INewsApiSourceItem[]):void {
+class Sources <T extends INewsApiSourceItem>{
+    draw(data:T[]):void {
         const fragment:DocumentFragment = document.createDocumentFragment();
         const sourceItemTemp:HTMLTemplateElement |null = document.querySelector('#sourceItemTemp');
 
@@ -11,7 +10,8 @@ class Sources {
             if(sourceItemTemp) {
                 const sourceClone: HTMLElement = sourceItemTemp.content.cloneNode(true) as HTMLElement;
 
-                sourceClone.querySelector('.source__item-name')!.textContent = item.name;
+                const sourceItemName = sourceClone.querySelector('.source__item-name');
+                if (sourceItemName) sourceItemName.textContent = item.name
                 sourceClone.querySelector('.source__item')?.setAttribute('data-source-id', item.id);
 
                 fragment.append(sourceClone);

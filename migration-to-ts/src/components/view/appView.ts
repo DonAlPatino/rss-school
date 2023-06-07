@@ -4,8 +4,8 @@ import {INewsApiArticle, INewsApiResponse, INewsApiSourceItem, INewsApiSourcesRe
 
 
 export class AppView {
-    private readonly news: News;
-    private readonly sources: Sources;
+    private readonly news: News<INewsApiArticle>;
+    private readonly sources: Sources<INewsApiSourceItem>;
     constructor() {
         this.news = new News();
         this.sources = new Sources();

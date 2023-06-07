@@ -1,6 +1,6 @@
 import AppController from '../controller/controller';
 import { AppView } from '../view/appView';
-import { INewsApiResponse, INewsApiSourcesResponse} from "../../types";
+import { INewsApiResponse, INewsApiSourcesResponse, NewsResp } from "../../types";
 
 class App {
     private readonly controller: AppController;
@@ -11,8 +11,8 @@ class App {
     }
 
     start():void {
-        document.querySelector('.sources')?.addEventListener('click', (e:Event) => this.controller.getNews(e, (data:INewsApiSourcesResponse|INewsApiResponse) => this.view.drawNews(data as INewsApiResponse)));
-        this.controller.getSources((data:INewsApiSourcesResponse|INewsApiResponse) => this.view.drawSources(data as INewsApiSourcesResponse));
+        document.querySelector('.sources')?.addEventListener('click', (e:Event) => this.controller.getNews(e, (data:NewsResp) => this.view.drawNews(<INewsApiResponse>data)));
+        this.controller.getSources((data:NewsResp) => this.view.drawSources(data as INewsApiSourcesResponse));
     }
 }
 
