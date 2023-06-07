@@ -11,10 +11,8 @@ class App {
     }
 
     start():void {
-        document.querySelector('.sources')?.addEventListener('click', (e) => this.controller.getNews(e, (data:INewsApiResponse) => this.view.drawNews(data)));
-
-
-        this.controller.getSources((data:INewsApiSourcesResponse) => this.view.drawSources(data));
+        document.querySelector('.sources')?.addEventListener('click', (e) => this.controller.getNews(e, (data:INewsApiSourcesResponse|INewsApiResponse) => this.view.drawNews(data as INewsApiResponse)));
+        this.controller.getSources((data:INewsApiSourcesResponse|INewsApiResponse) => this.view.drawSources(data as INewsApiSourcesResponse));
     }
 }
 

@@ -1,7 +1,8 @@
 import AppLoader from './appLoader';
+import {INewsApiResponse, INewsApiSourcesResponse} from "../../types";
 
 class AppController extends AppLoader {
-    getSources(callback):void {
+    getSources(callback:(data:INewsApiSourcesResponse|INewsApiResponse)=>void):void {
         if (typeof callback === 'function' ) {
         super.getResp(
             {
@@ -12,7 +13,7 @@ class AppController extends AppLoader {
     }
     }
 
-    getNews(e:Event, callback):void {
+    getNews(e:Event, callback:(data:INewsApiSourcesResponse|INewsApiResponse)=>void):void {
         let target: EventTarget | null = e.target;
         const newsContainer: EventTarget | null = e.currentTarget;
         if (typeof callback === 'function') {

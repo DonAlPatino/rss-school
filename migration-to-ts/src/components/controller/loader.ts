@@ -4,7 +4,7 @@ class Loader {
 
     getResp(
         { endpoint, options = {} }: { endpoint: string; options?: Record<string, string> },
-        callback = ():void => {
+        callback = (data: INewsApiResponse|INewsApiSourcesResponse):void => {
             console.error('No callback for GET response');
         }
     ):void {
