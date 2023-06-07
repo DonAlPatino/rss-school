@@ -4,12 +4,12 @@ import {INewsApiArticle} from "../../../types";
 
 class News {
     draw(data:INewsApiArticle[]):void {
-        const news = data.length >= 10 ? data.filter((_item, idx) => idx < 10) : data;
+        const news:INewsApiArticle[] = data.length >= 10 ? data.filter((_item:INewsApiArticle, idx:number):boolean => idx < 10) : data;
 
-        const fragment = document.createDocumentFragment();
+        const fragment:DocumentFragment = document.createDocumentFragment();
         const newsItemTemp:HTMLTemplateElement |null = document.querySelector('#newsItemTemp');
 
-        news.forEach((item, idx) => {
+        news.forEach((item:INewsApiArticle, idx:number):void => {
             if (newsItemTemp) {
                 const newsClone: HTMLElement = newsItemTemp.content.cloneNode(true) as HTMLElement;
 
