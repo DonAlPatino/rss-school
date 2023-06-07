@@ -1,7 +1,7 @@
 import AppLoader from './appLoader';
 
 class AppController extends AppLoader {
-    getSources(callback:void):void {
+    getSources(callback):void {
         if (typeof callback === 'function' ) {
         super.getResp(
             {
@@ -12,7 +12,7 @@ class AppController extends AppLoader {
     }
     }
 
-    getNews(e:Event, callback:void):void {
+    getNews(e:Event, callback):void {
         let target: EventTarget | null = e.target;
         const newsContainer: EventTarget | null = e.currentTarget;
         if (typeof callback === 'function') {

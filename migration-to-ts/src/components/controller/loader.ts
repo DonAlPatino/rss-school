@@ -1,3 +1,4 @@
+import { INewsApiResponse, INewsApiSourcesResponse} from "../../types";
 class Loader {
     constructor(private readonly baseLink: string, private readonly options:Record<string, string>) {}
 
@@ -20,7 +21,7 @@ class Loader {
         return res;
     }
 
-    makeUrl(options:Record<string, unknown>, endpoint:string):string {
+    makeUrl(options:Record<string, string>, endpoint:string):string {
         const urlOptions = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
 
@@ -31,7 +32,7 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    load(method:string, endpoint:string, callback:(data: unknown) => void, options = {}):void {
+    load(method:string, endpoint:string, callback:(data: INewsApiResponse|INewsApiSourcesResponse) => void, options = {}):void {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
             .then((res) => res.json())
