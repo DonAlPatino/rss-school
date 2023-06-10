@@ -3,6 +3,7 @@ import {INewsApiArticle} from "../../../types";
 
 class News <T extends INewsApiArticle>{
     draw(data:T[]):void {
+
         const news:INewsApiArticle[] = data.length >= 10 ? data.filter((_item:INewsApiArticle, idx:number):boolean => idx < 10) : data;
 
         const fragment:DocumentFragment = document.createDocumentFragment();

@@ -3,6 +3,10 @@ export enum Endpoints {
     NEWS = "everything",
 }
 
+export enum StatusCode {
+    Unauthorized = 401,
+    NotFound = 404,
+}
 export type NewsResp =  INewsApiResponse|INewsApiSourcesResponse;
 
 /**

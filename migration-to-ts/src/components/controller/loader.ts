@@ -1,4 +1,4 @@
-import {NewsResp} from "../../types";
+import {NewsResp, StatusCode} from "../../types";
 class Loader {
     constructor(private readonly baseLink: string, private readonly options:Record<string, string>) {}
 
@@ -13,7 +13,7 @@ class Loader {
 
     errorHandler(res: Response): Response {
         if (!res.ok) {
-            if (res.status === 401 || res.status === 404)
+            if (res.status === StatusCode.Unauthorized || res.status === StatusCode.NotFound)
                 console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
             throw Error(res.statusText);
         }
@@ -25,7 +25,7 @@ class Loader {
         const urlOptions = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
 
-        Object.keys(urlOptions).forEach((key) => {
+        Object.keys(urlOptions).forEach((key:string):void => {
             url += `${key}=${urlOptions[key]}&`;
         });
 
