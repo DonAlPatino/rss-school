@@ -13,3 +13,11 @@ export const cloneNode =<T extends HTMLTemplateElement> (root: T): DocumentFragm
     }
     return element
 }
+
+export const getElementOfDocument = <T extends HTMLElement>( selector: string): T => {
+    const element = document.querySelector<T>(selector)
+    if (!element) {
+        throw new TypeError(`Error - can't get selector`)
+    }
+    return element
+}

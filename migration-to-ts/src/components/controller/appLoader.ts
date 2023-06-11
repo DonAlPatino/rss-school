@@ -1,8 +1,8 @@
 import Loader from './loader';
-
+const API = ' http://127.0.0.1:8075/' //'https://newsapi.org/v2/'
 class AppLoader extends Loader {
     constructor() {
-        super('https://newsapi.org/v2/', {
+        super(API, {
             apiKey: 'd030673bb6a44819857a36af4aca6eb9', // получите свой ключ https://newsapi.org/
         });
     }
