@@ -1,5 +1,6 @@
 import Loader from './loader';
-const API = ' http://127.0.0.1:8075/' //'https://newsapi.org/v2/'
+// const API = ' http://127.0.0.1:8075/' //'https://newsapi.org/v2/'
+const API = 'https://rss-news-api.onrender.com/'
 class AppLoader extends Loader {
     constructor() {
         super(API, {
