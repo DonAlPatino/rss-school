@@ -1,6 +1,6 @@
 import './news.css';
 import {INewsApiArticle} from "../../../types";
-import {getElement} from "../util";
+import {cloneNode, getElement} from "../util";
 
 
 class News <T extends INewsApiArticle>{
@@ -13,8 +13,12 @@ class News <T extends INewsApiArticle>{
 
         news.forEach((item:INewsApiArticle, idx:number):void => {
             if (newsItemTemp) {
-                const newsClone: HTMLElement = newsItemTemp.content.cloneNode(true) as HTMLElement;
+                const newsClone:DocumentFragment = cloneNode(newsItemTemp);
+                /*const newsClone:Node  = newsItemTemp.content.cloneNode(true);
 
+                if (!(newsClone instanceof DocumentFragment)) {
+                    throw new TypeError(`Error - can't clone template`)
+                }*/
                 if (idx % 2) newsClone.querySelector('.news__item')?.classList.add('alt');
 
                 /*newsClone.querySelector<HTMLElement>('.news__meta-photo')!.style.backgroundImage = `url(${
