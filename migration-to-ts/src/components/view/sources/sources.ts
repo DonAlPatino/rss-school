@@ -4,7 +4,6 @@ import {getElement,cloneNode,getElementOfDocument} from "../util";
 class Sources <T extends INewsApiSourceItem>{
     draw(data:T[]):void {
         const fragment:DocumentFragment = document.createDocumentFragment();
-        // const sourceItemTemp:HTMLTemplateElement |null = document.querySelector('#sourceItemTemp');
         const sourceItemTemp:HTMLTemplateElement = getElementOfDocument('#sourceItemTemp');
         data.forEach((item:INewsApiSourceItem) => {
                 const sourceClone:DocumentFragment = cloneNode(sourceItemTemp);
@@ -13,8 +12,6 @@ class Sources <T extends INewsApiSourceItem>{
                 fragment.append(sourceClone);
         });
         getElementOfDocument('.sources').appendChild(fragment);
-        // document.querySelector('.sources')?.append(fragment);
-
     }
 }
 

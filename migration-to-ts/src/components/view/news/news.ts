@@ -9,8 +9,7 @@ class News <T extends INewsApiArticle>{
         const news:INewsApiArticle[] = data.length >= 10 ? data.filter((_item:INewsApiArticle, idx:number):boolean => idx < 10) : data;
 
         const fragment:DocumentFragment = document.createDocumentFragment();
-        // const newsItemTemp:HTMLTemplateElement |null = document.querySelector('#newsItemTemp');
-        const newsItemTemp:HTMLTemplateElement = getElementOfDocument('#newsItemTemp');
+         const newsItemTemp:HTMLTemplateElement = getElementOfDocument('#newsItemTemp');
         news.forEach((item:INewsApiArticle, idx:number):void => {
                 const newsClone:DocumentFragment = cloneNode(newsItemTemp);
                 if (idx % 2) newsClone.querySelector('.news__item')?.classList.add('alt');
@@ -30,11 +29,8 @@ class News <T extends INewsApiArticle>{
                 fragment.append(newsClone);
         });
 
-            // document.querySelector('.news')!.innerHTML = '';
         getElementOfDocument('.news').innerHTML = '';
         getElementOfDocument('.news').appendChild(fragment);
-            // document.querySelector('.news')?.appendChild(fragment);
-
     }
 }
 export default News;
