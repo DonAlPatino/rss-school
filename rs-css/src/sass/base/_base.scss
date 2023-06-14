@@ -31,6 +31,17 @@ h4 {
     overflow-x: hidden;
 }
 
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: $content-width;
+
+    &_task {
+        flex-basis: 20%;
+    }
+}
+
 .left-container {
     flex-grow: 4;
     display: flex;

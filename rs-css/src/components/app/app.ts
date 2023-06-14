@@ -1,6 +1,10 @@
 import {getElementOfDocument} from "../../util";
+import TaskComponent from "../task.component";
 class App {
-    constructor() {}
+    private taskComponent: TaskComponent;
+    constructor() {
+        this.taskComponent = new TaskComponent(`Select the apple on the plate`);
+    }
 
     start():void {console.log("Starting");
         const appContainer = getElementOfDocument('.app-container');
@@ -13,6 +17,7 @@ class App {
 
         appContainer.append(leftContainer);
         appContainer.append(rightContainer);
+        leftContainer.append(this.taskComponent.render());
     }
 }
 
