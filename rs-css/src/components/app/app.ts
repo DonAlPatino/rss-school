@@ -1,9 +1,16 @@
 import {getElementOfDocument} from "../../util";
-import TaskComponent from "../task.component";
+import TaskComponent from "../taskComponent";
+import GameComponent from "../gameComponent";
+import EditorComponent from "../editorComponent";
+
 class App {
     private taskComponent: TaskComponent;
+    private gameComponent: GameComponent;
+    private editorComponent: EditorComponent;
     constructor() {
         this.taskComponent = new TaskComponent(`Select the apple on the plate`);
+        this.gameComponent = new GameComponent(`Как я это сделаю - я не знаю`);
+        this.editorComponent = new EditorComponent(`Тут будет редактор`);
     }
 
     start():void {console.log("Starting");
@@ -18,6 +25,8 @@ class App {
         appContainer.append(leftContainer);
         appContainer.append(rightContainer);
         leftContainer.append(this.taskComponent.render());
+        leftContainer.append(this.gameComponent.render());
+        leftContainer.append(this.editorComponent.render());
     }
 }
 

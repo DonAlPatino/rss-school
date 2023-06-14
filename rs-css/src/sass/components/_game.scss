@@ -1,0 +1,13 @@
+.game {
+    width: 100%;
+    flex-basis: 30%;
+}
+
+.game .hovered {
+    border: 3px solid rgb(252, 229, 177, .7);
+
+    &:after {
+        filter: brightness(130%);
+    }
+}
+
