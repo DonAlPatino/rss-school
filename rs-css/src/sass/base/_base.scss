@@ -55,15 +55,16 @@ h4 {
 }
 
 .right-container {
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
-    position: fixed;
+    max-width: 370px;
+    min-height: 100vh;
+    /*position: fixed;
     top: 0;
     right: -100%;
     flex-grow: 1;
-    max-width: 370px;
-    min-height: 100vh;
-    padding: 20px 15px;
+    padding: 20px 15px;*/
     background-color: $color-secondary;
     font-size: 1.5rem;
     line-height: 2.3rem;
@@ -71,6 +72,8 @@ h4 {
     overflow: hidden;
     z-index: 10;
 }
+
+/* Footer */
 
 .footer {
     display: flex;
@@ -87,4 +90,21 @@ h4 {
 }
 .footer .copyright a:hover {
     color: #555;
+}
+
+/* Tag treatment for the level helpers & examples */
+
+tag {
+    font-family: monospace, sans-serif;
+    background-color: #2b2b2b;
+    padding: 2px 7px;
+    font-size: 1.3rem;
+}
+
+tag:before {
+    content: "<";
+}
+
+tag:after {
+    content: ">";
 }

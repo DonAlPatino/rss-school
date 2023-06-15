@@ -1,0 +1,62 @@
+.level-panel {
+    height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    overflow: hidden;
+
+    &.active {
+        flex-grow: 1;
+        padding: 5px;
+    }
+
+    &__header {
+        height: 70px;
+    }
+
+    &__description {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+
+        &.scroll {
+            overflow-y: auto;
+        }
+    }
+}
+
+.description {
+
+    &__syntax {
+        & tag {
+            font-size: 2rem;
+            line-height: 7rem;
+            padding: 8px 10px;
+            border: 1px solid #333333;
+        }
+    }
+
+    &__hint {
+        padding-bottom: 30px;
+    }
+
+    &__hint strong,
+    &__hint tag {
+        color: #AAA;
+        background: rgba(255,255,255,.1);
+        padding: 3px 6px 3px 6px;
+        margin: 0px 2px;
+        font-size: 13px;
+        font-family: menlo,monospace;
+        font-weight: normal;
+    }
+
+    &__example {
+        padding-bottom: 8px;
+        border-bottom: solid 1px rgba(255,255,255,.1);
+    }
+    &__example:last-child {
+        border: none;
+    }
+}

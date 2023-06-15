@@ -1,0 +1,133 @@
+.navigation {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+
+    &__top {
+        display: flex;
+        justify-content: flex-end;
+        padding: 20px;
+        /*padding-bottom: 20px;
+        margin-right: 30px;*/
+    }
+
+    &__level {
+        flex-grow: 3;
+        display: flex;
+        align-items: center;
+
+        &>* {
+            padding-right: 5px;
+        }
+    }
+
+    &__arrows {
+        flex-grow: 2;
+    }
+
+    &__arrow {
+        background-color: transparent;
+        color: $color-light;
+        border: none;
+        outline-style: none;
+        transition: .2s linear;
+        cursor: pointer;
+
+        &:hover {
+            color: $color-light-2;
+        }
+    }
+
+    &__menu-toggle {
+        position: absolute;
+        top: 20px;
+        right: 15px;
+        width: 27px;
+        height: 20px;
+        cursor: pointer;
+        z-index: 11;
+
+        &.active {
+            &:before {
+                transform: rotate(45deg);
+
+            }
+
+            &:after {
+                transform: rotate(-45deg);
+            }
+
+            & span {
+                display: none;
+            }
+        }
+
+        &:hover span,
+        &:hover:before,
+        &:hover:after {
+            background-color: $color-light-2;
+        }
+
+        &:before {
+            content: '';
+            top: 0;
+            transform-origin: left top;
+        }
+
+        &:after {
+            content: '';
+            bottom: 0;
+            transform-origin: left bottom;
+        }
+
+        & span {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        & span,
+        &:before,
+        &:after {
+            position: absolute;
+            left: 0;
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: $color-light;
+            transition: .2s linear;
+        }
+    }
+
+    &__choose-level-button {
+        background-color: $color-dark;
+        color: $color-light;
+        border: none;
+        outline-style: none;
+        padding: 5px;
+        transition: .2s linear;
+        border-radius: 3px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $color-primary;
+        }
+    }
+}
+
+.level__check {
+    font-weight: bold;
+    -webkit-text-stroke-width: 1px;
+    color: $color-primary;
+
+    &.done {
+        color: $color-done;
+    }
+}
+
+.level__with-help {
+    color: $color-primary;
+
+    &.active {
+        color: $color-light;
+    }
+}
