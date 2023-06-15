@@ -9,6 +9,7 @@ export interface IData {
     boardMarkup: string;
 }
 
+//TODO почистить
 export enum Endpoints {
     SOURCES = "sources",
     NEWS = "everything",

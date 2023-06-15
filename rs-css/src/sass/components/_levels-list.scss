@@ -1,0 +1,51 @@
+.levels-navigation {
+    height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    transition: .2s linear;
+
+    &.active {
+        flex-grow: 1;
+    }
+
+    &__container {
+        margin-bottom: 10px;
+
+        &.scroll {
+            overflow-y: auto;
+        }
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+        padding: 5px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $color-dark-2;
+        }
+
+        &.active {
+            background-color: $color-dark;
+        }
+
+        &>* {
+            padding-right: 5px;
+        }
+    }
+
+    & .level__check {
+        font-size: 1.6rem;
+    }
+
+    & .level__with-help {
+        color: $color-primary;
+
+        &.active {
+            color: $color-light;
+        }
+    }
+}

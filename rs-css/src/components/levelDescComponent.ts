@@ -10,7 +10,8 @@ export default class LevelDescComponent {
     render(): HTMLDivElement {
 
         this.levelPanel.classList.add('level-panel');
-        this.levelPanel.classList.add('active');
+        // TODO надо сделать кнопку
+        //this.levelPanel.classList.add('active');
 
         this.levelPanel.append(this.generateLevelDescriptionView());
         // this.levelPanel.append(this.generateHelpButton());
@@ -20,7 +21,6 @@ export default class LevelDescComponent {
     generateLevelDescriptionView(): HTMLDivElement {
         const examples = document.createElement('div');
         examples.classList.add('description__examples');
-
         this.levelDescription.examples.forEach((example) => {
             examples.innerHTML += `<div class="description__example">${example}</div>`;
         });
@@ -35,7 +35,6 @@ export default class LevelDescComponent {
                                             <div class="description__hint">${this.levelDescription.help}</div>
                                             <h4>Examples</h4>`;
         levelPanelDescription.append(examples);
-
         return levelPanelDescription;
     }
 }

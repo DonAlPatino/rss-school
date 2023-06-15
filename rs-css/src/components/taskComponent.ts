@@ -1,7 +1,7 @@
 export default class TaskComponent {
-  private readonly task: string;
-  constructor(task:string) {
-    this.task = task;
+  private readonly taskTitle: string;
+  constructor(taskTitle:string) {
+    this.taskTitle = taskTitle;
   }
 
   render():HTMLDivElement {
@@ -10,7 +10,7 @@ export default class TaskComponent {
 
     const task = document.createElement('div');
     task.classList.add('task');
-    task.innerText = this.task;
+    task.innerText = this.taskTitle;
 
     container.append(task);
 

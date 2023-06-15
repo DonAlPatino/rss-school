@@ -3,7 +3,7 @@ import TaskComponent from "../taskComponent";
 import GameComponent from "../gameComponent";
 import EditorComponent from "../editorComponent";
 import {NavComponent} from "../navComponent";
-import {LevelListComponent} from "../levelListComponent";
+import LevelListComponent from "../levelListComponent";
 import LevelDescComponent from "../levelDescComponent";
 import {levels} from "../../data/data";
 
@@ -12,14 +12,15 @@ class App {
     private gameComponent: GameComponent;
     private editorComponent: EditorComponent;
     private navComponent: NavComponent;
-    //private levelListComponent: LevelListComponent;
     private levelDescComponent: LevelDescComponent;
+    private levelListComponent: LevelListComponent;
     constructor() {
         this.taskComponent = new TaskComponent(levels[0].helpTitle);
         this.gameComponent = new GameComponent(`Как я это сделаю - я не знаю`);
         this.editorComponent = new EditorComponent(`Тут будет редактор`);
         this.navComponent = new NavComponent();
         this.levelDescComponent = new LevelDescComponent(levels[0]);
+        this.levelListComponent = new LevelListComponent(levels);
     }
 
     start():void {console.log("Starting");
@@ -38,7 +39,7 @@ class App {
         leftContainer.append(this.editorComponent.render());
 
         rightContainer.append(this.navComponent.render());
-        //rightContainer.append(this.levelListComponent.render());
+        rightContainer.append(this.levelListComponent.render());
         rightContainer.append(this.levelDescComponent.render());
 
     }
