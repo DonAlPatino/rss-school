@@ -1,8 +1,10 @@
 import LevelDescComponent from "./levelDescComponent";
 import LevelListComponent from "./levelListComponent";
+import State from "../state";
+import {levels} from "../data/data";
 
 export class NavComponent {
-    private level: number;
+    private currentLevel: number;
     private isDone: boolean;
     private isWithHelp: boolean;
     private levelListButton: HTMLButtonElement;
@@ -10,12 +12,14 @@ export class NavComponent {
     private menuToggleButton: HTMLDivElement;
     private _levelDescComponent: LevelDescComponent;
     private _levelListComponent: LevelListComponent;
+    private state: State;
 
-    constructor(levelDescComponent: LevelDescComponent, levelListComponent: LevelListComponent) {
+    constructor(state: State, levelDescComponent: LevelDescComponent, levelListComponent: LevelListComponent) {
+        this.state = state;
         this._levelDescComponent = levelDescComponent;
         this._levelListComponent = levelListComponent;
-        this.level = 1;
-        this.maxLevel = 10;
+        this.currentLevel = state.getCurrentLevel();
+        this.maxLevel = levels.length;
         this.levelListButton = document.createElement('button');
         this.isDone=false;
         this.isWithHelp=false;
@@ -27,7 +31,7 @@ export class NavComponent {
         const navigationTop = document.createElement('div');
         navigationTop.classList.add('navigation__top');
         navigationTop.innerHTML = `<h2 class="navigation__level">
-                                        <span>Level ${this.level} of ${this.maxLevel}</span>
+                                        <span>Level ${this.currentLevel} of ${this.maxLevel}</span>
                                         <span class="level__check ${this.isDone ? 'done' : ''} material-icons">
                                             done
                                         </span>
@@ -42,12 +46,12 @@ export class NavComponent {
         const buttonPrev = document.createElement('button');
         buttonPrev.classList.add('navigation__arrow');
         buttonPrev.innerHTML = '<span class="material-icons">arrow_back_ios</span>';
-        //this.bindNavButtonListener('prev', buttonPrev);
+        this.bindNavButtonListener('prev', buttonPrev);
 
         const buttonNext = document.createElement('button');
         buttonNext.classList.add('navigation__arrow');
         buttonNext.innerHTML = '<span class="material-icons">arrow_forward_ios</span>';
-        //this.bindNavButtonListener('next', buttonNext);
+        this.bindNavButtonListener('next', buttonNext);
 
 
         this.menuToggleButton.classList.add('navigation__menu-toggle');
@@ -69,12 +73,36 @@ export class NavComponent {
         this.menuToggleButton.classList.toggle('active');
         this._levelDescComponent.toggle();
         this._levelListComponent.toggle();
-        /*this.rightContainer.classList.toggle('active');
-
-        if (this.windowSize <= 768 && this.rightContainer.classList.contains('active')) {
+        //TODO адаптивность?
+        /*
+        if (windowSize <= 768 && rightContainer.classList.contains('active')) {
             document.body.style.overflow = 'hidden';
         } else {
             document.body.style.overflow = 'auto';
         } */
+    }
+    bindNavButtonListener(value:string, buttonElement:HTMLButtonElement): void {
+        switch (value) {
+            case 'prev':
+                buttonElement.addEventListener('click', () => {
+                    if (this.currentLevel > 1) {
+                        this.currentLevel -= 1;
+                        //this.changeLevel(this.currentLevel);
+                        this.state.setCurrentLevel(this.currentLevel);
+                    }
+                });
+                break;
+            case 'next':
+                buttonElement.addEventListener('click', () => {
+                    if (this.currentLevel < this.maxLevel) {
+                        this.currentLevel += 1;
+                        //this.changeLevel(this.currentLevel);
+                        this.state.setCurrentLevel(this.currentLevel);
+                    }
+                });
+                break;
+            default:
+                break;
+        }
     }
 }

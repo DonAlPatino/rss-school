@@ -6,6 +6,7 @@ import {NavComponent} from "../navComponent";
 import LevelListComponent from "../levelListComponent";
 import LevelDescComponent from "../levelDescComponent";
 import {levels} from "../../data/data";
+import State from "../../state";
 
 class App {
     private taskComponent: TaskComponent;
@@ -14,13 +15,17 @@ class App {
     private navComponent: NavComponent;
     private levelDescComponent: LevelDescComponent;
     private levelListComponent: LevelListComponent;
+    private currentLevel: number;
+
     constructor() {
-        this.taskComponent = new TaskComponent(levels[0].helpTitle);
+        const state = new State();
+        this.currentLevel = state.getCurrentLevel();
+        this.taskComponent = new TaskComponent(levels[this.currentLevel].helpTitle);
         this.gameComponent = new GameComponent(`Как я это сделаю - я не знаю`);
         this.editorComponent = new EditorComponent(`Тут будет редактор`);
-        this.levelDescComponent = new LevelDescComponent(levels[0]);
+        this.levelDescComponent = new LevelDescComponent(levels[this.currentLevel]);
         this.levelListComponent = new LevelListComponent(levels);
-        this.navComponent = new NavComponent(this.levelDescComponent,this.levelListComponent );
+        this.navComponent = new NavComponent(state, this.levelDescComponent,this.levelListComponent );
     }
 
     start():void {console.log("Starting");
