@@ -14,6 +14,7 @@ export class NavComponent {
     private _levelDescComponent: LevelDescComponent;
     private _levelListComponent: LevelListComponent;
     private state: State;
+    private readonly template:string = '';
 
     constructor(state: State, levelDescComponent: LevelDescComponent, levelListComponent: LevelListComponent) {
         this.state = state;
@@ -25,21 +26,23 @@ export class NavComponent {
         this.isDone=false;
         this.isWithHelp=false;
         this.menuToggleButton = document.createElement('div');
+        this.template = `<span>Level ${this.currentLevel} of ${this.maxLevel}</span>
+                                    <span class="level__check ${this.isDone ? 'done' : ''} material-icons">
+                                        done
+                                    </span>
+                                    <span class="level__with-help ${this.isWithHelp ? 'active' : ''} material-icons">
+                                        remove_red_eye
+                                    </span>`;
     }
+
+
+
     render(): HTMLDivElement {
         const navigation = document.createElement('div');
         navigation.classList.add('navigation');
         const navigationTop = document.createElement('div');
         navigationTop.classList.add('navigation__top');
-        navigationTop.innerHTML = `<h2 class="navigation__level">
-                                        <span>Level ${this.currentLevel} of ${this.maxLevel}</span>
-                                        <span class="level__check ${this.isDone ? 'done' : ''} material-icons">
-                                            done
-                                        </span>
-                                        <span class="level__with-help ${this.isWithHelp ? 'active' : ''} material-icons">
-                                            remove_red_eye
-                                        </span>
-                                    </h2>`;
+        navigationTop.innerHTML = `<h2 class="navigation__level"> ${this.template}</h2>`;
 
         const navigationArrows = document.createElement('div');
         navigationArrows.classList.add('navigation__arrows');
@@ -80,6 +83,7 @@ export class NavComponent {
                                         <span class="level__with-help ${this.isWithHelp ? 'active' : ''} material-icons">
                                             remove_red_eye
                                         </span>`;
+        this._levelDescComponent.updateLevelDesc(levels[this.currentLevel])
     }
     private toggleMenu():void {
         this.menuToggleButton.classList.toggle('active');
