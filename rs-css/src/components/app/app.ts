@@ -18,9 +18,9 @@ class App {
         this.taskComponent = new TaskComponent(levels[0].helpTitle);
         this.gameComponent = new GameComponent(`Как я это сделаю - я не знаю`);
         this.editorComponent = new EditorComponent(`Тут будет редактор`);
-        this.navComponent = new NavComponent();
         this.levelDescComponent = new LevelDescComponent(levels[0]);
         this.levelListComponent = new LevelListComponent(levels);
+        this.navComponent = new NavComponent(this.levelDescComponent,this.levelListComponent );
     }
 
     start():void {console.log("Starting");

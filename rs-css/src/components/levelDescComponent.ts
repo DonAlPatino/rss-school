@@ -7,12 +7,13 @@ export default class LevelDescComponent {
         this.levelDescription = levelDescription;
         this.levelPanel = document.createElement('div');
     }
+    toggle():void{
+        this.levelPanel.classList.toggle('active');
+    }
     render(): HTMLDivElement {
 
         this.levelPanel.classList.add('level-panel');
-        // TODO надо сделать кнопку
-        //this.levelPanel.classList.add('active');
-
+        this.levelPanel.classList.add('active');
         this.levelPanel.append(this.generateLevelDescriptionView());
         // this.levelPanel.append(this.generateHelpButton());
 

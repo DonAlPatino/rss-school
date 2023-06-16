@@ -15,10 +15,11 @@ export default class LevelListComponent {
         this.levelsList = document.createElement('div');
         this.levelsListContainer = document.createElement('div');
     }
+    toggle():void{
+        this.levelsList.classList.toggle('active');
+    }
     render():HTMLDivElement {
         this.levelsList.classList.add('levels-navigation');
-        // TODO надо сделать кнопку
-        this.levelsList.classList.add('active');
         this.levelsList.append(this.generateLevelsList());
         //TODO reset button
 
