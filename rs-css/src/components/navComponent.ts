@@ -2,6 +2,7 @@ import LevelDescComponent from "./levelDescComponent";
 import LevelListComponent from "./levelListComponent";
 import State from "../state";
 import {levels} from "../data/data";
+import {getElementOfDocument} from "../util";
 
 export class NavComponent {
     private currentLevel: number;
@@ -68,7 +69,18 @@ export class NavComponent {
 
         return navigation;
     }
-
+    updateNavLevel(): void {
+        //TODO надо позвать обновление levelDesck
+        this.state.setCurrentLevel(this.currentLevel);
+        const navigationLevel = getElementOfDocument('.navigation__level');
+        navigationLevel.innerHTML = `<span>Level ${this.currentLevel} of ${this.maxLevel}</span>
+                                        <span class="level__check ${this.isDone ? 'done' : ''} material-icons">
+                                            done
+                                        </span>
+                                        <span class="level__with-help ${this.isWithHelp ? 'active' : ''} material-icons">
+                                            remove_red_eye
+                                        </span>`;
+    }
     private toggleMenu():void {
         this.menuToggleButton.classList.toggle('active');
         this._levelDescComponent.toggle();
@@ -88,7 +100,7 @@ export class NavComponent {
                     if (this.currentLevel > 1) {
                         this.currentLevel -= 1;
                         //this.changeLevel(this.currentLevel);
-                        this.state.setCurrentLevel(this.currentLevel);
+                        this.updateNavLevel();
                     }
                 });
                 break;
@@ -97,7 +109,7 @@ export class NavComponent {
                     if (this.currentLevel < this.maxLevel) {
                         this.currentLevel += 1;
                         //this.changeLevel(this.currentLevel);
-                        this.state.setCurrentLevel(this.currentLevel);
+                        this.updateNavLevel();
                     }
                 });
                 break;
