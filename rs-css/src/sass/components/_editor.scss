@@ -91,7 +91,7 @@
 
     &__window {
         position: relative;
-        height: calc(100% - 50px);
+        height: 30em;
         border: 1px solid $color-primary;
         color: $color-light;
         font-size: 1.4rem;
@@ -106,6 +106,9 @@
     &__line-numbers {
         display: flex;
         justify-content: flex-end;
+        position: absolute;
+        top: 0;
+        left: 0;
         padding: 8px;
         width: 40px;
         height: 100%;
