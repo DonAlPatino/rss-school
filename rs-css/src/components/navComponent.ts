@@ -3,6 +3,7 @@ import LevelListComponent from "./levelListComponent";
 import State from "../state";
 import {levels} from "../data/data";
 import {getElementOfDocument} from "../util";
+import TaskComponent from "./taskComponent";
 
 export class NavComponent {
     private currentLevel: number;
@@ -15,11 +16,13 @@ export class NavComponent {
     private _levelListComponent: LevelListComponent;
     private state: State;
     private readonly template:string = '';
+    private _taskComponent: TaskComponent;
 
-    constructor(state: State, levelDescComponent: LevelDescComponent, levelListComponent: LevelListComponent) {
+    constructor(state: State, levelDescComponent: LevelDescComponent, levelListComponent: LevelListComponent, taskComponent: TaskComponent) {
         this.state = state;
         this._levelDescComponent = levelDescComponent;
         this._levelListComponent = levelListComponent;
+        this._taskComponent = taskComponent;
         this.currentLevel = state.getCurrentLevel();
         this.maxLevel = levels.length;
         this.levelListButton = document.createElement('button');
@@ -84,6 +87,8 @@ export class NavComponent {
                                             remove_red_eye
                                         </span>`;
         this._levelDescComponent.updateLevelDesc(levels[this.currentLevel])
+        this._taskComponent.updateTask(levels[this.currentLevel])
+
     }
     private toggleMenu():void {
         this.menuToggleButton.classList.toggle('active');

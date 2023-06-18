@@ -13,7 +13,7 @@ html {
 body {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    max-height: 100vh;
     font-family: "Exo 2", "Lato", "Helvetica Neue", sans-serif;
 }
 
@@ -32,12 +32,23 @@ h4 {
     overflow-x: hidden;
 }
 
-.container {
+.container_task {
     display: flex;
     justify-content: center;
     align-items: center;
     max-width: $content-width;
+    &_task {
+        flex-basis: 20%;
+    }
+}
 
+.container_editor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: $content-width;
+    width: 100%;
+    flex-basis: 40%;
     &_task {
         flex-basis: 20%;
     }
@@ -47,6 +58,7 @@ h4 {
     flex-grow: 4;
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
     justify-content: space-between;
     align-items: center;
     font-size: 1.5rem;

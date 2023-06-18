@@ -1,18 +1,24 @@
+import {EditorCssPanelComponent} from "./editorCssPanelComponent";
+import {EditorHtmlPanelComponent} from "./editorHtmlPanelComponent";
+
 export default class  EditorComponent {
-    private readonly task: string;
-    constructor(task:string) {
-        this.task = task;
+    private editorCssPanelComponent: EditorCssPanelComponent;
+    private editorHtmlPanelComponent: EditorHtmlPanelComponent;
+    constructor() {
+        this.editorCssPanelComponent = new EditorCssPanelComponent();
+        this.editorHtmlPanelComponent = new EditorHtmlPanelComponent();
     }
 
     render():HTMLDivElement {
         const container = document.createElement('div');
-        container.classList.add('editor');
+        container.classList.add('container_editor');
+        const editor = document.createElement('div');
+        editor.classList.add('editor');
 
-        const task = document.createElement('div');
-        task.classList.add('task');
-        task.innerText = this.task;
+        editor.append(this.editorCssPanelComponent.render());
+        editor.append(this.editorHtmlPanelComponent.render());
 
-        container.append(task);
+        container.append(editor);
 
         return container;
     }

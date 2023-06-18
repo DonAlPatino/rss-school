@@ -1,9 +1,7 @@
 .editor {
-    position: relative;
-    top: 0;
-    left: 0;
     font-family: monospace, sans-serif;
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
     width: 90%;
     height: 100%;
@@ -13,3 +11,114 @@
     padding: 10px;
 
 }
+
+.css-panel {
+    flex-grow: 1;
+    flex-basis: 50%;
+    height: 100%;
+    overflow: hidden;
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 15px;
+        height: 50px;
+        border-top: 1px solid $color-primary;
+        border-left: 1px solid $color-primary;
+        background-color: $color-dark;
+    }
+
+    &__window {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        position: relative;
+        height: calc(100% - 50px);
+        background: $color-light-3;
+        color: $color-light;
+        font-size: 1.4rem;
+        line-height: 2rem;
+        padding: 5px 5px 5px 50px;
+    }
+
+    &__line-numbers {
+        display: flex;
+        justify-content: flex-end;
+        padding: 8px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 40px;
+        height: 100%;
+        color: $color-light;
+        background: $color-light-2;
+    }
+
+    &__button {
+        border: solid $color-light;
+        border-width: 1px 1px 6px 1px;
+        outline-style: none;
+        font-size: 1.2rem;
+        line-height: 2rem;
+        background-color: $color-light-2;
+        color: $color-primary;
+        display: block;
+        border-radius: 2px;
+        padding: 2px 7px 2px 7px;
+        position: absolute;
+        cursor: pointer;
+        top: 7px;
+        right: 7px;
+    }
+}
+
+.html-panel {
+    flex-grow: 1;
+    flex-basis: 50%;
+    overflow: hidden;
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 15px;
+        height: 50px;
+        border-top: 1px solid $color-primary;
+        border-right: 1px solid $color-primary;
+        background-color: $color-dark;
+    }
+
+    &__window {
+        position: relative;
+        height: calc(100% - 50px);
+        border: 1px solid $color-primary;
+        color: $color-light;
+        font-size: 1.4rem;
+        line-height: 2rem;
+        padding: 5px 50px;
+
+        & * {
+            cursor: default;
+        }
+    }
+
+    &__line-numbers {
+        display: flex;
+        justify-content: flex-end;
+        padding: 8px;
+        width: 40px;
+        height: 100%;
+        border-right: 1px solid $color-primary;
+        color: $color-light;
+
+        &+div * {
+            padding-left: 20px;
+
+            &.hovered {
+                filter: brightness(150%);
+            }
+        }
+    }
+}
+

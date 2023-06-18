@@ -20,15 +20,15 @@ class App {
     constructor() {
         const state = new State();
         this.currentLevel = state.getCurrentLevel();
-        this.taskComponent = new TaskComponent(levels[this.currentLevel].helpTitle);
+        this.taskComponent = new TaskComponent(state);
         this.gameComponent = new GameComponent(`Как я это сделаю - я не знаю`);
-        this.editorComponent = new EditorComponent(`Тут будет редактор`);
+        this.editorComponent = new EditorComponent();
         this.levelDescComponent = new LevelDescComponent(levels[this.currentLevel]);
         this.levelListComponent = new LevelListComponent(levels);
-        this.navComponent = new NavComponent(state, this.levelDescComponent,this.levelListComponent );
+        this.navComponent = new NavComponent(state, this.levelDescComponent,this.levelListComponent, this.taskComponent);
     }
 
-    start():void {console.log("Starting");
+    start():void {
         const appContainer = getElementOfDocument('.app-container');
 
         const leftContainer = document.createElement('div');
