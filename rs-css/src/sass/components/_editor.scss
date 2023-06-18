@@ -31,7 +31,7 @@
 
     &__window {
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
         align-items: flex-start;
         position: relative;
         height: calc(100% - 50px);
@@ -55,6 +55,23 @@
         background: $color-light-2;
     }
 
+    &__input{
+        display: flex;
+        font-family: menlo, monospace;
+        color: #333;
+        border: none;
+        width: calc(100% - 44px);
+        background: none;
+        font-size: 1.5em;
+        height: 1.5em;
+        resize: none;
+        line-height: 150%;
+
+    }
+    &__input_animation{
+        background: rgba(62,203,255,.3);
+        animation: input .5s infinite;
+    }
     &__button {
         border: solid $color-light;
         border-width: 1px 1px 6px 1px;
@@ -125,3 +142,6 @@
     }
 }
 
+@keyframes input {
+    50% { background:none ; }
+}
