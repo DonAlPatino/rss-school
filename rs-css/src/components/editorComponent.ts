@@ -1,12 +1,14 @@
 import {EditorCssPanelComponent} from "./editorCssPanelComponent";
 import {EditorHtmlPanelComponent} from "./editorHtmlPanelComponent";
+import State from "../state";
 
 export default class  EditorComponent {
     private editorCssPanelComponent: EditorCssPanelComponent;
     private editorHtmlPanelComponent: EditorHtmlPanelComponent;
-    constructor() {
+
+    constructor(state: State) {
         this.editorCssPanelComponent = new EditorCssPanelComponent();
-        this.editorHtmlPanelComponent = new EditorHtmlPanelComponent();
+        this.editorHtmlPanelComponent = new EditorHtmlPanelComponent(state);
     }
 
     render():HTMLDivElement {

@@ -1,4 +1,12 @@
+import State from "../state";
+import {levels} from "../data/data";
+
 export class EditorHtmlPanelComponent {
+    private currentLevel: number;
+    constructor(state: State) {
+        this.currentLevel = state.getCurrentLevel();
+    }
+
     render(): HTMLDivElement {
         const editorHtmlPanel = document.createElement('div');
         editorHtmlPanel.classList.add('html-panel');
@@ -9,14 +17,20 @@ export class EditorHtmlPanelComponent {
 
         editorHtmlPanel.innerHTML = '<div class="html-panel__header"><span>HTML Viewer</span><span>table.html</span></div>';
 
-        const branchTag = document.createElement('div');
-        branchTag.classList.add('html-branch');
+        const tableTag = document.createElement('div');
+        // tableTag.classList.add('html-table');
 
-        //this.generateFullHtml(branchTag, this.nodes[1]);
+        this.generateFullHtml(tableTag, levels[this.currentLevel-1].boardMarkup);
 
-        editorHtmlWindow.append(branchTag);
+        editorHtmlWindow.append(tableTag);
         editorHtmlPanel.append(editorHtmlWindow);
 
         return editorHtmlPanel;
+    }
+
+    private generateFullHtml(tableTag: HTMLDivElement, boardMarkup: string):void {
+        // tableTag.insertAdjacentHTML("afterend", boardMarkup)
+        console.log(this.currentLevel)
+        tableTag.innerText= `<div class="table">${boardMarkup}</div>`;
     }
 }
