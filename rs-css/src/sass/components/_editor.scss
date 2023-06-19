@@ -133,8 +133,6 @@
         color: $color-light;
 
         &+div * {
-            padding-left: 20px;
-
             &.hovered {
                 filter: brightness(150%);
             }
