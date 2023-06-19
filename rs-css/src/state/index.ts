@@ -7,7 +7,7 @@ export default class State {
         //this.progress = [];
     }
     getCurrentLevel(): number {
-        this.currentLevel= Number(JSON.parse(localStorage.getItem('currentLevel') || '0'));
+        this.currentLevel= Number(JSON.parse(localStorage.getItem('currentLevel') || '1'));
         return this.currentLevel;
     }
     setCurrentLevel(currentLevel:number): void {
