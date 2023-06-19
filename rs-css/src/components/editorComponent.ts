@@ -1,6 +1,7 @@
 import {EditorCssPanelComponent} from "./editorCssPanelComponent";
 import {EditorHtmlPanelComponent} from "./editorHtmlPanelComponent";
 import State from "../state";
+import {IData} from "../types";
 
 export default class  EditorComponent {
     private editorCssPanelComponent: EditorCssPanelComponent;
@@ -23,5 +24,8 @@ export default class  EditorComponent {
         container.append(editor);
 
         return container;
+    }
+    update(levelDescription:IData):void {
+        this.editorHtmlPanelComponent.update(levelDescription);
     }
 }

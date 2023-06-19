@@ -3,11 +3,11 @@ export default class State {
     private currentLevel: number;
     // private progress: any[];
     constructor() {
-        this.currentLevel = 1;
+        this.currentLevel = 0;
         //this.progress = [];
     }
     getCurrentLevel(): number {
-        this.currentLevel= Number(JSON.parse(localStorage.getItem('currentLevel') || '1'));
+        this.currentLevel= Number(JSON.parse(localStorage.getItem('currentLevel') || '0'));
         return this.currentLevel;
     }
     setCurrentLevel(currentLevel:number): void {

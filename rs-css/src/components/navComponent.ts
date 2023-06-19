@@ -3,6 +3,7 @@ import LevelListComponent from "./levelListComponent";
 import State from "../state";
 import {levels} from "../data/data";
 import {getElementOfDocument} from "../util";
+import {IData} from "../types";
 
 export class NavComponent {
     private currentLevel: number;
@@ -76,10 +77,10 @@ export class NavComponent {
 
         return navigation;
     }
-    updateNavLevel(): void {
+    updateNavLevel(currentLevel:number): void {
         //TODO надо позвать обновление levelDesck
         const navigationLevel = getElementOfDocument('.navigation__level');
-        navigationLevel.innerHTML = `<span>Level ${this.currentLevel} of ${this.maxLevel}</span>
+        navigationLevel.innerHTML = `<span>Level ${currentLevel} of ${this.maxLevel}</span>
                                         <span class="level__check ${this.isDone ? 'done' : ''} material-icons">
                                             done
                                         </span>

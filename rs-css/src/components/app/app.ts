@@ -52,9 +52,10 @@ class App {
 
     update(currentLevel: number):void {
         this.state.setCurrentLevel(currentLevel);
-        this.levelDescComponent.updateLevelDesc(levels[currentLevel])
-        this.taskComponent.updateTask(levels[currentLevel])
-        this.navComponent.updateNavLevel();
+        this.levelDescComponent.updateLevelDesc(levels[currentLevel]);
+        this.taskComponent.updateTask(levels[currentLevel]);
+        this.navComponent.updateNavLevel(currentLevel);
+        this.editorComponent.update(levels[currentLevel]);
     }
 }
 
