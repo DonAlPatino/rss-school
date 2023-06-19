@@ -3,7 +3,6 @@ import LevelListComponent from "./levelListComponent";
 import State from "../state";
 import {levels} from "../data/data";
 import {getElementOfDocument} from "../util";
-import TaskComponent from "./taskComponent";
 
 export class NavComponent {
     private currentLevel: number;
@@ -16,13 +15,15 @@ export class NavComponent {
     private _levelListComponent: LevelListComponent;
     private state: State;
     private readonly template:string = '';
-    private _taskComponent: TaskComponent;
+    //private _taskComponent: TaskComponent;
+    private _update: (currentLevel: number) => void;
 
-    constructor(state: State, levelDescComponent: LevelDescComponent, levelListComponent: LevelListComponent, taskComponent: TaskComponent) {
+    constructor(state: State, levelDescComponent: LevelDescComponent, levelListComponent: LevelListComponent, update: (currentLevel: number) => void) {
         this.state = state;
         this._levelDescComponent = levelDescComponent;
         this._levelListComponent = levelListComponent;
-        this._taskComponent = taskComponent;
+        this._update = update;
+        //this._taskComponent = taskComponent;
         this.currentLevel = state.getCurrentLevel();
         this.maxLevel = levels.length;
         this.levelListButton = document.createElement('button');
@@ -77,7 +78,6 @@ export class NavComponent {
     }
     updateNavLevel(): void {
         //TODO надо позвать обновление levelDesck
-        this.state.setCurrentLevel(this.currentLevel);
         const navigationLevel = getElementOfDocument('.navigation__level');
         navigationLevel.innerHTML = `<span>Level ${this.currentLevel} of ${this.maxLevel}</span>
                                         <span class="level__check ${this.isDone ? 'done' : ''} material-icons">
@@ -86,8 +86,6 @@ export class NavComponent {
                                         <span class="level__with-help ${this.isWithHelp ? 'active' : ''} material-icons">
                                             remove_red_eye
                                         </span>`;
-        this._levelDescComponent.updateLevelDesc(levels[this.currentLevel])
-        this._taskComponent.updateTask(levels[this.currentLevel])
 
     }
     private toggleMenu():void {
@@ -108,8 +106,7 @@ export class NavComponent {
                 buttonElement.addEventListener('click', () => {
                     if (this.currentLevel > 1) {
                         this.currentLevel -= 1;
-                        //this.changeLevel(this.currentLevel);
-                        this.updateNavLevel();
+                        this._update(this.currentLevel);
                     }
                 });
                 break;
@@ -117,8 +114,7 @@ export class NavComponent {
                 buttonElement.addEventListener('click', () => {
                     if (this.currentLevel < this.maxLevel) {
                         this.currentLevel += 1;
-                        //this.changeLevel(this.currentLevel);
-                        this.updateNavLevel();
+                        this._update(this.currentLevel);
                     }
                 });
                 break;

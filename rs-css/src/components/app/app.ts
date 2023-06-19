@@ -16,16 +16,17 @@ class App {
     private levelDescComponent: LevelDescComponent;
     private levelListComponent: LevelListComponent;
     private currentLevel: number;
+    private state: State;
 
     constructor() {
-        const state = new State();
-        this.currentLevel = state.getCurrentLevel();
-        this.taskComponent = new TaskComponent(state);
+        this.state = new State();
+        this.currentLevel = this.state.getCurrentLevel();
+        this.taskComponent = new TaskComponent(this.state);
         this.gameComponent = new GameComponent(`Как я это сделаю - я не знаю`);
-        this.editorComponent = new EditorComponent(state);
+        this.editorComponent = new EditorComponent(this.state);
         this.levelDescComponent = new LevelDescComponent(levels[this.currentLevel]);
         this.levelListComponent = new LevelListComponent(levels);
-        this.navComponent = new NavComponent(state, this.levelDescComponent,this.levelListComponent, this.taskComponent);
+        this.navComponent = new NavComponent(this.state, this.levelDescComponent,this.levelListComponent, /*this.taskComponent*/(currentLevel: number) => this.update(currentLevel));
     }
 
     start():void {
@@ -47,6 +48,13 @@ class App {
         rightContainer.append(this.levelListComponent.render());
         rightContainer.append(this.levelDescComponent.render());
 
+    }
+
+    update(currentLevel: number):void {
+        this.state.setCurrentLevel(currentLevel);
+        this.levelDescComponent.updateLevelDesc(levels[currentLevel])
+        this.taskComponent.updateTask(levels[currentLevel])
+        this.navComponent.updateNavLevel();
     }
 }
 
