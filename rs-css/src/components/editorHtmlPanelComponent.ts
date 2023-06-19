@@ -37,8 +37,7 @@ export class EditorHtmlPanelComponent {
         // tableTag.insertAdjacentHTML("afterend", boardMarkup)
         //const sanitize = ('<div class="table">' + boardMarkup + '</div>').replaceAll('>', '&gt').replaceAll('<', '&lt');
         const highlightedCode = hljs.highlight(`<div class="table">${boardMarkup}
-</div>`
-            ,
+</div>`,
             {
                 language: 'xml'
             }

@@ -38,11 +38,19 @@ class App {
         const rightContainer = document.createElement('div');
         rightContainer.classList.add('right-container');
 
+        const footer = document.createElement('footer');
+        footer.classList.add('footer');
+        footer.innerHTML = `<p class="copyright">
+        <a href="https://rs.school/js/"><img src="https://rs.school/images/rs_school_js.svg" alt="Logotype"></a>
+            <a href="https://github.com/DonAlPatino">Don Al Patino 2023</a>
+        </p>`;
+
         appContainer.append(leftContainer);
         appContainer.append(rightContainer);
         leftContainer.append(this.taskComponent.render());
         leftContainer.append(this.gameComponent.render());
         leftContainer.append(this.editorComponent.render());
+        leftContainer.append(footer);
 
         rightContainer.append(this.navComponent.render());
         rightContainer.append(this.levelListComponent.render());

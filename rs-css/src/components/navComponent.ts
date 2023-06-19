@@ -26,7 +26,7 @@ export class NavComponent {
         this._update = update;
         //this._taskComponent = taskComponent;
         this.currentLevel = state.getCurrentLevel();
-        this.maxLevel = levels.length;
+        this.maxLevel = levels.length - 1;
         this.levelListButton = document.createElement('button');
         this.isDone=false;
         this.isWithHelp=false;
