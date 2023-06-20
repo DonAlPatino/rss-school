@@ -22,7 +22,7 @@ class App {
         this.state = new State();
         this.currentLevel = this.state.getCurrentLevel();
         this.taskComponent = new TaskComponent(this.state);
-        this.gameComponent = new GameComponent(`Как я это сделаю - я не знаю`);
+        this.gameComponent = new GameComponent(this.state);
         this.editorComponent = new EditorComponent(this.state);
         this.levelDescComponent = new LevelDescComponent(levels[this.currentLevel]);
         this.levelListComponent = new LevelListComponent(levels);

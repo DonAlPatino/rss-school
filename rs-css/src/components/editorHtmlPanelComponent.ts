@@ -42,7 +42,7 @@ export class EditorHtmlPanelComponent {
                 language: 'xml'
             }
         ).value;
-        console.log(highlightedCode)
+        //console.log(highlightedCode)
         tableTag.innerHTML= `<pre><code>${highlightedCode}</code></pre>`;
     }
 }
