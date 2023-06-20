@@ -40,14 +40,23 @@ export default class GameComponent {
     }
 
     private generateHTML(table: HTMLDivElement, boardMarkup: string) {
-        const regex = new RegExp(`<(.*)\/>/g`);
+        const regex = new RegExp(/<(.*)\/>/);
         const str = boardMarkup.split('\n');
+        let newHTML = '';
         for (let i = 0; i < str.length; i++)
         if (str[i] !== '') {
-            const newstr = str[i].match(regex);
-            if (newstr !== null && newstr.length > 0) {
-                console.log(newstr[0])
+            const fullTag = str[i].match(regex);
+            if (fullTag !== null && fullTag.length > 0) {
+                const smallTag = fullTag[1].split(' ');
+                if (smallTag.length > 1) {
+                    newHTML = newHTML + `<${fullTag[1]}></${smallTag[0]}>`;
+                } else {
+                    newHTML = newHTML + `<${fullTag[1]}></${fullTag[1]}>`;
+                }
             }
+            else newHTML = newHTML + str[i];
         }
+        console.log(newHTML);
+        table.innerHTML = newHTML;
     }
 }
