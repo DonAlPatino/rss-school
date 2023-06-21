@@ -26,7 +26,7 @@ class App {
         this.editorComponent = new EditorComponent(this.state);
         this.levelDescComponent = new LevelDescComponent(levels[this.currentLevel]);
         this.levelListComponent = new LevelListComponent(levels);
-        this.navComponent = new NavComponent(this.state, this.levelDescComponent,this.levelListComponent, /*this.taskComponent*/(currentLevel: number) => this.update(currentLevel));
+        this.navComponent = new NavComponent(this.state, this.levelDescComponent,this.levelListComponent,(currentLevel: number) => this.update(currentLevel));
     }
 
     start():void {

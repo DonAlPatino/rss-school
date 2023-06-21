@@ -8,7 +8,7 @@ export default class  EditorComponent {
     private editorHtmlPanelComponent: EditorHtmlPanelComponent;
 
     constructor(state: State) {
-        this.editorCssPanelComponent = new EditorCssPanelComponent();
+        this.editorCssPanelComponent = new EditorCssPanelComponent(state);
         this.editorHtmlPanelComponent = new EditorHtmlPanelComponent(state);
     }
 
