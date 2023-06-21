@@ -5,10 +5,13 @@ export class EditorCssPanelComponent {
     private input: HTMLTextAreaElement;
     private currentLevel: number;
     private state: State;
-    constructor(state: State) {
+    private shakeEditorWindow: () => void;
+
+    constructor(state: State, shakeEditorWindow: () => void) {
         this.state = state;
         this.currentLevel = state.getCurrentLevel();
         this.input = document.createElement('textarea');
+        this.shakeEditorWindow = shakeEditorWindow;
     }
     render(): HTMLDivElement {
         const editorCssPanel = document.createElement('div');
@@ -57,7 +60,7 @@ export class EditorCssPanelComponent {
         }
         else {
         //if (!this.input.value) {
-            //this.shakeEditorWindow();
+            this.shakeEditorWindow();
             console.log('Mino!')
             return;
         }

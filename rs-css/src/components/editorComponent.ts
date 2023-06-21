@@ -6,26 +6,35 @@ import {IData} from "../types";
 export default class  EditorComponent {
     private editorCssPanelComponent: EditorCssPanelComponent;
     private editorHtmlPanelComponent: EditorHtmlPanelComponent;
+    private editor: HTMLDivElement;
 
     constructor(state: State) {
-        this.editorCssPanelComponent = new EditorCssPanelComponent(state);
+        this.editorCssPanelComponent = new EditorCssPanelComponent(state, () => this.shakeEditorWindow());
         this.editorHtmlPanelComponent = new EditorHtmlPanelComponent(state);
+        this.editor = document.createElement('div');
     }
 
     render():HTMLDivElement {
         const container = document.createElement('div');
         container.classList.add('container_editor');
-        const editor = document.createElement('div');
-        editor.classList.add('editor');
 
-        editor.append(this.editorCssPanelComponent.render());
-        editor.append(this.editorHtmlPanelComponent.render());
+        this.editor.classList.add('editor');
 
-        container.append(editor);
+        this.editor.append(this.editorCssPanelComponent.render());
+        this.editor.append(this.editorHtmlPanelComponent.render());
+
+        container.append(this.editor);
 
         return container;
     }
     update(levelDescription:IData):void {
         this.editorHtmlPanelComponent.update(levelDescription);
+    }
+
+    shakeEditorWindow():void {
+        this.editor.classList.add('shake');
+        setTimeout(() => {
+            this.editor.classList.remove('shake');
+        }, 520);
     }
 }
