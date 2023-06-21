@@ -61,6 +61,8 @@ export class EditorCssPanelComponent {
         else {
         //if (!this.input.value) {
             this.shakeEditorWindow();
+            this.input.value = '';
+            this.input.focus();
             console.log('Mino!')
             return;
         }

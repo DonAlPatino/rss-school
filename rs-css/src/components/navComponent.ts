@@ -3,28 +3,25 @@ import LevelListComponent from "./levelListComponent";
 import State from "../state";
 import {levels} from "../data/data";
 import {getElementOfDocument} from "../util";
-import {IData} from "../types";
 
 export class NavComponent {
     private currentLevel: number;
     private isDone: boolean;
     private isWithHelp: boolean;
     private levelListButton: HTMLButtonElement;
-    private maxLevel: number;
-    private menuToggleButton: HTMLDivElement;
+    private readonly maxLevel: number;
+    private readonly menuToggleButton: HTMLDivElement;
     private _levelDescComponent: LevelDescComponent;
     private _levelListComponent: LevelListComponent;
     private state: State;
     private readonly template:string = '';
-    //private _taskComponent: TaskComponent;
-    private _update: (currentLevel: number) => void;
+    private readonly _update: (currentLevel: number) => void;
 
     constructor(state: State, levelDescComponent: LevelDescComponent, levelListComponent: LevelListComponent, update: (currentLevel: number) => void) {
         this.state = state;
         this._levelDescComponent = levelDescComponent;
         this._levelListComponent = levelListComponent;
         this._update = update;
-        //this._taskComponent = taskComponent;
         this.currentLevel = state.getCurrentLevel();
         this.maxLevel = levels.length - 1;
         this.levelListButton = document.createElement('button');

@@ -1,11 +1,10 @@
 import State from "../state";
 import {levels} from "../data/data";
 import {IData} from "../types";
-import hljs from "highlight.js";
 
 export default class GameComponent {
     private currentLevel: number;
-    private table: HTMLDivElement;
+    private readonly table: HTMLDivElement;
     constructor(state: State) {
         this.currentLevel = state.getCurrentLevel();
        this.table = document.createElement('div');

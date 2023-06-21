@@ -13,10 +13,10 @@ class App {
     private gameComponent: GameComponent;
     private editorComponent: EditorComponent;
     private navComponent: NavComponent;
-    private levelDescComponent: LevelDescComponent;
-    private levelListComponent: LevelListComponent;
-    private currentLevel: number;
-    private state: State;
+    private readonly levelDescComponent: LevelDescComponent;
+    private readonly levelListComponent: LevelListComponent;
+    private readonly currentLevel: number;
+    private readonly state: State;
 
     constructor() {
         this.state = new State();
