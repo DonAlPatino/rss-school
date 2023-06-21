@@ -5,8 +5,10 @@ import hljs from "highlight.js";
 
 export default class GameComponent {
     private currentLevel: number;
+    private table: HTMLDivElement;
     constructor(state: State) {
         this.currentLevel = state.getCurrentLevel();
+       this.table = document.createElement('div');
     }
 
     render(): HTMLDivElement {
@@ -17,17 +19,17 @@ export default class GameComponent {
         const tableSurface = document.createElement('div');
         tableSurface.classList.add('table-surface');
         tableWrapper.append(tableSurface);
-        const table = document.createElement('div');
-        table.classList.add('table');
 
-        this.generateHTML(table, levels[this.currentLevel].boardMarkup);
+        this.table.classList.add('table');
+
+        this.generateHTML(this.table, levels[this.currentLevel].boardMarkup);
         /*const highlightedCode = hljs.highlight(`${levels[this.currentLevel].boardMarkup}`,
             {
                 language: 'xml'
             }
         ).value;
         table.insertAdjacentHTML("afterbegin", `${levels[this.currentLevel].boardMarkup}`)*/
-        tableWrapper.append(table);
+        tableWrapper.append(this.table);
 
         const tableEdge =document.createElement('div');
         tableEdge.classList.add('table-edge');
@@ -39,7 +41,10 @@ export default class GameComponent {
         return game;
     }
 
-    private generateHTML(table: HTMLDivElement, boardMarkup: string) {
+    update(levelDescription:IData): void {
+        this.generateHTML(this.table, levelDescription.boardMarkup);
+    }
+    private generateHTML(table: HTMLDivElement, boardMarkup: string):void {
         const regex = new RegExp(/<(.*)\/>/);
         const str = boardMarkup.split('\n');
         let newHTML = '';

@@ -64,6 +64,7 @@ class App {
         this.taskComponent.updateTask(levels[currentLevel]);
         this.navComponent.updateNavLevel(currentLevel);
         this.editorComponent.update(levels[currentLevel]);
+        this.gameComponent.update(levels[currentLevel]);
     }
 }
 
