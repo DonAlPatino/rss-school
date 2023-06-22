@@ -12,13 +12,13 @@
 }
 
 .table-wrapper {
-    transform: rotateX(20deg);
+    transform: perspective(1000px) rotateX(25deg);
     min-height: 142px;
     transform-origin: bottom;
     z-index: 9999;
     position: relative;
     margin: 10px auto 0 auto;
-    width: 450px;
+    width: $table-width;
 
 }
 
@@ -45,11 +45,11 @@
 }
 
 .table-edge  {
-    width: 450px;
+    width: $table-width;
     margin: 0 auto 10px auto;
     background: #ac741c;
     height: 15px;
-    transform: rotateX(-40deg);
+    transform: perspective(1000px) rotateX(-40deg);
     transform-origin: top;
     z-index: 2;
 }
