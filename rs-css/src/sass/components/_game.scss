@@ -71,3 +71,21 @@
 .table-leg:last-child {
     right: 20px;
 }
+
+.table .dance {
+    animation: dance .5s infinite alternate;
+}
+
+@keyframes dance {
+    0% {
+        transform: skew(3deg, 1deg) scale(1, 1) translate(-4%, 0%);
+    }
+
+    50% {
+        transform: skew(0deg, 0deg) scale(1, .9) translate(0%, 6%);
+    }
+
+    100% {
+        transform: skew(-3deg, 1deg) scale(1, 1) translate(4%, 0%);
+    }
+}

@@ -1,6 +1,7 @@
 import State from "../state";
 import {levels} from "../data/data";
 import {IData} from "../types";
+import {getElements} from "../util";
 
 export default class GameComponent {
     private currentLevel: number;
@@ -21,7 +22,7 @@ export default class GameComponent {
 
         this.table.classList.add('table');
 
-        this.generateHTML(this.table, levels[this.currentLevel].boardMarkup);
+        this.generateHTML(this.table, levels[this.currentLevel]);
         /*const highlightedCode = hljs.highlight(`${levels[this.currentLevel].boardMarkup}`,
             {
                 language: 'xml'
@@ -29,7 +30,6 @@ export default class GameComponent {
         ).value;
         table.insertAdjacentHTML("afterbegin", `${levels[this.currentLevel].boardMarkup}`)*/
         tableWrapper.append(this.table);
-
         const tableEdge =document.createElement('div');
         tableEdge.classList.add('table-edge');
         tableEdge.innerHTML =`
@@ -41,11 +41,11 @@ export default class GameComponent {
     }
 
     update(levelDescription:IData): void {
-        this.generateHTML(this.table, levelDescription.boardMarkup);
+        this.generateHTML(this.table, levelDescription);
     }
-    private generateHTML(table: HTMLDivElement, boardMarkup: string):void {
+    private generateHTML(table: HTMLDivElement, levelDescription:IData):void {
         const regex = new RegExp(/<(.*)\/>/);
-        const str = boardMarkup.split('\n');
+        const str = levelDescription.boardMarkup.split('\n');
         let newHTML = '';
         for (let i = 0; i < str.length; i++)
         if (str[i] !== '') {
@@ -62,5 +62,14 @@ export default class GameComponent {
         }
         console.log(newHTML);
         table.innerHTML = newHTML;
+        const ourThings = getElements( table, levelDescription.selector);
+        ourThings.forEach(
+            x => {        x.classList.add("dance");
+            x.addEventListener("mousemove", (event) => {
+                debugger
+                console.log(event)
+            });
+        })
+
     }
 }
