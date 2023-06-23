@@ -40,7 +40,7 @@ export default class LevelListComponent {
         while (this.levelsListContainer.firstChild) {
             this.levelsListContainer.firstChild.remove()
         }
-        this.levelsList.before(this.generateLevelsList());
+        this.generateLevelsList();
     }
 
     generateLevelsList(): HTMLDivElement {
