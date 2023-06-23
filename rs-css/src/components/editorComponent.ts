@@ -2,14 +2,17 @@ import {EditorCssPanelComponent} from "./editorCssPanelComponent";
 import {EditorHtmlPanelComponent} from "./editorHtmlPanelComponent";
 import State from "../state";
 import {IData} from "../types";
+import App from "./app/app";
 
 export default class  EditorComponent {
     private editorCssPanelComponent: EditorCssPanelComponent;
     private editorHtmlPanelComponent: EditorHtmlPanelComponent;
     private editor: HTMLDivElement;
+    private _app: App;
 
-    constructor(state: State) {
-        this.editorCssPanelComponent = new EditorCssPanelComponent(state, () => this.shakeEditorWindow());
+    constructor(state: State, app: App) {
+        this._app = app;
+        this.editorCssPanelComponent = new EditorCssPanelComponent(state, () => this.shakeEditorWindow(),this._app);
         this.editorHtmlPanelComponent = new EditorHtmlPanelComponent(state);
         this.editor = document.createElement('div');
     }

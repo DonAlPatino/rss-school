@@ -1,14 +1,17 @@
 import State from "../state";
 import {levels} from "../data/data";
+import App from "./app/app";
 
 export class EditorCssPanelComponent {
     private input: HTMLTextAreaElement;
     private currentLevel: number;
     private state: State;
     private shakeEditorWindow: () => void;
+    private _app: App;
 
-    constructor(state: State, shakeEditorWindow: () => void) {
+    constructor(state: State, shakeEditorWindow: () => void, app: App) {
         this.state = state;
+        this._app = app;
         this.currentLevel = state.getCurrentLevel();
         this.input = document.createElement('textarea');
         this.shakeEditorWindow = shakeEditorWindow;
@@ -66,6 +69,7 @@ export class EditorCssPanelComponent {
         if (input === levels[this.currentLevel].selector){
             console.log('Win!')
             this.state.setProgress(this.currentLevel);
+            this._app.update(this.currentLevel + 1)
         }
         else {
         //if (!this.input.value) {

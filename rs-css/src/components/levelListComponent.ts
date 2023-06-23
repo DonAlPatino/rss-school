@@ -73,7 +73,6 @@ export default class LevelListComponent {
                 const {currentTarget} = event
                 if (currentTarget instanceof HTMLElement) {
                     const level = Number(currentTarget.dataset.level)
-                    this.update(level)
                     this._update(level);
             }
                 //this.toggleLevelNavigation();

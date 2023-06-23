@@ -75,7 +75,7 @@ export class NavComponent {
         return navigation;
     }
     updateNavLevel(currentLevel:number): void {
-
+        this.currentLevel = this.state.getCurrentLevel();
         const navigationLevel = getElementOfDocument('.navigation__level');
         this.isDone= this.state.getProgress()[this.currentLevel];
         navigationLevel.innerHTML = `<span>Level ${currentLevel} of ${this.maxLevel}</span>
