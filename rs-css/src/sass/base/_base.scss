@@ -120,3 +120,16 @@ tag:before {
 tag:after {
     content: ">";
 }
+
+.button {
+    background-color: transparent;
+    border: 2px solid $color-primary;
+    color: $color-light;
+    font-size: 1.8rem;
+    line-height: 4rem;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $color-dark-2;
+    }
+}

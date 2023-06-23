@@ -17,6 +17,13 @@ export class EditorCssPanelComponent {
         const editorCssPanel = document.createElement('div');
         editorCssPanel.classList.add('css-panel');
 
+        editorCssPanel.addEventListener( 'keyup', event => {
+            if( event.code === 'Enter' )
+            {
+                this.checkAnswer();
+            }
+        });
+
         const editorCssWindow = document.createElement('div');
         editorCssWindow.classList.add('css-panel__window');
         editorCssWindow.innerHTML = '<div class="css-panel__line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20</div>';
@@ -53,8 +60,10 @@ export class EditorCssPanelComponent {
         return editorCssPanel;
     }
 
-    private checkAnswer():void {
-        if (this.input.value === levels[this.currentLevel].selector){
+     private checkAnswer():void {
+        this.currentLevel = this.state.getCurrentLevel();
+        const input = this.input.value.replaceAll('\n','')
+        if (input === levels[this.currentLevel].selector){
             console.log('Win!')
             this.state.setProgress(this.currentLevel);
         }

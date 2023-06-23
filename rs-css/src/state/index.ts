@@ -32,6 +32,6 @@ export default class State {
     }
     clearData(): void {
         localStorage.removeItem('currentLevel');
-        localStorage.removeItem('progressBirds');
+        localStorage.removeItem('progress');
     }
 }
