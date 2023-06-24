@@ -66,7 +66,7 @@ export default class LevelListComponent {
                                         <span class="level__with-help ${this.isWithHelp ? 'active' : ''} material-icons">
                                             remove_red_eye
                                         </span>
-                                        <span>${index}</span>
+                                        <span>${index + 1}</span>
                                         <span>${level.syntax}</span>`;
 
             levelsNavigationItem.addEventListener('click', (event) => {
