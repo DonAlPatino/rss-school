@@ -102,7 +102,7 @@ export class EditorCssPanelComponent {
                                         You have successfully completed all levels
                                     </div>
                                     <button class="notification__button">
-                                        Cool!
+                                        You are cool!
                                     </button>`;
         notification.addEventListener('click', (event) => {
             const trg = event?.target as HTMLElement;

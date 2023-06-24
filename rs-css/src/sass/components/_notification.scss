@@ -1,0 +1,51 @@
+.notification {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $color-shadow;
+    width: 100%;
+    height: 100%;
+    z-index: 20;
+
+    &__window {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        max-width: 500px;
+        max-height: 300px;
+        height: 30%;
+        background-color: $color-secondary;
+        border: 1px solid $color-primary;
+        border-radius: 3px;
+        padding: 15px;
+    }
+
+    &__header {
+        font-size: 3.5rem;
+    }
+
+    &__content {
+        text-align: center;
+        font-size: 2.5rem;
+        padding: 30px 0;
+    }
+
+    &__button {
+        border: none;
+        border: 1px solid $color-primary;
+        background-color: $color-secondary;
+        color: $color-light;
+        padding: 10px 15px;
+        font-size: 2rem;
+        transition: background-color .1s linear;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $color-dark-2;
+        }
+    }
+}
