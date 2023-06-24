@@ -23,12 +23,12 @@ export class NavComponent {
         this._levelListComponent = levelListComponent;
         this._update = update;
         this.currentLevel = state.getCurrentLevel();
-        this.maxLevel = levels.length - 1;
+        this.maxLevel = levels.length;
         this.levelListButton = document.createElement('button');
         this.isDone= this.state.getProgress()[this.currentLevel];
         this.isWithHelp=false;
         this.menuToggleButton = document.createElement('div');
-        this.template = `<span>Level ${this.currentLevel} of ${this.maxLevel}</span>
+        this.template = `<span>Level ${this.currentLevel + 1} of ${this.maxLevel}</span>
                                     <span class="level__check ${this.isDone ? 'done' : ''} material-icons">
                                         done
                                     </span>
@@ -78,7 +78,7 @@ export class NavComponent {
         this.currentLevel = this.state.getCurrentLevel();
         const navigationLevel = getElementOfDocument('.navigation__level');
         this.isDone= this.state.getProgress()[this.currentLevel];
-        navigationLevel.innerHTML = `<span>Level ${currentLevel} of ${this.maxLevel}</span>
+        navigationLevel.innerHTML = `<span>Level ${currentLevel + 1} of ${this.maxLevel}</span>
                                         <span class="level__check ${this.isDone ? 'done' : ''} material-icons">
                                             done
                                         </span>
@@ -103,7 +103,7 @@ export class NavComponent {
         switch (value) {
             case 'prev':
                 buttonElement.addEventListener('click', () => {
-                    if (this.currentLevel > 1) {
+                    if (this.currentLevel > 0) {
                         this.currentLevel -= 1;
                         this._update(this.currentLevel);
                     }
@@ -111,7 +111,7 @@ export class NavComponent {
                 break;
             case 'next':
                 buttonElement.addEventListener('click', () => {
-                    if (this.currentLevel < this.maxLevel) {
+                    if (this.currentLevel < this.maxLevel - 1) {
                         this.currentLevel += 1;
                         this._update(this.currentLevel);
                     }

@@ -3,16 +3,18 @@ import {levels} from "../data/data";
 
 export default class State {
     private currentLevel: number;
-    private maxLevel: number;
+    maxLevel: number;
     private progress: boolean[];
 
     constructor() {
         this.currentLevel = 0;
         this.maxLevel = levels.length - 1;
         this.progress = Array(this.maxLevel).fill(false);
+        this.maxLevel = levels.length;
+
     }
     getCurrentLevel(): number {
-        this.currentLevel= Number(JSON.parse(localStorage.getItem('currentLevel') || '1'));
+        this.currentLevel= Number(JSON.parse(localStorage.getItem('currentLevel') || '0'));
         return this.currentLevel;
     }
     setCurrentLevel(currentLevel:number): void {

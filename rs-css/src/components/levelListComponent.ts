@@ -47,7 +47,7 @@ export default class LevelListComponent {
 
         this.levelsListContainer.classList.add('levels-navigation__container');
         this.levelsListContainer.classList.add('scroll');
-        let index = 0;
+        let index = -1;
         this.levelsData.forEach((level) => {
 
             //const isWithHelp = this.checkIsUsedHelp(level.level);

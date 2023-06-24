@@ -69,7 +69,13 @@ export class EditorCssPanelComponent {
         if (input === levels[this.currentLevel].selector){
             console.log('Win!')
             this.state.setProgress(this.currentLevel);
-            this._app.update(this.currentLevel + 1)
+            const levelsDone = this.state.getProgress().filter((level) => level);
+            if (levelsDone.length === this.state.maxLevel) this.showNotification()
+            if (this.currentLevel < this.state.maxLevel - 1)
+                this._app.update(this.currentLevel + 1)
+            else{
+                this._app.update(this.currentLevel)
+            }
         }
         else {
         //if (!this.input.value) {
@@ -79,6 +85,34 @@ export class EditorCssPanelComponent {
             console.log('Mino!')
             return;
         }
+         this.input.value = '';
+         this.input.focus();
         return;
+    }
+
+    showNotification(): void {
+        const notification = document.createElement('div');
+        notification.classList.add('notification');
+        const notificationWindow = document.createElement('div');
+        notificationWindow.classList.add('notification__window');
+        notificationWindow.innerHTML = `<div class="notification__header">
+                                        Congratulations!
+                                    </div>
+                                    <div class="notification__content">
+                                        You have successfully completed all levels
+                                    </div>
+                                    <button class="notification__button">
+                                        Cool!
+                                    </button>`;
+        notification.addEventListener('click', (event) => {
+            const trg = event?.target as HTMLElement;
+            if (trg.classList.contains('notification') || trg.classList.contains('notification__button')) {
+                notification.remove();
+            }
+        });
+
+        notification.append(notificationWindow);
+
+        document.body.append(notification);
     }
 }

@@ -44,12 +44,14 @@ export default class GameComponent {
         this.generateHTML(this.table, levelDescription);
     }
     private generateHTML(table: HTMLDivElement, levelDescription:IData):void {
+        const tagList:string[]=[];
         const regex = new RegExp(/<(.*)\/>/);
         const str = levelDescription.boardMarkup.split('\n');
         let newHTML = '';
         for (let i = 0; i < str.length; i++)
         if (str[i] !== '') {
             const fullTag = str[i].match(regex);
+
             if (fullTag !== null && fullTag.length > 0) {
                 const smallTag = fullTag[1].split(' ');
                 if (smallTag.length > 1) {
@@ -57,18 +59,24 @@ export default class GameComponent {
                 } else {
                     newHTML = newHTML + `<${fullTag[1]}></${fullTag[1]}>`;
                 }
+                tagList.push(fullTag[1]);
             }
-            else newHTML = newHTML + str[i];
+            else {
+                newHTML = newHTML + str[i];
+                tagList.push(str[i]);
+            }
         }
-        console.log(newHTML);
+        console.log(tagList);
         table.innerHTML = newHTML;
+        /*table.addEventListener("mousemove", (event) => {
+            //debugger
+            const tar = event?.target as HTMLElement;
+            console.log(tar.closest('bento'));
+        });*/
+
         const ourThings = getElements( table, levelDescription.selector);
         ourThings.forEach(
-            x => {        x.classList.add("dance");
-            x.addEventListener("mousemove", (event) => {
-                debugger
-                console.log(event)
-            });
+            x => {x.classList.add("dance");
         })
 
     }
