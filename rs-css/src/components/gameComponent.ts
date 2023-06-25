@@ -51,12 +51,15 @@ export default class GameComponent {
         const doc = parser.parseFromString(`<div>${levelDescription.boardMarkup}</div>`, "application/xml");
 
 // функция для рекурсивного добавления элементов в дерево
-        // @ts-ignore
-        function addToTree(parent, node):void {
-            //const element = document.createElement(node.nodeName.toLowerCase());
-            const element = node.cloneNode(false);
-            parent.appendChild(element);
+        function addToTree(parent:Node, node:Node):void {
 
+            //const element = node.cloneNode(true);
+            const element = document.createElement(node.nodeName.toLowerCase());
+            const node2 = node as HTMLElement
+            for (const attribute of node2.attributes) {
+                element.setAttribute(attribute.name, attribute.value);
+            }
+            parent.appendChild(element);
             for(const child of node.childNodes){
                 if(child.nodeType === Node.ELEMENT_NODE){
                     addToTree(element, child);
@@ -76,7 +79,8 @@ export default class GameComponent {
         //table.append(root)
         const ourThings = getElements( table, levelDescription.selector);
         ourThings.forEach(
-            x => {x.classList.add("dance");
+            x => {
+                x.classList.add("dance");
             })
 
     }
