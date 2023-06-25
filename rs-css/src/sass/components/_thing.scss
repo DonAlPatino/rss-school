@@ -1,5 +1,5 @@
 orange, apple, pickle, bento, plate {
-    transition: transform ease-out .2s;
+    transition: transform ease-out 10s 1s;
 }
 
 bento, plate {
@@ -14,19 +14,40 @@ bento, plate {
 plate {
     border-bottom: solid 5px #DDD;
     background: white;
-    -webkit-border-radius: 100px;
     border-radius: 100px;
+}
+
+plate:before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: calc(50% - 32px);
+    top: calc(50% - 32px);
+    height: 65px;
+    width: 65px;
+    border-radius: 60px;
+    border-top: solid 6px #CCC;
+    opacity: .4;
+    background: rgba(255,255,255,1);
 }
 
 bento {
     height: 100px;
     background: brown;
-    position: relative;
     border: solid 3px #711c12;
     border-width: 20px 2px;
+    transition: all 1s linear;
 }
+bento:before {
+    content:"";
+    position: absolute;
+    width: calc(100%);
+    top: 0;
+    left:0;
+    border: solid 10px rgba(0,0,0,.1);
+    border-width: 10px 0 0 0px;
 
-
+}
 
 plate bento {
     height: 74px;
@@ -40,16 +61,6 @@ plate bento {
 plate bento apple,
 plate bento orange {
     top: -36px !important;
-}
-
-bento:before {
-    content:"";
-    position: absolute;
-    width: calc(100%);
-    top: 0;
-    left:0;
-    border: solid 10px rgba(0,0,0,.1);
-    border-width: 10px 0 0 0px;
 }
 
 apple {
@@ -152,20 +163,6 @@ orange:before,apple:before {
     top: 0px;
     left: calc(50% - 15%);
     border-radius: 100px;
-}
-
-plate:before {
-    content: "";
-    display: block;
-    position: absolute;
-    left: calc(50% - 32px);
-    top: calc(50% - 32px);
-    height: 65px;
-    width: 65px;
-    border-radius: 60px;
-    border-top: solid 6px #CCC;
-    opacity: .4;
-    background: rgba(255,255,255,1);
 }
 
 #fancy:after {

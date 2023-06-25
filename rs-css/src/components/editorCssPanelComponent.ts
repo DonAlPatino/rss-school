@@ -1,6 +1,7 @@
 import State from "../state";
 import {levels} from "../data/data";
 import App from "./app/app";
+import {getElementsOfDocument} from "../util";
 
 export class EditorCssPanelComponent {
     private input: HTMLTextAreaElement;
@@ -68,17 +69,23 @@ export class EditorCssPanelComponent {
         const input = this.input.value.replaceAll('\n','')
         if (input === levels[this.currentLevel].selector){
             console.log('Win!')
-            this.state.setProgress(this.currentLevel);
-            const levelsDone = this.state.getProgress().filter((level) => level);
-            if (levelsDone.length === this.state.maxLevel) this.showNotification()
-            if (this.currentLevel < this.state.maxLevel - 1)
-                this._app.update(this.currentLevel + 1)
-            else{
-                this._app.update(this.currentLevel)
-            }
+            const res = getElementsOfDocument('.dance');
+            res.forEach((item) => {
+                    item.classList.remove('dance');
+                    item.classList.add('flyaway');
+                });
+           setTimeout(() => {
+                this.state.setProgress(this.currentLevel);
+                const levelsDone = this.state.getProgress().filter((level) => level);
+                if (levelsDone.length === this.state.maxLevel) this.showNotification()
+                if (this.currentLevel < this.state.maxLevel - 1)
+                    this._app.update(this.currentLevel + 1)
+                else {
+                    this._app.update(this.currentLevel)
+                }
+            },1000);
         }
         else {
-        //if (!this.input.value) {
             this.shakeEditorWindow();
             this.input.value = '';
             this.input.focus();

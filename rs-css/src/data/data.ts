@@ -29,7 +29,6 @@ export const levels:IData[] = [
             '<strong>p</strong> selects all <tag>p</tag> elements.',
         ],
         boardMarkup: `
-    и
     <plate/>
     <bento/>
     `

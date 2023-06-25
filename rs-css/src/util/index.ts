@@ -29,3 +29,11 @@ export const getElementOfDocument = <T extends HTMLElement>( selector: string): 
     }
     return element
 }
+
+export const getElementsOfDocument = <T extends HTMLElement>( selector: string): NodeListOf<T>  => {
+    const elements = document.querySelectorAll<T>(selector)
+    if (!elements) {
+        throw new TypeError(`Error - can't get selector`)
+    }
+    return elements;
+}

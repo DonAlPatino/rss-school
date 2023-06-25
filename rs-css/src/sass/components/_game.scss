@@ -89,3 +89,29 @@
         transform: skew(-3deg, 1deg) scale(1, 1) translate(4%, 0%);
     }
 }
+
+.flyaway {
+    animation: flyaway 0.2s;
+    animation-fill-mode: forwards
+}
+
+@keyframes flyaway {
+    0% {
+        transform: translateY(-100px);
+    }
+    20% {
+        transform: translateY(-200px);
+    }
+    40% {
+        transform: translateY(-300px);
+    }
+    60% {
+        transform: translateY(-400px);
+    }
+    80% {
+        transform: translateY(-500px);
+    }
+    100% {
+        transform: translateY(-600px);
+    }
+}
