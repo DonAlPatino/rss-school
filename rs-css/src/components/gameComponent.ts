@@ -41,9 +41,46 @@ export default class GameComponent {
     }
 
     update(levelDescription:IData): void {
+        while (this.table.firstChild) {
+            this.table.firstChild.remove()
+        }
         this.generateHTML(this.table, levelDescription);
     }
     private generateHTML(table: HTMLDivElement, levelDescription:IData):void {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(`<div>${levelDescription.boardMarkup}</div>`, "application/xml");
+
+// функция для рекурсивного добавления элементов в дерево
+        // @ts-ignore
+        function addToTree(parent, node):void {
+            //const element = document.createElement(node.nodeName.toLowerCase());
+            const element = node.cloneNode(false);
+            parent.appendChild(element);
+
+            for(const child of node.childNodes){
+                if(child.nodeType === Node.ELEMENT_NODE){
+                    addToTree(element, child);
+                }
+            }
+        }
+
+        //const root = document.createElement("div"); // корневой элемент
+
+// добавление дочерних элементов в дерево
+        for (const node of doc.documentElement.childNodes) {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+                console.log("Adding node: ", node); // отладочный вывод
+                addToTree(table, node);
+            }
+        }
+        //table.append(root)
+        const ourThings = getElements( table, levelDescription.selector);
+        ourThings.forEach(
+            x => {x.classList.add("dance");
+            })
+
+    }
+    private generateHTML2(table: HTMLDivElement, levelDescription:IData):void {
         const tagList:string[]=[];
         const regex = new RegExp(/<(.*)\/>/);
         const str = levelDescription.boardMarkup.split('\n');
