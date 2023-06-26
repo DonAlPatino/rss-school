@@ -32,15 +32,6 @@ h4 {
     overflow-x: hidden;
 }
 
-.container_task {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    max-width: $content-width;
-    &_task {
-        flex-basis: 20%;
-    }
-}
 
 .container_editor {
     display: flex;

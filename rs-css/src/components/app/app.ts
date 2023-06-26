@@ -21,12 +21,12 @@ class App {
     constructor() {
         this.state = new State();
         this.currentLevel = this.state.getCurrentLevel();
-        this.taskComponent = new TaskComponent(this.state);
         this.gameComponent = new GameComponent(this.state);
         this.editorComponent = new EditorComponent(this.state ,this);
         this.levelDescComponent = new LevelDescComponent(levels[this.currentLevel]);
         this.levelListComponent = new LevelListComponent(this.state,levels,(currentLevel: number) => this.update(currentLevel));
         this.navComponent = new NavComponent(this.state, this.levelDescComponent,this.levelListComponent,(currentLevel: number) => this.update(currentLevel));
+        this.taskComponent = new TaskComponent(this.state);
     }
 
     start():void {
@@ -64,7 +64,7 @@ class App {
     update(currentLevel: number):void {
         this.state.setCurrentLevel(currentLevel);
         this.levelDescComponent.updateLevelDesc(levels[currentLevel]);
-        this.taskComponent.updateTask(levels[currentLevel]);
+        this.taskComponent.updateTask(currentLevel);
         this.navComponent.updateNavLevel(currentLevel);
         this.editorComponent.update(levels[currentLevel]);
         this.gameComponent.update(levels[currentLevel]);

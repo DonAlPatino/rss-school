@@ -1,5 +1,25 @@
+.container_task {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    max-width: $content-width;
+    &_task {
+        flex-basis: 20%;
+    }
+}
+
 .task {
     font-size: 5rem;
     text-align: center;
     padding: 20px;
+}
+
+.help_link {
+    background: rgba(0,0,0,.2);
+    color: rgba(255,255,255,.3);
+    padding: 8px 15px 10px 15px;
+    -webkit-border-radius: 20px;
+    text-decoration: none;
+    display: inline-block;
 }
