@@ -133,3 +133,14 @@ tag:after {
         background-color: $color-dark-2;
     }
 }
+
+.tooltip {
+    display: none;
+    position: absolute;
+    font-family: monospace, sans-serif;
+    font-size: 1.8rem;
+    color: $color-primary;
+    background-color: $color-light-2;
+    padding: 10px;
+    z-index: 100;
+}

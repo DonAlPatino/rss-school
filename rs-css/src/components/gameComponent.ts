@@ -1,14 +1,15 @@
 import State from "../state";
 import {levels} from "../data/data";
 import {IData} from "../types";
-import {getElements} from "../util";
+import {getElementOfDocument, getElements} from "../util";
 
 export default class GameComponent {
     private currentLevel: number;
     private readonly table: HTMLDivElement;
+
     constructor(state: State) {
         this.currentLevel = state.getCurrentLevel();
-       this.table = document.createElement('div');
+        this.table = document.createElement('div');
     }
 
     render(): HTMLDivElement {
@@ -30,9 +31,9 @@ export default class GameComponent {
         ).value;
         table.insertAdjacentHTML("afterbegin", `${levels[this.currentLevel].boardMarkup}`)*/
         tableWrapper.append(this.table);
-        const tableEdge =document.createElement('div');
+        const tableEdge = document.createElement('div');
         tableEdge.classList.add('table-edge');
-        tableEdge.innerHTML =`
+        tableEdge.innerHTML = `
         <div class="table-leg"></div>
             <div class="table-leg"></div>`
         game.append(tableWrapper);
@@ -40,18 +41,19 @@ export default class GameComponent {
         return game;
     }
 
-    update(levelDescription:IData): void {
+    update(levelDescription: IData): void {
         while (this.table.firstChild) {
             this.table.firstChild.remove()
         }
         this.generateHTML(this.table, levelDescription);
     }
-    private generateHTML(table: HTMLDivElement, levelDescription:IData):void {
+
+    private generateHTML(table: HTMLDivElement, levelDescription: IData): void {
         const parser = new DOMParser();
         const doc = parser.parseFromString(`<div>${levelDescription.boardMarkup}</div>`, "application/xml");
 
 // функция для рекурсивного добавления элементов в дерево
-        function addToTree(parent:Node, node:Node):void {
+        function addToTree(parent: Node, node: Node): void {
 
             //const element = node.cloneNode(true);
             const element = document.createElement(node.nodeName.toLowerCase());
@@ -59,66 +61,82 @@ export default class GameComponent {
             for (const attribute of node2.attributes) {
                 element.setAttribute(attribute.name, attribute.value);
             }
+            element.addEventListener("mousemove", (event) => {
+                event.stopPropagation();
+                const target = event?.target as HTMLElement;
+                showTooltip(target)
+            });
+            element.addEventListener("mouseout", (event) => {
+                event.stopPropagation();
+                hideTooltip()
+            });
             parent.appendChild(element);
-            for(const child of node.childNodes){
-                if(child.nodeType === Node.ELEMENT_NODE){
+            for (const child of node.childNodes) {
+                if (child.nodeType === Node.ELEMENT_NODE) {
                     addToTree(element, child);
                 }
             }
         }
-
-        //const root = document.createElement("div"); // корневой элемент
-
-// добавление дочерних элементов в дерево
         for (const node of doc.documentElement.childNodes) {
             if (node.nodeType === Node.ELEMENT_NODE) {
                 console.log("Adding node: ", node); // отладочный вывод
                 addToTree(table, node);
             }
         }
-        //table.append(root)
-        const ourThings = getElements( table, levelDescription.selector);
+        const ourThings = getElements(table, levelDescription.selector);
         ourThings.forEach(
             x => {
                 x.classList.add("dance");
             })
 
     }
-    private generateHTML2(table: HTMLDivElement, levelDescription:IData):void {
-        const tagList:string[]=[];
+    private generateHTML2(table: HTMLDivElement, levelDescription: IData): void {
+        const tagList: string[] = [];
         const regex = new RegExp(/<(.*)\/>/);
         const str = levelDescription.boardMarkup.split('\n');
         let newHTML = '';
         for (let i = 0; i < str.length; i++)
-        if (str[i] !== '') {
-            const fullTag = str[i].match(regex);
+            if (str[i] !== '') {
+                const fullTag = str[i].match(regex);
 
-            if (fullTag !== null && fullTag.length > 0) {
-                const smallTag = fullTag[1].split(' ');
-                if (smallTag.length > 1) {
-                    newHTML = newHTML + `<${fullTag[1]}></${smallTag[0]}>`;
+                if (fullTag !== null && fullTag.length > 0) {
+                    const smallTag = fullTag[1].split(' ');
+                    if (smallTag.length > 1) {
+                        newHTML = newHTML + `<${fullTag[1]}></${smallTag[0]}>`;
+                    } else {
+                        newHTML = newHTML + `<${fullTag[1]}></${fullTag[1]}>`;
+                    }
+                    tagList.push(fullTag[1]);
                 } else {
-                    newHTML = newHTML + `<${fullTag[1]}></${fullTag[1]}>`;
+                    newHTML = newHTML + str[i];
+                    tagList.push(str[i]);
                 }
-                tagList.push(fullTag[1]);
             }
-            else {
-                newHTML = newHTML + str[i];
-                tagList.push(str[i]);
-            }
-        }
         console.log(tagList);
         table.innerHTML = newHTML;
-        /*table.addEventListener("mousemove", (event) => {
-            //debugger
-            const tar = event?.target as HTMLElement;
-            console.log(tar.closest('bento'));
-        });*/
-
-        const ourThings = getElements( table, levelDescription.selector);
+        const ourThings = getElements(table, levelDescription.selector);
         ourThings.forEach(
-            x => {x.classList.add("dance");
-        })
+            x => {
+                x.classList.add("dance");
+            })
 
     }
+}
+
+function showTooltip(element:HTMLElement /*, node*/):void {
+    const popup = getElementOfDocument('.tooltip');
+    popup.classList.add('.tooltip')
+    popup.style.display = 'block';
+    popup.innerText = element.outerHTML.replace(` class="dance"`,'');
+    console.log(popup.innerText)
+    const coords = element.getBoundingClientRect();
+    const tooltipTop = `${coords.top - 50}px`;
+    const tooltipLeft = `${coords.left}px`;
+    popup.style.top = tooltipTop;
+    popup.style.left = tooltipLeft;
+}
+
+function hideTooltip():void {
+    const popup = getElementOfDocument('.tooltip');
+    popup.style.display = 'none';
 }

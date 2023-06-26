@@ -30,6 +30,9 @@ class App {
     }
 
     start():void {
+        const tooltip = document.createElement('div');
+        tooltip.classList.add('tooltip');
+        document.body.append(tooltip);
         const appContainer = getElementOfDocument('.app-container');
 
         const leftContainer = document.createElement('div');

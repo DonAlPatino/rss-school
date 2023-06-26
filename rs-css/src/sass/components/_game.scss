@@ -15,7 +15,7 @@
     transform: perspective(1000px) rotateX(25deg);
     min-height: 142px;
     transform-origin: bottom;
-    z-index: 9999;
+    z-index: 99;
     position: relative;
     margin: 10px auto 0 auto;
     width: $table-width;
@@ -30,7 +30,7 @@
     min-height: 142px;
     padding: 15px 15px 22px 15px;
     display: flex;
-    z-index: 999;
+    z-index: 99;
     position:relative;
     flex-wrap: wrap;
     /*white-space: nowrap*/;
