@@ -308,29 +308,6 @@ export const levels:IData[] = [
     `
     },
     {
-        selectorName: "Last Child Pseudo-selector",
-        helpTitle: "Select the last element inside of another element",
-        doThis : "Select the small apple and the pickle",
-        selector : ".small:last-child",
-        syntax: ":last-child",
-        help : "You can use this selector to select an element that is the last child element inside of another element. <br><br>Pro Tip &rarr; In cases where there is only one element, that element counts as the first-child, only-child and last-child!",
-        examples : [
-            '<strong>:last-child</strong> selects all last-child elements.',
-            '<strong>span:last-child</strong> selects all last-child <tag>span</tag> elements.',
-            '<strong>ul li:last-child</strong> selects the last <tag>li</tag> elements inside of any <tag>ul</tag>.'
-        ],
-        boardMarkup : `
-    <plate id="fancy">
-      <apple class="small"/>
-    </plate>
-    <plate/>
-    <plate>
-      <orange class="small"/>
-      <orange>
-    </plate>
-    <pickle class="small"/>`
-    },
-    {
         selectorName: "Nth Child Pseudo-selector",
         helpTitle: "Select an element by its order in another element",
         doThis : "Select the 3rd plate",

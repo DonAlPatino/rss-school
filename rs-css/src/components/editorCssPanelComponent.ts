@@ -47,15 +47,7 @@ export class EditorCssPanelComponent {
 
         const help = document.createElement('div');
         const template = `<div>
-            {<br>
-            /* Styles would go here. */<br>
-            }
-            </div> <div class="help">
-              <br>
-              /* <br>
-              Type a number to skip to a level.<br>
-              Ex → "5" for level 5 <br>*/
-            </div>`
+             </div>`
         help.innerHTML = template;
         editorCssWindow.append(this.input);
         editorCssWindow.append(editorCssButton);

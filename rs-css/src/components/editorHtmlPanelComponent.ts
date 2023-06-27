@@ -2,8 +2,6 @@ import State from "../state";
 import {levels} from "../data/data";
 import {IData} from "../types";
 import hljs from 'highlight.js';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-// hljs.registerLanguage('xml', require('highlight.js/lib/languages/xml'));
 
 export class EditorHtmlPanelComponent {
     private currentLevel: number;
@@ -34,15 +32,12 @@ export class EditorHtmlPanelComponent {
         this.generateFullHtml(this.tableTag, levelDescription.boardMarkup);
     }
     private generateFullHtml(tableTag: HTMLDivElement, boardMarkup: string):void {
-        // tableTag.insertAdjacentHTML("afterend", boardMarkup)
-        //const sanitize = ('<div class="table">' + boardMarkup + '</div>').replaceAll('>', '&gt').replaceAll('<', '&lt');
         const highlightedCode = hljs.highlight(`<div class="table">${boardMarkup}
 </div>`,
             {
                 language: 'xml'
             }
         ).value;
-        //console.log(highlightedCode)
         tableTag.innerHTML= `<pre><code>${highlightedCode}</code></pre>`;
     }
 }
