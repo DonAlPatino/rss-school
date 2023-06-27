@@ -40,4 +40,8 @@ export default class  EditorComponent {
             this.editor.classList.remove('shake');
         }, 520);
     }
+
+    checkAnswer():void {
+        return this.editorCssPanelComponent.checkAnswer();
+    }
 }

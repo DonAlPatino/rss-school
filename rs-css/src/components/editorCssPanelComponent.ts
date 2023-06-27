@@ -64,7 +64,7 @@ export class EditorCssPanelComponent {
         return editorCssPanel;
     }
 
-     private checkAnswer():void {
+     checkAnswer():void {
         this.currentLevel = this.state.getCurrentLevel();
         const input = this.input.value.replaceAll('\n','')
         if (input === levels[this.currentLevel].selector){
