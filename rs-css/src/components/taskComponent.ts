@@ -47,12 +47,12 @@ export default class TaskComponent {
     this.slowlyInsertText(input, levels[this.currentLevel].selector).then(() => this.checkAnswer());
   }
 
-  slowlyInsertText(textarea: HTMLTextAreaElement, text: string): Promise<Awaited<unknown>[]> {
+  slowlyInsertText(textarea: HTMLTextAreaElement, text: string): Promise<void[]> {
     const promises = [...text].map((letter, i) => new Promise(
-        (resolve) => {
+        (resolve: (value:void) => void) => {
           setTimeout(() => {
             textarea.value = textarea.value + letter;
-            resolve(true);
+            resolve();
           }, 100 * i);
         },
     ));
