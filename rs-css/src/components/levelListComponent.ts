@@ -30,8 +30,6 @@ export default class LevelListComponent {
         this.levelsList.classList.add('levels-navigation');
         this.levelsList.append(this.generateLevelsList());
         this.levelsList.append(this.generateResetProgressButton());
-        //TODO reset button
-
         return this.levelsList;
     }
 
@@ -50,16 +48,15 @@ export default class LevelListComponent {
         let index = -1;
         this.levelsData.forEach((level) => {
 
-            //const isWithHelp = this.checkIsUsedHelp(level.level);
             index++;
             this.isDone = this.state.getProgress()[index];
+            this.isWithHelp =  this.state.getHelp()[index];
             const levelsNavigationItem = document.createElement('div');
             levelsNavigationItem.classList.add('levels-navigation__item');
             levelsNavigationItem.dataset.level = index.toString();
             if (this.currentLevel === index) {
                 levelsNavigationItem.classList.add('active');
             }
-
             levelsNavigationItem.innerHTML += `<span class="level__check ${this.isDone ? 'done' : ''} material-icons">
                                             done
                                         </span>
@@ -75,7 +72,6 @@ export default class LevelListComponent {
                     const level = Number(currentTarget.dataset.level)
                     this._update(level);
             }
-                //this.toggleLevelNavigation();
             });
 
             this.levelsListContainer.append(levelsNavigationItem);

@@ -9,8 +9,10 @@ export default class TaskComponent {
   private currentLevel: number;
   private help: HTMLDivElement;
   private checkAnswer: () => void;
+  private state: State;
 
   constructor(state: State, checkAnswer: () => void) {
+    this.state = state;
     this.currentLevel = state.getCurrentLevel()
     this.taskTitle = levels[this.currentLevel].helpTitle;
     this.container = document.createElement('div');
@@ -41,7 +43,7 @@ export default class TaskComponent {
 
   async writeAnswer(): Promise<void> {
     const input = getElementOfDocument('.css-panel__input') as HTMLTextAreaElement;
-
+    this.state.setHelp(this.currentLevel);
     this.slowlyInsertText(input, levels[this.currentLevel].selector).then(() => this.checkAnswer());
   }
 

@@ -26,7 +26,7 @@ export class NavComponent {
         this.maxLevel = levels.length;
         this.levelListButton = document.createElement('button');
         this.isDone= this.state.getProgress()[this.currentLevel];
-        this.isWithHelp=false;
+        this.isWithHelp=this.state.getHelp()[this.currentLevel];
         this.menuToggleButton = document.createElement('div');
         this.template = `<span>Level ${this.currentLevel + 1} of ${this.maxLevel}</span>
                                     <span class="level__check ${this.isDone ? 'done' : ''} material-icons">
@@ -78,6 +78,7 @@ export class NavComponent {
         this.currentLevel = this.state.getCurrentLevel();
         const navigationLevel = getElementOfDocument('.navigation__level');
         this.isDone= this.state.getProgress()[this.currentLevel];
+        this.isWithHelp=this.state.getHelp()[this.currentLevel];
         navigationLevel.innerHTML = `<span>Level ${currentLevel + 1} of ${this.maxLevel}</span>
                                         <span class="level__check ${this.isDone ? 'done' : ''} material-icons">
                                             done

@@ -5,11 +5,13 @@ export default class State {
     private currentLevel: number;
     maxLevel: number;
     private progress: boolean[];
+    private help: boolean[];
 
     constructor() {
         this.currentLevel = 0;
         this.maxLevel = levels.length - 1;
         this.progress = Array(this.maxLevel).fill(false);
+        this.help = Array(this.maxLevel).fill(false);
         this.maxLevel = levels.length;
 
     }
@@ -32,8 +34,21 @@ export default class State {
         this.progress[currentLevel] = true;
         localStorage.setItem('progress', JSON.stringify(this.progress));
     }
+
+    getHelp(): boolean[] {
+        const help = JSON.parse(localStorage.getItem('help') || '1 ')
+        if (help === 1) this.help= Array(this.maxLevel).fill(false);
+        else this.help = help;
+        return this.help;
+    }
+    setHelp(currentLevel:number): void {
+        this.help[currentLevel] = true;
+        localStorage.setItem('help', JSON.stringify(this.help));
+    }
+
     clearData(): void {
         localStorage.removeItem('currentLevel');
         localStorage.removeItem('progress');
+        localStorage.removeItem('help');
     }
 }
