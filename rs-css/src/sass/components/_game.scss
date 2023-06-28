@@ -12,14 +12,14 @@
 }
 
 .table-wrapper {
+    display: flex;
     transform: perspective(1000px) rotateX(25deg);
     min-height: 142px;
     transform-origin: bottom;
     z-index: 99;
     position: relative;
     margin: 10px auto 0 auto;
-    width: $table-width;
-
+    max-width: $table-width;
 }
 
 .table {
@@ -32,7 +32,8 @@
     display: flex;
     z-index: 99;
     position:relative;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    width: 100%;
     /*white-space: nowrap*/;
 }
 

@@ -18,8 +18,8 @@ export const levels:IData[] = [
     `
     },
     {
-        doThis : "Select the bento boxes",
-        selector : "bento",
+        doThis : "Select the tray boxes",
+        selector : "tray",
         syntax : "A",
         helpTitle : "Select elements by their type",
         selectorName : "Type Selector",
@@ -30,7 +30,7 @@ export const levels:IData[] = [
         ],
         boardMarkup: `
     <plate/>
-    <bento/>
+    <tray/>
     `
     },
     {
@@ -47,14 +47,14 @@ export const levels:IData[] = [
         boardMarkup : `
     <plate id="fancy"/>
     <plate/>
-    <bento/>
+    <tray/>
     `
     },
     {
         helpTitle: "Select an element inside another element",
         selectorName : "Descendant Selector",
-        doThis : "Select the apple on the plate",
-        selector : "plate apple",
+        doThis : "Select the tomato on the plate",
+        selector : "plate tomato",
         syntax: "A&nbsp;&nbsp;B",
         help : "Selects all <strong>B</strong> inside of <strong>A</strong>. <strong>B</strong> is called a descendant because it is inside of another element.",
         examples : [
@@ -62,17 +62,17 @@ export const levels:IData[] = [
             '<strong>#fancy&nbsp;&nbsp;span</strong> selects any <tag>span</tag> elements that are inside of the element with <strong>id="fancy"</strong>',
         ],
         boardMarkup : `
-    <bento/>
+    <tray/>
     <plate>
-      <apple/>
+      <tomato/>
     </plate>
-    <apple/>
+    <tomato/>
     `
     },
     {
         selectorName : "Гавно",
-        doThis : "Select the pickle on the fancy plate",
-        selector : "#fancy pickle",
+        doThis : "Select the cucumber on the fancy plate",
+        selector : "#fancy cucumber",
         helpTitle: "Combine the Descendant & ID Selectors",
         syntax: "#id&nbsp;&nbsp;A",
         help : 'You can combine any selector with the descendent selector.',
@@ -80,19 +80,19 @@ export const levels:IData[] = [
             '<strong>#cool&nbsp;span</strong> selects all <tag>span</tag> elements that are inside of elements with <strong>id="cool"</strong>'
         ],
         boardMarkup : `
-    <bento>
-    <orange/>
-    </bento>
+    <tray>
+    <lemon/>
+    </tray>
     <plate id="fancy">
-      <pickle/>
+      <cucumber/>
     </plate>
     <plate>
-      <pickle/>
+      <cucumber/>
     </plate>
     `
     },
     {
-        doThis : "Select the small apples",
+        doThis : "Select the small tomatos",
         selector : ".small",
         selectorName: "Class Selector",
         helpTitle: "Select elements by their class",
@@ -102,18 +102,18 @@ export const levels:IData[] = [
             '<strong>.neato</strong> selects all elements with <strong>class="neato"</strong>'
         ],
         boardMarkup : `
-    <apple/>
-    <apple class="small"/>
+    <tomato/>
+    <tomato class="small"/>
     <plate>
-      <apple class="small"/>
+      <tomato class="small"/>
     </plate>
     <plate/>
     `
     },
     {
         selectorName : "Гавно",
-        doThis : "Select the small oranges",
-        selector : "orange.small",
+        doThis : "Select the small lemons",
+        selector : "lemon.small",
         helpTitle: "Combine the Class Selector",
         syntax: "A.className",
         help : 'You can combine the class selector with other selectors, like the type selector.',
@@ -122,21 +122,21 @@ export const levels:IData[] = [
             '<strong>#big.wide</strong> selects all elements with <strong>id="big"</strong> that also have <strong>class="wide"</strong>'
         ],
         boardMarkup :`
-    <apple/>
-    <apple class="small"/>
-    <bento>
-      <orange class="small"/>
-    </bento>
+    <tomato/>
+    <tomato class="small"/>
+    <tray>
+      <lemon class="small"/>
+    </tray>
     <plate>
-      <orange/>
+      <lemon/>
     </plate>
     <plate>
-      <orange class="small"/>
+      <lemon class="small"/>
     </plate>`
     },
     {
-        doThis : "Select all the plates and bentos",
-        selector : "plate,bento",
+        doThis : "Select all the plates and trays",
+        selector : "plate,tray",
         selectorName : "Comma Combinator",
         helpTitle: "Combine, selectors, with... commas!",
         syntax : "A, B",
@@ -146,19 +146,19 @@ export const levels:IData[] = [
             '<strong>a, p, div</strong> selects all <tag>a</tag>, <tag>p</tag> and <tag>div</tag> elements'
         ],
         boardMarkup : `
-    <pickle class="small"/>
-    <pickle/>
+    <cucumber class="small"/>
+    <cucumber/>
     <plate>
-      <pickle/>
+      <cucumber/>
     </plate>
-    <bento>
-      <pickle/>
-    </bento>
+    <tray>
+      <cucumber/>
+    </tray>
     <plate>
-      <pickle/>
+      <cucumber/>
     </plate>
-    <pickle/>
-    <pickle class="small"/>
+    <cucumber/>
+    <cucumber class="small"/>
     `
     },
     {
@@ -172,20 +172,20 @@ export const levels:IData[] = [
             '<strong>p *</strong> selects any element inside all <tag>p</tag> elements.',
         ],
         boardMarkup : `
-    <apple/>
+    <tomato/>
     <plate>
-      <orange class="small" />
+      <lemon class="small" />
     </plate>
-    <bento/>
-    <bento>
-      <orange/>
-    </bento>
+    <tray/>
+    <tray>
+      <lemon/>
+    </tray>
     <plate id="fancy"/>
     `
     },
     {
-        doThis : "Select every apple that's next to a plate",
-        selector : "plate + apple",
+        doThis : "Select every tomato that's next to a plate",
+        selector : "plate + tomato",
         helpTitle: "Select an element that directly follows another element",
         selectorName: "Adjacent Sibling Selector",
         syntax : "A + B",
@@ -195,70 +195,70 @@ export const levels:IData[] = [
             '<strong>div + a</strong> selects every <tag>a</tag> element that directly follows a <tag>div</tag>'
         ],
         boardMarkup : `
-    <bento>
-      <apple class="small"/>
-    </bento>
+    <tray>
+      <tomato class="small"/>
+    </tray>
     <plate />
-    <apple class="small"/>
+    <tomato class="small"/>
     <plate />
-    <apple/>
-    <apple class="small"/>
-    <apple class="small"/>
+    <tomato/>
+    <tomato class="small"/>
+    <tomato class="small"/>
     `
     },
     {
         selectorName: "General Sibling Selector",
         helpTitle: "Select elements that follows another element",
         syntax: "A ~ B",
-        doThis : "Select the pickles beside the bento",
-        selector : "bento ~ pickle",
+        doThis : "Select the cucumbers beside the tray",
+        selector : "tray ~ cucumber",
         help : "You can select all siblings of an element that follow it. This is like the Adjacent Selector (A + B) except it gets all of the following elements instead of one.",
         examples : [
             '<strong>A ~ B</strong> selects all <strong>B</strong> that follow a <strong>A</strong>'
         ],
         boardMarkup : `
-    <pickle/>
-    <bento>
-      <orange class="small"/>
-    </bento>
-    <pickle class="small"/>
-    <pickle/>
+    <cucumber/>
+    <tray>
+      <lemon class="small"/>
+    </tray>
+    <cucumber class="small"/>
+    <cucumber/>
     <plate>
-      <pickle/>
+      <cucumber/>
     </plate>
     <plate>
-      <pickle class="small"/>
+      <cucumber class="small"/>
     </plate>
     `
     },
     {
         selectorName: "Child Selector",
         syntax: "A > B&nbsp;",
-        doThis : "Select the apple directly on a plate",
-        selector : "plate > apple",
+        doThis : "Select the tomato directly on a plate",
+        selector : "plate > tomato",
         helpTitle: "Select direct children of an element",
         help : "You can select elements that are direct children of other elements. A child element is any element that is nested directly in another element. <br><br>Elements that are nested deeper than that are called descendant elements.",
         examples : [
             '<strong>A > B</strong> selects all <strong>B</strong> that are a direct children <strong>A</strong>'
         ],
         boardMarkup: `
+    <tray>
+      <plate>
+        <tomato/>
+      </plate>
+    </tray>
     <plate>
-      <bento>
-        <apple/>
-      </bento>
-    </plate>
-    <plate>
-      <apple/>
+      <tomato/>
     </plate>
     <plate/>
-    <apple/>
-    <apple class="small"/>
+    <tomato/>
+    <tomato class="small"/>
     `
     },
     {
         selectorName: "First Child Pseudo-selector",
         helpTitle: "Select a first child element inside of another element",
-        doThis : "Select the top orange",
+        doThis : "Select the top lemon",
         selector : "plate :first-child",
         syntax: ":first-child",
 
@@ -269,20 +269,20 @@ export const levels:IData[] = [
             '<strong>div p:first-child</strong> selects all first child <tag>p</tag> elements that are in a <tag>div</tag>.'
         ],
         boardMarkup :`
-    <bento/>
+    <tray/>
     <plate />
     <plate>
-      <orange />
-      <orange />
-      <orange />
+      <lemon />
+      <lemon />
+      <lemon />
     </plate>
-    <pickle class="small" />
+    <cucumber class="small" />
     `
     },
     {
         selectorName: "Only Child Pseudo-selector",
         helpTitle: "Select an element that are the only element inside of another one.",
-        doThis : "Select the apple and the pickle on the plates",
+        doThis : "Select the tomato and the cucumber on the plates",
         selector : "plate :only-child",
         syntax: ":only-child",
         help : "You can select any element that is the only element inside of another one.",
@@ -292,19 +292,19 @@ export const levels:IData[] = [
         ],
         boardMarkup : `
     <plate>
-      <apple/>
+      <tomato/>
     </plate>
     <plate>
-      <pickle />
+      <cucumber />
     </plate>
-    <bento>
-      <pickle />
-    </bento>
+    <tray>
+      <cucumber />
+    </tray>
     <plate>
-      <orange class="small"/>
-      <orange/>
+      <lemon class="small"/>
+      <lemon/>
     </plate>
-    <pickle class="small"/>
+    <cucumber class="small"/>
     `
     },
     {
@@ -328,8 +328,8 @@ export const levels:IData[] = [
     {
         selectorName: "Nth Last Child Selector",
         helpTitle: "Select an element by its order in another element, counting from the back",
-        doThis : "Select the 1st bento",
-        selector : "bento:nth-last-child(3)",
+        doThis : "Select the 1st tray",
+        selector : "tray:nth-last-child(3)",
         syntax: ":nth-last-child(A)",
         help : "Selects the children from the bottom of the parent. This is like nth-child, but counting from the back!",
         examples : [
@@ -337,64 +337,64 @@ export const levels:IData[] = [
         ],
         boardMarkup: `
     <plate/>
-    <bento/>
+    <tray/>
     <plate>
-      <orange/>
-      <orange/>
-      <orange/>
+      <lemon/>
+      <lemon/>
+      <lemon/>
     </plate>
-    <bento/>
+    <tray/>
     `
     },
     {
         selectorName: "First of Type Selector",
         helpTitle: "Select the first element of a specific type",
-        doThis : "Select first apple",
-        selector : "apple:first-of-type",
+        doThis : "Select first tomato",
+        selector : "tomato:first-of-type",
         syntax: ":first-of-type",
         help : "Selects the first element of that type within another element.",
         examples : [
             '<strong>span:first-of-type</strong> selects the first <tag>span</tag> in any element.'
         ],
         boardMarkup: `
-    <orange class="small"/>
-    <apple/>
-    <apple class="small"/>
-    <apple/>
-    <apple class="small"/>
+    <lemon class="small"/>
+    <tomato/>
+    <tomato class="small"/>
+    <tomato/>
+    <tomato class="small"/>
     <plate>
-      <orange class="small"/>
-      <orange/>
+      <lemon class="small"/>
+      <lemon/>
     </plate>
     `
     },
     {
         selectorName: "Only of Type Selector",
         helpTitle: "Select elements that are the only ones of their type within of their parent element",
-        selector : "apple:only-of-type",
+        selector : "tomato:only-of-type",
         syntax: ":only-of-type",
-        doThis : "Select the apple on the middle plate",
+        doThis : "Select the tomato on the middle plate",
         help : "Selects the only element of its type within another element.",
         examples : [
             '<strong>p span:only-of-type</strong> selects a <tag>span</tag> within any <tag>p</tag> if it is the only <tag>span</tag> in there.'
         ],
         boardMarkup: `
     <plate id="fancy">
-      <apple class="small" />
-      <apple />
+      <tomato class="small" />
+      <tomato />
     </plate>
     <plate>
-      <apple class="small" />
+      <tomato class="small" />
     </plate>
     <plate>
-      <pickle />
+      <cucumber />
     </plate>
     `
     },
     {
         selectorName: "Last of Type Selector",
         helpTitle: "Select the last element of a specific type",
-        doThis : "Select the last apple and orange",
+        doThis : "Select the last tomato and lemon",
         selector : ".small:last-of-type",
         syntax: ":last-of-type",
         help : "Selects each last element of that type within another element. Remember type refers the kind of tag, so <tag>p</tag> and <tag>span</tag> are different types. <br><br> I wonder if this is how the last dinosaur was selected before it went extinct.",
@@ -403,37 +403,37 @@ export const levels:IData[] = [
             '<strong>p span:last-of-type</strong> selects the last <tag>span</tag> in every <tag>p</tag>.'
         ],
         boardMarkup : `
-    <orange class="small"/>
-    <orange class="small" />
-    <pickle />
-    <pickle />
-    <apple class="small" />
-    <apple class="small" />
+    <lemon class="small"/>
+    <lemon class="small" />
+    <cucumber />
+    <cucumber />
+    <tomato class="small" />
+    <tomato class="small" />
     `
     },
     {
         selectorName: "Empty Selector",
         helpTitle: "Select elements that don't have children",
-        doThis : "Select the empty bentos",
-        selector : "bento:empty",
+        doThis : "Select the empty trays",
+        selector : "tray:empty",
         syntax: ":empty",
         help : "Selects elements that don't have any other elements inside of them.",
         examples : [
             '<strong>div:empty</strong> selects all empty <tag>div</tag> elements.'
         ],
         boardMarkup:`
-    <bento/>
-    <bento>
-      <pickle class="small"/>
-    </bento>
+    <tray/>
+    <tray>
+      <cucumber class="small"/>
+    </tray>
     <plate/>
-    <bento/>`
+    <tray/>`
     },
     {
         selectorName: "Negation Pseudo-class",
         helpTitle: "Select all elements that don't match the negation selector",
-        doThis : "Select the big apples",
-        selector : "apple:not(.small)",
+        doThis : "Select the big tomatos",
+        selector : "tomato:not(.small)",
         syntax: ":not(X)",
         help : 'You can use this to select all elements that do not match selector <strong>"X"</strong>.',
         examples : [
@@ -443,16 +443,16 @@ export const levels:IData[] = [
         ],
         boardMarkup: `
     <plate id="fancy">
-      <apple class="small" />
+      <tomato class="small" />
     </plate>
     <plate>
-      <apple />
+      <tomato />
     </plate>
-    <apple />
+    <tomato />
     <plate>
-      <orange class="small" />
+      <lemon class="small" />
     </plate>
-    <pickle class="small" />
+    <cucumber class="small" />
     `
     },
     {
@@ -467,11 +467,11 @@ export const levels:IData[] = [
             '<strong>[type]</strong> selects all elements that have a <strong>type="anything"</strong>. attribute'
         ],
         boardMarkup:`
-    <bento><apple class="small"/></bento>
-    <apple for="Ethan"/>
-    <plate for="Alice"><pickle/></plate>
-    <bento for="Clara"><orange/></bento>
-    <pickle/>`
+    <tray><tomato class="small"/></tray>
+    <tomato for="Ethan"/>
+    <plate for="Alice"><cucumber/></plate>
+    <tray for="Clara"><lemon/></tray>
+    <cucumber/>`
     },
     {
         selectorName: "Attribute Selector",
@@ -486,10 +486,10 @@ export const levels:IData[] = [
             '<strong>input[disabled]</strong> selects all <tag>input</tag> elements with the <strong>disabled</strong> attribute'
         ],
         boardMarkup:`
-    <plate for="Sarah"><pickle/></plate>
-    <plate for="Luke"><apple/></plate>
+    <plate for="Sarah"><cucumber/></plate>
+    <plate for="Luke"><tomato/></plate>
     <plate/>
-    <bento for="Steve"><orange/></bento>
+    <tray for="Steve"><lemon/></tray>
     `
     },
     {
@@ -503,10 +503,10 @@ export const levels:IData[] = [
             '<strong>input[type="checkbox"]</strong> selects all checkbox input elements.'
         ],
         boardMarkup:`
-    <apple for="Alexei" />
-    <bento for="Albina"><apple /></bento>
-    <bento for="Vitaly"><orange/></bento>
-    <pickle/>
+    <tomato for="Alexei" />
+    <tray for="Albina"><tomato /></tray>
+    <tray for="Vitaly"><lemon/></tray>
+    <cucumber/>
     `
     },
     {
@@ -520,11 +520,11 @@ export const levels:IData[] = [
             '<strong>img[src$=".jpg"]</strong> selects all images display a <strong>.jpg</strong> image.',
         ],
         boardMarkup:`
-    <apple class="small"/>
-    <bento for="Hayato"><pickle/></bento>
-    <apple for="Ryota"></apple>
-    <plate for="Minato"><orange/></plate>
-    <pickle class="small"/>
+    <tomato class="small"/>
+    <tray for="Hayato"><cucumber/></tray>
+    <tomato for="Ryota"></tomato>
+    <plate for="Minato"><lemon/></plate>
+    <cucumber class="small"/>
     `
     },
     {
@@ -539,9 +539,9 @@ export const levels:IData[] = [
             '<strong>[class*="heading"]</strong> selects all elements with "heading" in their class, like <strong>class="main-heading"</strong> and <strong>class="sub-heading"</strong>'
         ],
         boardMarkup:`
-    <bento for="Robbie"><apple /></bento>
-    <bento for="Timmy"><pickle /></bento>
-    <bento for="Bobby"><orange /></bento>
+    <tray for="Robbie"><tomato /></tray>
+    <tray for="Timmy"><cucumber /></tray>
+    <tray for="Bobby"><lemon /></tray>
     `
     }
 ];
