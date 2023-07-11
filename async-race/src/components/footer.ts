@@ -5,9 +5,10 @@ export default class Footer {
 
   constructor() {
     this.container = document.createElement('footer');
+    this.container.className = 'footer';
     this.template = `<p class="copyright">
 <a href="https://rs.school/js/">
-<img src="https://rs.school/images/rs_school_js.svg" alt="Logotype"></a>
+<img width="242" height="90" src="https://rs.school/images/rs_school_js.svg" alt="Logotype"></a>
 <a href="https://github.com/DonAlPatino">Don Al Patino 2023</a>
 </p>
 `;
