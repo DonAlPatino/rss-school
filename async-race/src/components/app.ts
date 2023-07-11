@@ -22,8 +22,8 @@ export default class App {
   start(): void {
     const appContainer = getElementOfDocument('.app-container');
     appContainer.append(this.header.render());
-    // appContainer.append(this.garage.render());
-    appContainer.append(this.winners.render());
+    appContainer.append(this.garage.render());
+    //appContainer.append(this.winners.render());
     appContainer.append(this.footer.render());
   }
 }
