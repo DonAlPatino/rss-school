@@ -1,0 +1,45 @@
+.field-create,
+.field-update,
+.field-control,
+.pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 1em;
+}
+
+.text-input {
+    width: 220px;
+    height: 44px;
+    padding: 10px 15px;
+    background-color: $color-input-bg-dark;
+    border-radius: 8px;
+    border: none;
+    font-size: 1.6rem;
+    color: $color-text-light;
+
+    &:focus {
+        outline: 1px $color-border-dark--focus solid;
+        background-color: $color-input-bg-dark--focus;
+    }
+
+    &:disabled {
+        background-color: $color-input-bg-dark--disabled;
+        pointer-events: none;
+    }
+}
+
+.color-input {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    width: 42px;
+    height: 42px;
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    &:disabled {
+        pointer-events: none;
+    }
+}
