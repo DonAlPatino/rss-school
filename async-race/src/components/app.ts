@@ -32,7 +32,7 @@ export default class App {
 
   update(activePage:string): void {
     const appContainer = getElementOfDocument('.app-container');
-    appContainer.append(this.header.render());
+    //    appContainer.append(this.header.render());
     switch (activePage) {
       case 'Garage': {
         const winnersContainer = getElementOfDocument('.winners-page');
@@ -47,6 +47,6 @@ export default class App {
         break;
       }
     }
-    appContainer.append(this.footer.render());
+    //    appContainer.append(this.footer.render());
   }
 }
