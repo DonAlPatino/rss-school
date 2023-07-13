@@ -5,6 +5,11 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const baseConfig = {
+    devServer: {
+        //host: '192.168.0.0', //your ip address
+        port: 8888,
+        disableHostCheck: true
+    },
     entry: path.resolve(__dirname, './src/index.ts'),
     mode: 'development',
     module: {
