@@ -18,12 +18,8 @@ export type Car = {
   id: number;
 };
 
-export type Winners = {
-  items: Array<{
-    car: Car;
-    id: number;
-    time: number;
-    wins: number;
-  }>;
-  count: string | null;
+export interface Winner {
+  id: number;
+  time: number;
+  wins: number;
 };

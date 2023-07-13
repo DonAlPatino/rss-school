@@ -1,11 +1,21 @@
 import { getElementOfDocument } from '../util';
-import { BASE_URL, createCarImage } from '../constants';
-import { DescriptionCar } from '../types';
+import { createCarImage } from '../constants';
+import { getAllWinners, getCarById } from '../service/api';
+
+export const createWinnerTable = (num: number, color: string, name: string, wins: number, bestTime: number):string =>
+  `<tr">
+    <td>${num}</td>
+    <td>${createCarImage(color)}</td>
+    <td>${name}</td>
+    <td>${wins}</td>
+    <td>${bestTime}</td>
+  </tr>
+`;
 
 export default class WinnersPage {
-  private readonly template: string;
+  private readonly template:string;
 
-  private container: HTMLDivElement;
+  private readonly container: HTMLDivElement;
 
   private containerWinners: HTMLDivElement;
 
@@ -40,10 +50,27 @@ export default class WinnersPage {
   `;
   }
 
-  render(): HTMLDivElement {
+  render():HTMLDivElement {
     this.container.innerHTML = this.template;
-    this.containerWinners = getElementOfDocument('.container-win');
     return this.container;
   }
 
+  updateWinners = async (): Promise<void> => {
+    this.containerWinners = getElementOfDocument('.container-win');
+    this.containerWinners.innerHTML = '';
+    const winners = await getAllWinners();
+    let num = 0;
+    for (const car of winners) {
+      let name = '';
+      let color = '';
+      const currentCar = await getCarById(car.id);
+      name = currentCar.name;
+      color = currentCar.color;
+      num += 1;
+      const oneWinner = `${createWinnerTable(num, color, name, car.wins, car.time)}`;
+      this.containerWinners.innerHTML += oneWinner;
+    }
+  };
 }
+
+

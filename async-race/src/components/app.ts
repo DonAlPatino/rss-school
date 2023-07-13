@@ -45,6 +45,7 @@ export default class App {
         const garageContainer = getElementOfDocument('.garage-page');
         appContainer.insertBefore(this.winners.render(), garageContainer );
         garageContainer.remove();
+        this.winners.updateWinners();
         break;
       }
     }
