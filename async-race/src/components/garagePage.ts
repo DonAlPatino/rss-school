@@ -1,4 +1,4 @@
-export default class Garage {
+export default class GaragePage {
   private readonly template:string;
 
   private container: HTMLDivElement;

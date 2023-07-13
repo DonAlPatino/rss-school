@@ -1,3 +1,5 @@
+import { Pages } from '../types';
+
 export default class Header {
   private readonly container: HTMLElement;
 
@@ -5,9 +7,9 @@ export default class Header {
 
   private btnToWinners: HTMLButtonElement;
 
-  updateView: (activePage: string) => void;
+  updateView: (activePage: Pages) => void;
 
-  constructor(update: (activePage: string) => void) {
+  constructor(update: (activePage: Pages) => void) {
     this.container = document.createElement('header');
     this.container.className = 'header';
     this.btnToGarage = document.createElement('button');
@@ -22,12 +24,12 @@ export default class Header {
     this.btnToWinners.className = 'buttons btn-to_winners';
     this.btnToWinners.textContent = 'To winners';
     this.container.append(this.btnToWinners);
-    this.btnToGarage.addEventListener('click', () => this.togglePage('Garage'));
-    this.btnToWinners.addEventListener('click', () => this.togglePage('Winners'));
+    this.btnToGarage.addEventListener('click', () => this.togglePage(Pages.GARAGE));
+    this.btnToWinners.addEventListener('click', () => this.togglePage(Pages.WINNERS));
     return this.container;
   }
 
-  togglePage(activePage:string):void {
+  togglePage(activePage:Pages):void {
     this.buttonsManagement(activePage);
     this.updateView(activePage);
   }

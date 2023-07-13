@@ -1,11 +1,18 @@
-export default class Winners {
-  private readonly template:string;
+import { getElementOfDocument } from '../util';
+import { BASE_URL, createCarImage } from '../constants';
+import { DescriptionCar } from '../types';
+
+export default class WinnersPage {
+  private readonly template: string;
 
   private container: HTMLDivElement;
+
+  private containerWinners: HTMLDivElement;
 
   constructor() {
     this.container = document.createElement('div');
     this.container.className = 'page winners-page';
+    this.containerWinners = document.createElement('div');
     this.template = `
       <h1 class="title title-winners">Winners <span class="count-winners"></span></h1>
       <h3 class="title title-winners">Page #<span class="count-page_winners">1</span></h3>
@@ -33,8 +40,10 @@ export default class Winners {
   `;
   }
 
-  render():HTMLDivElement {
+  render(): HTMLDivElement {
     this.container.innerHTML = this.template;
+    this.containerWinners = getElementOfDocument('.container-win');
     return this.container;
   }
+
 }

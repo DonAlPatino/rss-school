@@ -1,25 +1,26 @@
-import Garage from './garage';
+import GaragePage from './garagePage';
 import Header from './header';
 import Footer from './footer';
-import Winners from './winners';
+import WinnersPage from './winnersPage';
 import { getElementOfDocument } from '../util';
+import { Pages } from '../types';
 export default class App {
-  private garage: Garage;
+  private garage: GaragePage;
 
   private header: Header;
 
   private footer: Footer;
 
-  private winners: Winners;
+  private winners: WinnersPage;
 
   private activePage: string;
 
   constructor() {
-    this.activePage = 'Garage';
-    this.garage = new Garage();
-    this.header = new Header( (activePage:string) => this.update(activePage));
+    this.activePage = Pages.GARAGE;
+    this.garage = new GaragePage();
+    this.header = new Header( (activePage:Pages) => this.update(activePage));
     this.footer = new Footer();
-    this.winners = new Winners();
+    this.winners = new WinnersPage();
   }
 
   start(): void {
@@ -30,7 +31,7 @@ export default class App {
     appContainer.append(this.footer.render());
   }
 
-  update(activePage:string): void {
+  update(activePage:Pages): void {
     const appContainer = getElementOfDocument('.app-container');
     //    appContainer.append(this.header.render());
     switch (activePage) {
