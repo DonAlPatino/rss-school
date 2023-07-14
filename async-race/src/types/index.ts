@@ -3,16 +3,7 @@ export enum Pages {
   WINNERS = 'Winners',
 }
 
-export type DescriptionCar = {
-  [key: string | number]: number | string,
-  id: number,
-  name: string,
-  color: string,
-  wins: number,
-  time: number
-};
-
-export type Car = {
+export interface Car {
   name: string;
   color: string;
   id: number;

@@ -57,6 +57,7 @@ export default class WinnersPage {
 
   updateWinners = async (): Promise<void> => {
     this.containerWinners = getElementOfDocument('.container-win');
+    const countWinners = getElementOfDocument('.count-winners');
     this.containerWinners.innerHTML = '';
     const winners = await getAllWinners();
     let num = 0;
@@ -66,6 +67,7 @@ export default class WinnersPage {
       const oneWinner = `${createWinnerTable(num, currentCar.color, currentCar.name, car.wins, car.time)}`;
       this.containerWinners.innerHTML += oneWinner;
     }
+    countWinners.innerText = ` (${winners.length.toString()} winners)`;
   };
 }
 
