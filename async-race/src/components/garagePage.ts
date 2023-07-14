@@ -1,9 +1,34 @@
+import { getElementOfDocument } from '../util';
+import { getAllCars } from '../service/api';
+import { createCarImage } from '../util/createCarImage';
+
+
+export const createCarTable = (id: number, name: string, color: string):string =>
+  `<div class="car">
+    <div class="car-options">
+      <button class="buttons car-options_select" data-select=${id}>Select</button>
+      <button class="buttons car-options_remove" data-remove=${id}>Remove</button>
+      <h4 class="car-options_title">${name}</h4>
+    </div>
+    <div class="car-control">
+      <button class="car-control_start" id="start-${id}" data-start=${id} >Start</button>
+      <button class="car-control_stop" id="stop-${id}" data-stop=${id} disabled="true">Stop</button>
+      <div class="car-img" id="car-${id}" data-car=${id}>${createCarImage(color)}</div>
+      <div class="flag"></div>
+    </div>
+  </div>
+`;
+
+
 export default class GaragePage {
   private readonly template:string;
 
-  private container: HTMLDivElement;
+  private readonly container: HTMLDivElement;
+
+  private containerCars: HTMLDivElement;
 
   constructor() {
+    this.containerCars = document.createElement('div');
     this.container = document.createElement('div');
     this.container.className = 'page garage-page';
     this.template = `
@@ -43,4 +68,14 @@ export default class GaragePage {
     this.container.innerHTML = this.template;
     return this.container;
   }
+
+  updateGarage = async (): Promise<void> => {
+    this.containerCars = getElementOfDocument('.container-car');
+    this.containerCars.innerHTML = '';
+    const winners = await getAllCars();
+    for (const car of winners) {
+      const oneCar = `${createCarTable(car.id, car.name, car.color)}`;
+      this.containerCars.innerHTML += oneCar;
+    }
+  };
 }

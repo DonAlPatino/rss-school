@@ -28,17 +28,18 @@ export default class App {
     appContainer.append(this.header.render());
     appContainer.append(this.garage.render());
     this.header.buttonsManagement('Garage');
+    this.garage.updateGarage();
     appContainer.append(this.footer.render());
   }
 
   update(activePage:Pages): void {
     const appContainer = getElementOfDocument('.app-container');
-    //    appContainer.append(this.header.render());
     switch (activePage) {
       case 'Garage': {
         const winnersContainer = getElementOfDocument('.winners-page');
         appContainer.insertBefore(this.garage.render(), winnersContainer);
         winnersContainer.remove();
+        this.garage.updateGarage();
         break;
       }
       case 'Winners': {
@@ -49,6 +50,5 @@ export default class App {
         break;
       }
     }
-    //    appContainer.append(this.footer.render());
   }
 }

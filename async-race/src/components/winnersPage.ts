@@ -1,6 +1,6 @@
 import { getElementOfDocument } from '../util';
-import { createCarImage } from '../constants';
 import { getAllWinners, getCarById } from '../service/api';
+import { createCarImage } from '../util/createCarImage';
 
 export const createWinnerTable = (num: number, color: string, name: string, wins: number, bestTime: number):string =>
   `<tr">
@@ -61,13 +61,9 @@ export default class WinnersPage {
     const winners = await getAllWinners();
     let num = 0;
     for (const car of winners) {
-      let name = '';
-      let color = '';
       const currentCar = await getCarById(car.id);
-      name = currentCar.name;
-      color = currentCar.color;
       num += 1;
-      const oneWinner = `${createWinnerTable(num, color, name, car.wins, car.time)}`;
+      const oneWinner = `${createWinnerTable(num, currentCar.color, currentCar.name, car.wins, car.time)}`;
       this.containerWinners.innerHTML += oneWinner;
     }
   };
