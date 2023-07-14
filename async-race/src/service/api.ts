@@ -1,5 +1,5 @@
 import { Car, Winner } from '../types';
-import { BASE_URL } from '../constants';
+import { BASE_URL, garage } from '../constants';
 
 export const getAllWinners = async ():Promise<Winner[]> => {
   const winners = `${BASE_URL}/winners`;
@@ -8,9 +8,19 @@ export const getAllWinners = async ():Promise<Winner[]> => {
 };
 
 export const getCarById = async (id: number): Promise<Car> =>
-  (await fetch(`${BASE_URL}/garage/${id}`)).json();
+  (await fetch(`${garage}/${id}`)).json();
 
 export const getAllCars = async (page = 1, limit = 7): Promise<Car[]> => {
-  const response = await fetch(`${BASE_URL}/garage?_page=${page}&_limit=${limit}`);
+  const response = await fetch(`${garage}?_page=${page}&_limit=${limit}`);
   return response.json();
+};
+
+export const createCarAPI = async (body: object):Promise<void> => {
+  await fetch(garage, {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
 };
