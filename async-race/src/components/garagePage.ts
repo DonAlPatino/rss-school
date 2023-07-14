@@ -71,11 +71,13 @@ export default class GaragePage {
 
   updateGarage = async (): Promise<void> => {
     this.containerCars = getElementOfDocument('.container-car');
+    const countGarage = getElementOfDocument('.count-garage');
     this.containerCars.innerHTML = '';
-    const winners = await getAllCars();
-    for (const car of winners) {
+    const cars = await getAllCars();
+    for (const car of cars) {
       const oneCar = `${createCarTable(car.id, car.name, car.color)}`;
       this.containerCars.innerHTML += oneCar;
     }
+    countGarage.innerText = ` (${cars.length.toString()} cars)`;
   };
 }
