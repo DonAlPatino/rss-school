@@ -17,12 +17,10 @@ export default class WinnersPage {
 
   private readonly container: HTMLDivElement;
 
-  private containerWinners: HTMLDivElement;
 
   constructor() {
     this.container = document.createElement('div');
     this.container.className = 'page winners-page';
-    this.containerWinners = document.createElement('div');
     this.template = `
       <h1 class="title title-winners">Winners <span class="count-winners"></span></h1>
       <h3 class="title title-winners">Page #<span class="count-page_winners">1</span></h3>
@@ -56,18 +54,18 @@ export default class WinnersPage {
   }
 
   updateWinners = async (): Promise<void> => {
-    this.containerWinners = getElementOfDocument('.container-win');
+    const containerWinners = getElementOfDocument('.container-win');
     const countWinners = getElementOfDocument('.count-winners');
-    this.containerWinners.innerHTML = '';
+    containerWinners.innerHTML = '';
     const winners = await getAllWinners();
     let num = 0;
     for (const car of winners) {
       const currentCar = await getCarById(car.id);
       num += 1;
       const oneWinner = `${createWinnerTable(num, currentCar.color, currentCar.name, car.wins, car.time)}`;
-      this.containerWinners.innerHTML += oneWinner;
+      containerWinners.innerHTML += oneWinner;
     }
-    countWinners.innerText = ` (${winners.length.toString()} winners)`;
+    countWinners.innerText = ` (${winners.length.toString()} winner(s))`;
   };
 }
 
