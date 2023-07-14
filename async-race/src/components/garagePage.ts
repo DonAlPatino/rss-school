@@ -11,8 +11,8 @@ export const createCarTable = (id: number, name: string, color: string):string =
       <h4 class="car-options_title">${name}</h4>
     </div>
     <div class="car-control">
-      <button class="car-control_start" id="start-${id}" data-start=${id} >Start</button>
-      <button class="car-control_stop" id="stop-${id}" data-stop=${id} disabled="true">Stop</button>
+      <button class="buttons car-control_start" id="start-${id}" data-start=${id} >Start</button>
+      <button class="buttons car-control_stop" id="stop-${id}" data-stop=${id} disabled="true">Stop</button>
       <div class="car-img" id="car-${id}" data-car=${id}>${createCarImage(color)}</div>
       <div class="flag"></div>
     </div>

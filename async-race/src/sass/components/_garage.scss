@@ -30,9 +30,6 @@
 }
 
 .color-input {
-    appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
     width: 42px;
     height: 42px;
     background: none;
@@ -42,4 +39,39 @@
     &:disabled {
         pointer-events: none;
     }
+}
+
+.container-car,
+.car {
+    display: flex;
+    flex-direction: column;
+}
+
+.car {
+    border-bottom: 3px dashed white;
+    margin-bottom: 1vh;
+}
+.car-options,
+.car-control {
+    display: flex;
+    flex-direction: row;
+    margin: 0.3vh 0;
+}
+
+.car-options_title {
+    color: rgb(245, 245, 69);
+    font-size: 1vw;
+    margin: 0.2vh 1vw;
+}
+
+.car-control_start,
+.car-control_stop {
+    min-width: 3.5vw;
+    max-height: 2.5vw;
+    margin-right: 1vw;
+    padding: 0;
+    background-color: black;
+    color: rgba(176, 252, 63, 0.5);
+    border: 1px solid rgba(176, 252, 63, 0.5);
+    line-height: 0.5vw;
 }
