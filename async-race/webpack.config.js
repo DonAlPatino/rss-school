@@ -1,8 +1,9 @@
 const path = require('path');
-const { merge } = require('webpack-merge');
+const {merge} = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 const baseConfig = {
     devServer: {
@@ -14,7 +15,7 @@ const baseConfig = {
     mode: 'development',
     module: {
         rules: [
-            { test: /\.ts/, use: 'ts-loader' },
+            {test: /\.ts/, use: 'ts-loader'},
             {
                 test: /\.(?:ico|gif|png|jpg|jpeg|svg)$/i,
                 type: 'asset/resource',
@@ -46,11 +47,14 @@ const baseConfig = {
             template: path.resolve(__dirname, './src/index.html'),
             filename: 'index.html',
         }),
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
+        new CopyPlugin({
+            patterns: [{from: './src/assets', to: 'assets'}],
+        }),
     ],
 };
 
-module.exports = ({ mode }) => {
+module.exports = ({mode}) => {
     const isProductionMode = mode === 'prod';
     const envConfig = isProductionMode ? require('./webpack.prod.config') : require('./webpack.dev.config');
 

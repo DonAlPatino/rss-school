@@ -87,6 +87,8 @@
     margin-bottom: 1vw;
     height: 4vh;
     width: 20vw;
-    background: url("https://acegif.com/wp-content/gifs/race-flag-4.gif") no-repeat;
+    // background: url("https://acegif.com/wp-content/gifs/race-flag-4.gif") no-repeat;
+    // If you pass the generated CSS on to the css-loader, all urls must be relative to the entry-file (e.g. styles.scss).
+    background: url("../assets/flag.png") no-repeat;
     background-size: contain;
 }
