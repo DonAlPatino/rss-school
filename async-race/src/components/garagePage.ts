@@ -1,7 +1,8 @@
 import { getElementOfDocument } from '../util';
-import { getAllCars } from '../service/api';
+import { getAllCars, getCarById } from '../service/api';
 import { createCarImage } from '../util/createCarImage';
-import { create100Cars } from '../util/createRandomCars';
+import State from '../state';
+import {DEFAULT_COLOR_CREATE, DEFAULT_COLOR_UPDATE} from "../constants";
 
 
 export const createCarTable = (id: number, name: string, color: string):string =>
@@ -26,19 +27,22 @@ export default class GaragePage {
 
   private readonly container: HTMLDivElement;
 
-  constructor() {
+  private state: State;
+
+  constructor(state: State) {
+    this.state = state;
     this.container = document.createElement('div');
     this.container.className = 'page garage-page';
     this.template = `
       <div class="generate-cars">
         <div class="field-create">
           <input class="text-input" type="text" autocomplete placeholder="Enter name сar...">
-          <input class="color-input" type="color" value="#e66465" >
+          <input class="color-input" type="color" value=${DEFAULT_COLOR_CREATE} >
           <button class="buttons btn-create">create</button>
         </div>
         <div class="field-update">
           <input class="text-input" type="text" autocomplete disabled="true" placeholder="Enter new name сar...">
-          <input class="color-input" type="color" value="#f6b73c" disabled="true">
+          <input class="color-input" type="color" value=${DEFAULT_COLOR_UPDATE} disabled="true">
           <button class="buttons btn-update" disabled="true">update</button>
         </div>
         <div class="field-control">
@@ -78,5 +82,36 @@ export default class GaragePage {
       containerCars.innerHTML += oneCar;
     }
     countGarage.innerText = ` (${cars.length.toString()} cars)`;
+
+    document.addEventListener('click', async (e) => {
+      const btn = e.target as HTMLElement;
+
+      if (btn.classList.contains('car-options_select')) {
+        const idUpdateCar = Number(btn.dataset.select);
+        this.state.setIdUpdateCar(idUpdateCar);
+        const inputTextUpdate = <HTMLInputElement>getElementOfDocument('.field-update > .text-input');
+        const inputColorUpdate = <HTMLInputElement>getElementOfDocument('.field-update > .color-input');
+
+        inputTextUpdate.disabled = false;
+        inputColorUpdate.disabled = false;
+        (<HTMLInputElement>document.querySelector('.btn-update')).disabled = false;
+
+        getCarById(idUpdateCar).then((item) => {
+          inputTextUpdate.value = item.name;
+          inputColorUpdate.value = item.color;
+        });
+      }
+
+      /*if (btn.classList.contains('car-options_remove')) {
+        const idButton = Number(btn.dataset.remove);
+        deleteCarAPI(idButton).then(() => updateCarsUI());
+
+        getAllWinnersAPI().then((arrAllWin) => {
+          arrAllWin.forEach((item: DescriptionCar) => {
+            if (Number(item.id) === idButton) deleteWinnerAPI(idButton);
+          });
+        }).then(() => updateWinnersUI());
+      }*/
+    });
   };
 }

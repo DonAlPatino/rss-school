@@ -24,3 +24,13 @@ export const createCarAPI = async (body: object):Promise<void> => {
     },
   });
 };
+
+export const updateCarAPI = async (body: object, id: number):Promise<void> => {
+  await fetch(`${garage}/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(body),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+};

@@ -5,7 +5,9 @@ import WinnersPage from './winnersPage';
 import { getElementOfDocument } from '../util';
 import { Pages } from '../types';
 import { create100Cars } from '../util/createRandomCars';
-import { createCarAPI } from '../service/api';
+import { createCarAPI, updateCarAPI } from '../service/api';
+import State from '../state';
+import { DEFAULT_COLOR_UPDATE } from '../constants';
 export default class App {
   private garage: GaragePage;
 
@@ -17,12 +19,16 @@ export default class App {
 
   private activePage: string;
 
+  state: State;
+
   constructor() {
     this.activePage = Pages.GARAGE;
-    this.garage = new GaragePage();
+    this.state = new State();
+    this.garage = new GaragePage(this.state);
     this.header = new Header((activePage: Pages) => this.update(activePage));
     this.footer = new Footer();
     this.winners = new WinnersPage();
+
   }
 
   start(): void {
@@ -59,7 +65,7 @@ export default class App {
   btnLoad(): void {
     const btnGenerateCards = getElementOfDocument('.btn-generate_cars');
     const generateNewCarBtn = getElementOfDocument('.btn-create');
-
+    const updateCarBtn = <HTMLButtonElement>getElementOfDocument('.btn-update');
     //100 new cars
     btnGenerateCards.addEventListener('click', async () => {
       await create100Cars();
@@ -67,13 +73,28 @@ export default class App {
     });
     // new car
     generateNewCarBtn.addEventListener('click', () => {
-      const nameNewCar = (<HTMLInputElement>getElementOfDocument('.text-input')).value;
-      const colorNewCar = (<HTMLInputElement>getElementOfDocument('.color-input')).value;
+      const nameNewCar = (<HTMLInputElement>getElementOfDocument('.field-create > .text-input')).value;
+      const colorNewCar = (<HTMLInputElement>getElementOfDocument('.field-create > .color-input')).value;
       if (nameNewCar == '') {
         alert('Please, enter name car!');
       } else {
         (createCarAPI({ 'name': nameNewCar, 'color': colorNewCar })).then(() => this.garage.updateGarage());
       }
     });
+    updateCarBtn.addEventListener('click', async () => {
+      const nameUpdateCar = <HTMLInputElement>getElementOfDocument('.field-update > .text-input');
+      const colorUpdateCar = <HTMLInputElement>getElementOfDocument('.field-update > .color-input');
+      if (nameUpdateCar.value == '') {
+        alert('Please, enter name car!');
+      } else {
+        await updateCarAPI({ 'name': nameUpdateCar.value, 'color': colorUpdateCar.value }, this.state.getIdUpdateCar());
+        await this.garage.updateGarage();
+        nameUpdateCar.value = '';
+        colorUpdateCar.value = DEFAULT_COLOR_UPDATE;
+        this.state.setIdUpdateCar(0);
+        updateCarBtn.disabled = true;
+      }
+    });
+
   }
 }
