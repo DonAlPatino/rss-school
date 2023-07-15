@@ -4,6 +4,7 @@ import Footer from './footer';
 import WinnersPage from './winnersPage';
 import { getElementOfDocument } from '../util';
 import { Pages } from '../types';
+import { create100Cars } from '../util/createRandomCars';
 export default class App {
   private garage: GaragePage;
 
@@ -30,6 +31,7 @@ export default class App {
     this.header.buttonsManagement('Garage');
     this.garage.updateGarage();
     appContainer.append(this.footer.render());
+    this.btnLoad();
   }
 
   update(activePage:Pages): void {
@@ -51,4 +53,14 @@ export default class App {
       }
     }
   }
+
+  btnLoad():void {
+    const btnGenerateCards = getElementOfDocument('.btn-generate_cars');
+    //100 new cars
+    btnGenerateCards.addEventListener('click', async () => {
+      await create100Cars();
+      await this.garage.updateGarage();
+    });
+  }
+
 }

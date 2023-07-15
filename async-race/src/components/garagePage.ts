@@ -71,7 +71,6 @@ export default class GaragePage {
     console.log('update garage');
     const containerCars = getElementOfDocument('.container-car');
     const countGarage = getElementOfDocument('.count-garage');
-    const btnGenerateCards = getElementOfDocument('.btn-generate_cars');
     containerCars.innerHTML = '';
     const cars = await getAllCars();
     for (const car of cars) {
@@ -79,12 +78,5 @@ export default class GaragePage {
       containerCars.innerHTML += oneCar;
     }
     countGarage.innerText = ` (${cars.length.toString()} cars)`;
-
-    //100 new cars
-    btnGenerateCards.addEventListener('click', async () => {
-      await create100Cars();
-      await this.updateGarage();
-    });
-
   };
 }
