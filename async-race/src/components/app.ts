@@ -38,6 +38,7 @@ export default class App {
     this.header.buttonsManagement('Garage');
     this.garage.updateGarage();
     appContainer.append(this.footer.render());
+    this.btnLoadGarage();
     this.btnLoad();
   }
 
@@ -49,7 +50,7 @@ export default class App {
         appContainer.insertBefore(this.garage.render(), winnersContainer);
         winnersContainer.remove();
         this.garage.updateGarage();
-        this.btnLoad();
+        this.btnLoadGarage();
         break;
       }
       case 'Winners': {
@@ -62,7 +63,7 @@ export default class App {
     }
   }
 
-  btnLoad(): void {
+  btnLoadGarage(): void {
     const btnGenerateCards = getElementOfDocument('.btn-generate_cars');
     const generateNewCarBtn = getElementOfDocument('.btn-create');
     const updateCarBtn = <HTMLButtonElement>getElementOfDocument('.btn-update');
@@ -95,6 +96,9 @@ export default class App {
         updateCarBtn.disabled = true;
       }
     });
+  }
+
+  btnLoad():void {
     document.addEventListener('click', async (e) => {
       const btn = e.target as HTMLElement;
 
@@ -124,6 +128,5 @@ export default class App {
         await this.garage.updateGarage();
       }
     });
-
   }
 }
