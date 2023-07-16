@@ -5,7 +5,7 @@ import WinnersPage from './winnersPage';
 import { getElementOfDocument } from '../util';
 import { Pages } from '../types';
 import { create100Cars } from '../util/createRandomCars';
-import { createCarAPI, updateCarAPI } from '../service/api';
+import { createCarAPI, deleteCar, getCarById, updateCarAPI } from '../service/api';
 import State from '../state';
 import { DEFAULT_COLOR_UPDATE } from '../constants';
 export default class App {
@@ -93,6 +93,35 @@ export default class App {
         colorUpdateCar.value = DEFAULT_COLOR_UPDATE;
         this.state.setIdUpdateCar(0);
         updateCarBtn.disabled = true;
+      }
+    });
+    document.addEventListener('click', async (e) => {
+      const btn = e.target as HTMLElement;
+
+      if (btn.classList.contains('car-options_select')) {
+        const idUpdateCar = Number(btn.dataset.select);
+        this.state.setIdUpdateCar(idUpdateCar);
+        const inputTextUpdate = <HTMLInputElement>getElementOfDocument('.field-update > .text-input');
+        const inputColorUpdate = <HTMLInputElement>getElementOfDocument('.field-update > .color-input');
+
+        inputTextUpdate.disabled = false;
+        inputColorUpdate.disabled = false;
+        (<HTMLInputElement>document.querySelector('.btn-update')).disabled = false;
+
+        getCarById(idUpdateCar).then((item) => {
+          inputTextUpdate.value = item.name;
+          inputColorUpdate.value = item.color;
+        });
+      }
+
+      if (btn.classList.contains('car-options_remove')) {
+        const idButton = Number(btn.dataset.remove);
+        deleteCar(idButton).then(() => this.garage.updateGarage());
+        /*getAllWinners().then((arrAllWin) => {
+          arrAllWin.forEach((item: DescriptionCar) => {
+            if (Number(item.id) === idButton) deleteWinner(idButton);
+          });
+        })*/
       }
     });
 

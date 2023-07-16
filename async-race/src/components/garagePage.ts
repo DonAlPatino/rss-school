@@ -1,8 +1,8 @@
 import { getElementOfDocument } from '../util';
-import { getAllCars, getCarById } from '../service/api';
+import { deleteCar, getAllCars, getCarById } from '../service/api';
 import { createCarImage } from '../util/createCarImage';
 import State from '../state';
-import {DEFAULT_COLOR_CREATE, DEFAULT_COLOR_UPDATE} from "../constants";
+import { DEFAULT_COLOR_CREATE, DEFAULT_COLOR_UPDATE } from '../constants';
 
 
 export const createCarTable = (id: number, name: string, color: string):string =>
@@ -83,35 +83,6 @@ export default class GaragePage {
     }
     countGarage.innerText = ` (${cars.length.toString()} cars)`;
 
-    document.addEventListener('click', async (e) => {
-      const btn = e.target as HTMLElement;
 
-      if (btn.classList.contains('car-options_select')) {
-        const idUpdateCar = Number(btn.dataset.select);
-        this.state.setIdUpdateCar(idUpdateCar);
-        const inputTextUpdate = <HTMLInputElement>getElementOfDocument('.field-update > .text-input');
-        const inputColorUpdate = <HTMLInputElement>getElementOfDocument('.field-update > .color-input');
-
-        inputTextUpdate.disabled = false;
-        inputColorUpdate.disabled = false;
-        (<HTMLInputElement>document.querySelector('.btn-update')).disabled = false;
-
-        getCarById(idUpdateCar).then((item) => {
-          inputTextUpdate.value = item.name;
-          inputColorUpdate.value = item.color;
-        });
-      }
-
-      /*if (btn.classList.contains('car-options_remove')) {
-        const idButton = Number(btn.dataset.remove);
-        deleteCarAPI(idButton).then(() => updateCarsUI());
-
-        getAllWinnersAPI().then((arrAllWin) => {
-          arrAllWin.forEach((item: DescriptionCar) => {
-            if (Number(item.id) === idButton) deleteWinnerAPI(idButton);
-          });
-        }).then(() => updateWinnersUI());
-      }*/
-    });
   };
 }

@@ -1,6 +1,13 @@
 import { Car, Winner } from '../types';
 import { BASE_URL, garage } from '../constants';
 
+export const deleteCar = async (id: number):Promise<void> => {
+  await fetch(`${garage}/${id}`, {
+    method: 'DELETE',
+  });
+};
+
+
 export const getAllWinners = async ():Promise<Winner[]> => {
   const winners = `${BASE_URL}/winners`;
   const response = await fetch(`${winners}`, { method: 'GET' });
