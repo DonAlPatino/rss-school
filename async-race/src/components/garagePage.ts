@@ -82,7 +82,5 @@ export default class GaragePage {
       containerCars.innerHTML += oneCar;
     }
     countGarage.innerText = ` (${cars.length.toString()} cars)`;
-
-
   };
 }

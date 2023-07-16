@@ -3,9 +3,9 @@ import Header from './header';
 import Footer from './footer';
 import WinnersPage from './winnersPage';
 import { getElementOfDocument } from '../util';
-import { Pages } from '../types';
+import { Pages, Winner } from '../types';
 import { create100Cars } from '../util/createRandomCars';
-import { createCarAPI, deleteCar, getCarById, updateCarAPI } from '../service/api';
+import { createCarAPI, deleteCar, deleteWinner, getAllWinners, getCarById, updateCarAPI } from '../service/api';
 import State from '../state';
 import { DEFAULT_COLOR_UPDATE } from '../constants';
 export default class App {
@@ -116,12 +116,12 @@ export default class App {
 
       if (btn.classList.contains('car-options_remove')) {
         const idButton = Number(btn.dataset.remove);
-        deleteCar(idButton).then(() => this.garage.updateGarage());
-        /*getAllWinners().then((arrAllWin) => {
-          arrAllWin.forEach((item: DescriptionCar) => {
-            if (Number(item.id) === idButton) deleteWinner(idButton);
-          });
-        })*/
+        await deleteCar(idButton);
+        const arrAllWin = await getAllWinners();
+        arrAllWin.forEach((item: Winner) => {
+          if (Number(item.id) === idButton) deleteWinner(idButton);
+        });
+        await this.garage.updateGarage();
       }
     });
 
