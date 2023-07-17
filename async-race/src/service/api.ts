@@ -1,6 +1,11 @@
 import { Car, Winner } from '../types';
 import { engine, garage, winners } from '../constants';
 
+export const driveMotor = async (id: number):Promise<any> => {
+  const res = await fetch(`${engine}?id=${id}&status=drive`, { method: 'PATCH' }).catch();
+  return res.status !== 200 ? { success: false } : { ...(await res.json()) };
+};
+
 export const startMotor = async (id: number):Promise<{ velocity:number, distance:number }>  => {
   const res = await fetch(`${engine}?id=${id}&status=started`, { method: 'PATCH' });
   return res.json();
