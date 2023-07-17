@@ -9,7 +9,8 @@ import { createCarAPI, deleteCar, deleteWinner, getAllWinners, getCarById, updat
 import State from '../state';
 import { DEFAULT_COLOR_UPDATE } from '../constants';
 import { startCar } from '../service/startCar';
-import {stopCar} from "../service/stopCar";
+import { stopCar } from '../service/stopCar';
+
 export default class App {
   private garage: GaragePage;
 
@@ -104,9 +105,9 @@ export default class App {
 
       if (btn.classList.contains('car-control_start')) {
         const idCar = Number(btn.dataset.start);
-        await startCar(idCar, this.state);
         const btnStart = <HTMLButtonElement>document.getElementById(`start-${idCar}`);
         const btnStop = <HTMLButtonElement>document.getElementById(`stop-${idCar}`);
+        await startCar(idCar, this.state, btnStart, btnStop);
         btnStart.setAttribute('disabled', 'disabled');
         btnStop.removeAttribute('disabled');
       }

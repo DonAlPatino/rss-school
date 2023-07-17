@@ -1,4 +1,4 @@
-const animateCar = (time: number, carImage: HTMLDivElement): Animation => {
+const animateCar = (time: number, carImage: HTMLDivElement, btnStart: HTMLButtonElement, btnStop: HTMLButtonElement): Animation => {
   const carStyle = getComputedStyle(carImage);
   const parentStyle = getComputedStyle(carImage.parentElement as HTMLDivElement);
   const carWidth = parseInt(carStyle.width);
@@ -18,6 +18,8 @@ const animateCar = (time: number, carImage: HTMLDivElement): Animation => {
   animation.play();
   animation.onfinish = (): void => {
     carImage.style.transform = 'translateX(0px))';
+    btnStop.setAttribute('disabled', 'disabled');
+    btnStart.removeAttribute('disabled');
   };
 
   return animation;
