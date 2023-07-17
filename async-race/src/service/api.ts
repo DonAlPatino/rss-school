@@ -1,6 +1,10 @@
 import { Car, Winner } from '../types';
-import { garage, winners } from '../constants';
+import { engine, garage, winners } from '../constants';
 
+export const startMotor = async (id: number):Promise<{ velocity:number, distance:number }>  => {
+  const res = await fetch(`${engine}?id=${id}&status=started`, { method: 'PATCH' });
+  return res.json();
+};
 export const deleteCar = async (id: number):Promise<void> => {
   await fetch(`${garage}/${id}`, {
     method: 'DELETE',

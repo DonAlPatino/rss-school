@@ -8,6 +8,7 @@ import { create100Cars } from '../util/createRandomCars';
 import { createCarAPI, deleteCar, deleteWinner, getAllWinners, getCarById, updateCarAPI } from '../service/api';
 import State from '../state';
 import { DEFAULT_COLOR_UPDATE } from '../constants';
+import { startCar } from '../service/startCar';
 export default class App {
   private garage: GaragePage;
 
@@ -94,6 +95,28 @@ export default class App {
         colorUpdateCar.value = DEFAULT_COLOR_UPDATE;
         this.state.setIdUpdateCar(0);
         updateCarBtn.disabled = true;
+      }
+    });
+
+    document.addEventListener('click', async (e) => {
+      const btn = e.target as HTMLElement;
+
+      if (btn.classList.contains('car-control_start')) {
+        const idCar = Number(btn.dataset.start);
+        await startCar(idCar);
+        const btnStart = <HTMLButtonElement>document.getElementById(`start-${idCar}`);
+        const btnStop = <HTMLButtonElement>document.getElementById(`stop-${idCar}`);
+        btnStart.setAttribute('disabled', 'disabled');
+        btnStop.removeAttribute('disabled');
+      }
+
+      if (btn.classList.contains('car-control_stop')) {
+        const idCar = Number(btn.dataset.stop);
+        //stopCar(idCar);
+        const btnStart = <HTMLButtonElement>document.getElementById(`start-${idCar}`);
+        const btnStop = <HTMLButtonElement>document.getElementById(`stop-${idCar}`);
+        btnStop.setAttribute('disabled', 'disabled');
+        btnStart.removeAttribute('disabled');
       }
     });
   }
