@@ -102,7 +102,9 @@ export default class App {
         updateCarBtn.disabled = true;
       }
     });
+  }
 
+  btnLoad():void {
     document.addEventListener('click', async (e) => {
       const btn = e.target as HTMLElement;
 
@@ -123,12 +125,6 @@ export default class App {
         btnStop.setAttribute('disabled', 'disabled');
         btnStart.removeAttribute('disabled');
       }
-    });
-  }
-
-  btnLoad():void {
-    document.addEventListener('click', async (e) => {
-      const btn = e.target as HTMLElement;
 
       if (btn.classList.contains('car-options_select')) {
         const idUpdateCar = Number(btn.dataset.select);
