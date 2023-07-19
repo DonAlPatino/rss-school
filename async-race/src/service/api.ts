@@ -1,10 +1,11 @@
 import { Car, CarApiResponse, Winner, WinnerApiResponse } from '../types';
 import { engine, garage, winners } from '../constants';
 
-export const stopMotor = async (id: number):Promise<any> => (await fetch(`${engine}?id=${id}&status=stopped`, { method: 'PATCH' })).json();
-export const driveMotor = async (id: number):Promise<any> => {
+export const stopMotor = async (id: number):Promise<void> => (await fetch(`${engine}?id=${id}&status=stopped`, { method: 'PATCH' })).json();
+export const driveMotor = async (id: number):Promise<boolean> => {
   const res = await fetch(`${engine}?id=${id}&status=drive`, { method: 'PATCH' }).catch();
-  return res.status !== 200 ? { success: false } : { ...(await res.json()) };
+  // return res.status !== 200 ? { success: false } : { ...(await res.json()) };
+  return res.status !== 200 ? false  : true;
 };
 
 export const startMotor = async (id: number):Promise<{ velocity:number, distance:number }>  => {

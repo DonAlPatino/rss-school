@@ -16,7 +16,8 @@ export const startCar = async (idCar: number, state: State):Promise<void> => {
   state.setIdAnimation(idCar, animateCar(time, car, btnStart, btnStop));
 
   driveMotor(idCar).then((drive) => {
-    if (!drive.success) {
+    if (!drive) {
+      console.log('Stop engine');
       state.getIdAnimation(idCar).cancel();
       btnStop.setAttribute('disabled', 'disabled');
       btnStart.removeAttribute('disabled');
