@@ -19,3 +19,8 @@ export interface Winner {
   time: number;
   wins: number;
 }
+
+export interface WinnerApiResponse {
+  winners: Winner[];
+  count: number;
+}

@@ -1,4 +1,4 @@
-import {Car, CarApiResponse, Winner} from '../types';
+import {Car, CarApiResponse, Winner, WinnerApiResponse} from '../types';
 import { engine, garage, winners } from '../constants';
 
 export const stopMotor = async (id: number):Promise<any> => (await fetch(`${engine}?id=${id}&status=stopped`, { method: 'PATCH' })).json();
@@ -24,10 +24,13 @@ export const deleteWinner = async (id: number):Promise<void>  => {
 };
 
 
-export const getAllWinners = async ():Promise<Winner[]> => {
+export const getAllWinners = async ():Promise<WinnerApiResponse> => {
   const response = await fetch(`${winners}`, { method: 'GET' });
-  const count =  Number(response.headers.get('X-Total-Count')) || 0;
-  return response.json();
+  const data = {
+    winners: (await response.json()) as Winner[],
+    count: Number(response.headers.get('X-Total-Count')) || 0,
+  };
+  return data;
 };
 
 export const getCarById = async (id: number): Promise<Car> =>

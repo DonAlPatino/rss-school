@@ -57,7 +57,7 @@ export default class WinnersPage {
     const containerWinners = getElementOfDocument('.container-win');
     const countWinners = getElementOfDocument('.count-winners');
     containerWinners.innerHTML = '';
-    const winners = await getAllWinners();
+    const { winners, count } = await getAllWinners();
     let num = 0;
     for (const car of winners) {
       const currentCar = await getCarById(car.id);
@@ -65,7 +65,7 @@ export default class WinnersPage {
       const oneWinner = `${createWinnerTable(num, currentCar.color, currentCar.name, car.wins, car.time)}`;
       containerWinners.innerHTML += oneWinner;
     }
-    countWinners.innerText = ` (${winners.length.toString()} winner(s))`;
+    countWinners.innerText = ` (${count.toString()} winner(s))`;
   };
 }
 

@@ -155,8 +155,8 @@ export default class App {
       if (btn.classList.contains('car-options_remove')) {
         const idButton = Number(btn.dataset.remove);
         await deleteCar(idButton);
-        const arrAllWin = await getAllWinners();
-        arrAllWin.forEach((item: Winner) => {
+        const { winners} = await getAllWinners();
+        winners.forEach((item: Winner) => {
           if (Number(item.id) === idButton) deleteWinner(idButton);
         });
         await this.garage.updateGarage();
