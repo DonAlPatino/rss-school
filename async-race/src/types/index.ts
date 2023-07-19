@@ -9,6 +9,11 @@ export interface Car {
   id: number;
 }
 
+export interface CarApiResponse {
+  cars: Car[];
+  count: number;
+}
+
 export interface Winner {
   id: number;
   time: number;
