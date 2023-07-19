@@ -142,10 +142,6 @@ export default class App {
       if (btn.classList.contains('car-control_stop')) {
         const idCar = Number(btn.dataset.stop);
         await stopCar(idCar, this.state);
-        const btnStart = <HTMLButtonElement>document.getElementById(`start-${idCar}`);
-        const btnStop = <HTMLButtonElement>document.getElementById(`stop-${idCar}`);
-        btnStop.setAttribute('disabled', 'disabled');
-        btnStart.removeAttribute('disabled');
       }
 
       if (btn.classList.contains('car-options_select')) {
