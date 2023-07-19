@@ -4,6 +4,8 @@ import State from '../state';
 export const stopCar = async (idStop: number, state: State):Promise<void> => {
   stopMotor(idStop).then(() => {
     state.getIdAnimation(idStop).cancel();
+    const index = state.raceArr.indexOf(idStop);
+    state.raceArr.splice(index, 1);
     const car = <HTMLElement>document.getElementById(`car-${idStop}`);
     const btnStart = <HTMLButtonElement>document.getElementById(`start-${idStop}`);
     const btnStop = <HTMLButtonElement>document.getElementById(`stop-${idStop}`);

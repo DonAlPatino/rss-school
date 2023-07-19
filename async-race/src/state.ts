@@ -9,11 +9,17 @@ export default class State {
 
   curGaragePage:number;
 
+  raceArr: number [];
+
+  startRace: number;
+
   constructor() {
     this.idUpdateCar = 0;
     this.infoAnimation = [];
     this.activePage = Pages.GARAGE;
     this.curGaragePage = 1;
+    this.raceArr = [];
+    this.startRace = 0;
   }
 
   setCurGaragePage(curGaragePage: number):void {

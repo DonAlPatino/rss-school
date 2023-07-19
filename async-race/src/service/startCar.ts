@@ -6,19 +6,21 @@ export const startCar = async (idCar: number, state: State):Promise<void> => {
 
   const { velocity, distance } = await startMotor(idCar);
   const time:number = distance / velocity;
-  const car = <HTMLDivElement>document.getElementById(`car-${idCar}`);
+
   const btnStart = <HTMLButtonElement>document.getElementById(`start-${idCar}`);
   const btnStop = <HTMLButtonElement>document.getElementById(`stop-${idCar}`);
 
   btnStart.setAttribute('disabled', 'disabled');
   btnStop.removeAttribute('disabled');
 
-  state.setIdAnimation(idCar, animateCar(time, car, btnStart, btnStop));
+  state.setIdAnimation(idCar, animateCar(time, idCar, state, btnStart, btnStop));
 
   driveMotor(idCar).then((drive) => {
     if (!drive) {
       console.log('Stop engine');
       state.getIdAnimation(idCar).cancel();
+      const index = state.raceArr.indexOf(idCar);
+      state.raceArr.splice(index, 1);
       btnStop.setAttribute('disabled', 'disabled');
       btnStart.removeAttribute('disabled');
     }
