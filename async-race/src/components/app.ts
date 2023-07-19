@@ -38,12 +38,22 @@ export default class App {
   start(): void {
     const appContainer = getElementOfDocument('.app-container');
     appContainer.append(this.header.render());
-    appContainer.append(this.garage.render());
-    this.header.buttonsManagement(Pages.GARAGE);
-    this.garage.updateGarage();
+    switch (this.activePage) {
+      case Pages.GARAGE: {
+        appContainer.append(this.garage.render());
+        this.header.buttonsManagement(Pages.GARAGE);
+        this.garage.updateGarage();
+        this.btnLoadGarage();
+        this.btnLoad();
+        break;
+      }
+      case Pages.WINNERS: {
+        appContainer.append(this.winners.render());
+        this.winners.updateWinners();
+        break;
+      }
+    }
     appContainer.append(this.footer.render());
-    this.btnLoadGarage();
-    this.btnLoad();
   }
 
   update(activePage: Pages): void {
