@@ -1,11 +1,24 @@
+import { Pages } from './types';
+
 export default class State {
   idUpdateCar:number;
+
+  activePage: Pages;
 
   infoAnimation: Animation[];
 
   constructor() {
     this.idUpdateCar = 0;
     this.infoAnimation = [];
+    this.activePage = Pages.GARAGE;
+  }
+
+  setActivePage(activePage: Pages):void {
+    this.activePage = activePage;
+  }
+
+  getActivePage():Pages {
+    return this.activePage;
   }
 
   setIdUpdateCar(idUpdateCar:number):void {

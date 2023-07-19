@@ -2,7 +2,7 @@ import GaragePage from './garagePage';
 import Header from './header';
 import Footer from './footer';
 import WinnersPage from './winnersPage';
-import { getElementOfDocument } from '../util';
+import { getElementOfDocument }  from '../util';
 import { Pages, Winner } from '../types';
 import { create100Cars } from '../util/createRandomCars';
 import { createCarAPI, deleteCar, deleteWinner, getAllWinners, getCarById, updateCarAPI } from '../service/api';
@@ -25,8 +25,9 @@ export default class App {
   state: State;
 
   constructor() {
-    this.activePage = Pages.GARAGE;
+
     this.state = new State();
+    this.activePage = this.state.getActivePage();
     this.garage = new GaragePage(this.state);
     this.header = new Header((activePage: Pages) => this.update(activePage));
     this.footer = new Footer();
@@ -38,7 +39,7 @@ export default class App {
     const appContainer = getElementOfDocument('.app-container');
     appContainer.append(this.header.render());
     appContainer.append(this.garage.render());
-    this.header.buttonsManagement('Garage');
+    this.header.buttonsManagement(Pages.GARAGE);
     this.garage.updateGarage();
     appContainer.append(this.footer.render());
     this.btnLoadGarage();
@@ -48,7 +49,8 @@ export default class App {
   update(activePage: Pages): void {
     const appContainer = getElementOfDocument('.app-container');
     switch (activePage) {
-      case 'Garage': {
+      case Pages.GARAGE: {
+        this.state.setActivePage(Pages.GARAGE);
         const winnersContainer = getElementOfDocument('.winners-page');
         appContainer.insertBefore(this.garage.render(), winnersContainer);
         winnersContainer.remove();
@@ -56,7 +58,8 @@ export default class App {
         this.btnLoadGarage();
         break;
       }
-      case 'Winners': {
+      case Pages.WINNERS: {
+        this.state.setActivePage(Pages.WINNERS);
         const garageContainer = getElementOfDocument('.garage-page');
         appContainer.insertBefore(this.winners.render(), garageContainer);
         garageContainer.remove();
