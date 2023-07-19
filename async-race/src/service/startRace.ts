@@ -1,5 +1,5 @@
-import { getAllCars } from '../service/api';
-import { startCar } from '../service/startCar';
+import { getAllCars } from './api';
+import { startCar } from './startCar';
 import State from '../state';
 
 export const startRace = async (state: State):Promise<void> => {

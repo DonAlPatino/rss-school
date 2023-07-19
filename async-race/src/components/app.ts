@@ -10,7 +10,8 @@ import State from '../state';
 import { DEFAULT_COLOR_UPDATE } from '../constants';
 import { startCar } from '../service/startCar';
 import { stopCar } from '../service/stopCar';
-import { startRace } from '../util/startRace';
+import { startRace } from '../service/startRace';
+import {stopRace} from "../service/stopRace";
 
 export default class App {
   private garage: GaragePage;
@@ -100,7 +101,7 @@ export default class App {
       rasetBtn.disabled = false;
     });
     rasetBtn.addEventListener('click', () => {
-      //startRaceCars(numberPage);
+      stopRace(this.state);
       raceBtn.disabled = false;
       rasetBtn.disabled = true;
     });
