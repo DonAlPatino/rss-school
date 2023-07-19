@@ -7,10 +7,21 @@ export default class State {
 
   infoAnimation: Animation[];
 
+  curGaragePage:number;
+
   constructor() {
     this.idUpdateCar = 0;
     this.infoAnimation = [];
     this.activePage = Pages.GARAGE;
+    this.curGaragePage = 1;
+  }
+
+  setCurGaragePage(curGaragePage: number):void {
+    this.curGaragePage = curGaragePage;
+  }
+
+  getCurGaragePage():number {
+    return this.curGaragePage;
   }
 
   setActivePage(activePage: Pages):void {

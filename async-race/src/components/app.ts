@@ -10,6 +10,7 @@ import State from '../state';
 import { DEFAULT_COLOR_UPDATE } from '../constants';
 import { startCar } from '../service/startCar';
 import { stopCar } from '../service/stopCar';
+import { startRace } from '../util/startRace';
 
 export default class App {
   private garage: GaragePage;
@@ -24,6 +25,8 @@ export default class App {
 
   state: State;
 
+  private curGaragePage: number;
+
   constructor() {
 
     this.state = new State();
@@ -32,6 +35,7 @@ export default class App {
     this.header = new Header((activePage: Pages) => this.update(activePage));
     this.footer = new Footer();
     this.winners = new WinnersPage();
+    this.curGaragePage = this.state.getCurGaragePage();
 
   }
 
@@ -83,10 +87,22 @@ export default class App {
     const btnGenerateCards = getElementOfDocument('.btn-generate_cars');
     const generateNewCarBtn = getElementOfDocument('.btn-create');
     const updateCarBtn = <HTMLButtonElement>getElementOfDocument('.btn-update');
+    const raceBtn = <HTMLButtonElement>getElementOfDocument('.btn-race');
+    const rasetBtn = <HTMLButtonElement>getElementOfDocument('.btn-reset');
     //100 new cars
     btnGenerateCards.addEventListener('click', async () => {
       await create100Cars();
       await this.garage.updateGarage();
+    });
+    raceBtn.addEventListener('click', () => {
+      startRace(this.state);
+      raceBtn.disabled = true;
+      rasetBtn.disabled = false;
+    });
+    rasetBtn.addEventListener('click', () => {
+      //startRaceCars(numberPage);
+      raceBtn.disabled = false;
+      rasetBtn.disabled = true;
     });
     // new car
     generateNewCarBtn.addEventListener('click', () => {
@@ -120,11 +136,7 @@ export default class App {
 
       if (btn.classList.contains('car-control_start')) {
         const idCar = Number(btn.dataset.start);
-        const btnStart = <HTMLButtonElement>document.getElementById(`start-${idCar}`);
-        const btnStop = <HTMLButtonElement>document.getElementById(`stop-${idCar}`);
-        await startCar(idCar, this.state, btnStart, btnStop);
-        btnStart.setAttribute('disabled', 'disabled');
-        btnStop.removeAttribute('disabled');
+        await startCar(idCar, this.state);
       }
 
       if (btn.classList.contains('car-control_stop')) {
