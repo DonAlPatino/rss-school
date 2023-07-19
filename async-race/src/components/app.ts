@@ -96,12 +96,18 @@ export default class App {
       await this.garage.updateGarage();
     });
     raceBtn.addEventListener('click', () => {
-      startRace(this.state);
+      startRace(this.state).then(()=>{
+        /*raceBtn.disabled = false;
+        rasetBtn.disabled = true;*/
+      });
       raceBtn.disabled = true;
       rasetBtn.disabled = false;
     });
     rasetBtn.addEventListener('click', () => {
-      stopRace(this.state);
+      stopRace(this.state).then(()=>{
+        /*raceBtn.disabled = true;
+        rasetBtn.disabled = false;*/
+      });
       raceBtn.disabled = false;
       rasetBtn.disabled = true;
     });

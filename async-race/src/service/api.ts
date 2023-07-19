@@ -1,4 +1,4 @@
-import {Car, CarApiResponse, Winner, WinnerApiResponse} from '../types';
+import { Car, CarApiResponse, Winner, WinnerApiResponse } from '../types';
 import { engine, garage, winners } from '../constants';
 
 export const stopMotor = async (id: number):Promise<any> => (await fetch(`${engine}?id=${id}&status=stopped`, { method: 'PATCH' })).json();
