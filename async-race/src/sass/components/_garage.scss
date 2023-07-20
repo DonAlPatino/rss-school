@@ -92,3 +92,15 @@
     background: url("../assets/flag.png") no-repeat;
     background-size: contain;
 }
+
+.winner-notice {
+    position: absolute;
+    left: 30%;
+    top: 50%;
+    width: 60vw;
+    height: 10vh;
+    color: white;
+    font-size: 3.5vw;
+    font-weight: 500;
+    text-shadow: gold 1px -2px;
+}

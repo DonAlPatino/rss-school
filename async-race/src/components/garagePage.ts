@@ -58,7 +58,7 @@ export default class GaragePage {
    
         <div class="container-car"></div>
       </div>
-
+        <div class="winner-notice"></div>
       <div class="pagination">
         <button class="buttons btn-prev">Prev</button>
         <button class="buttons btn-next">Next</button>

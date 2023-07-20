@@ -1,8 +1,10 @@
 import State from '../state';
 import {getElementOfDocument} from "./index";
+import {getCarById} from "../service/api";
 
 const animateCar = (time: number, idCar: number, state:State, btnStart: HTMLButtonElement, btnStop: HTMLButtonElement): Animation => {
   const carImage = <HTMLDivElement>document.getElementById(`car-${idCar}`);
+  const noticeWinner = <HTMLElement>document.querySelector('.winner-notice');
   const carStyle = getComputedStyle(carImage);
   const parentStyle = getComputedStyle(carImage.parentElement as HTMLDivElement);
   const carWidth = parseInt(carStyle.width);
@@ -20,14 +22,16 @@ const animateCar = (time: number, idCar: number, state:State, btnStart: HTMLButt
   );
 
   animation.play();
-  animation.onfinish = (): void => {
+  animation.onfinish = async (): Promise<void> => {
     carImage.style.transform = 'translateX(0px))';
     btnStop.setAttribute('disabled', 'disabled');
     btnStart.removeAttribute('disabled');
     if (state.startRace !== 0) {
       const millis = Date.now() - state.startRace;
       state.startRace = 0;
-      console.log(`${idCar} win in ${millis / 1000}`);
+      const car = await getCarById(idCar);
+      noticeWinner.innerHTML = `${car.name} win in ${millis / 1000} ms !`;
+      console.log(`${car} win in ${millis / 1000} ms`);
     }
     const index = state.raceArr.indexOf(idCar);
     state.raceArr.splice(index, 1);
@@ -36,6 +40,7 @@ const animateCar = (time: number, idCar: number, state:State, btnStart: HTMLButt
       const rasetBtn = <HTMLButtonElement>getElementOfDocument('.btn-reset');
       raceBtn.disabled = false;
       rasetBtn.disabled = true;
+      noticeWinner.innerHTML = '';
     }
   };
 
