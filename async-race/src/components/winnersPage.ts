@@ -65,7 +65,8 @@ export default class WinnersPage {
       const oneWinner = `${createWinnerTable(num, currentCar.color, currentCar.name, car.wins, car.time)}`;
       containerWinners.innerHTML += oneWinner;
     }
-    countWinners.innerText = ` (${count.toString()} winner(s))`;
+    //countWinners.innerText = ` (${count.toString()} winner(s))`;
+    countWinners.innerText = ` (${winners.length.toString()} winner(s))`;
   };
 }
 

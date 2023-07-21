@@ -47,11 +47,19 @@ export const getAllWinners = async ():Promise<WinnerApiResponse> => {
   const response = await fetch(`${winners}`, { method: 'GET' });
   const data = {
     winners: (await response.json()) as Winner[],
-    count: Number(response.headers.get('X-Total-Count')) || 0,
+    count: winners.length,
   };
   return data;
 };
 
+export const getWinners = async (page = 1, limit = 7):Promise<WinnerApiResponse> => {
+  const response = await fetch(`${winners}?_page=${page}&_limit=${limit}`, { method: 'GET' });
+  const data = {
+    winners: (await response.json()) as Winner[],
+    count: Number(response.headers.get('X-Total-Count')) || 0,
+  };
+  return data;
+};
 export const getCarById = async (id: number): Promise<Car> =>
   (await fetch(`${garage}/${id}`)).json();
 
