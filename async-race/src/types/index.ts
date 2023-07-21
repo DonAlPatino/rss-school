@@ -16,8 +16,8 @@ export interface CarApiResponse {
 
 export interface Winner {
   id: number;
-  time: number;
   wins: number;
+  time: number;
 }
 
 export interface WinnerApiResponse {

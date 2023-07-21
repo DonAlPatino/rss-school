@@ -1,11 +1,29 @@
 import { Car, CarApiResponse, Winner, WinnerApiResponse } from '../types';
 import { engine, garage, winners } from '../constants';
 
+export const updateWinner = async (body: object, id: number) => {
+  await fetch(`${winners}/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(body),
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  });
+};
+export const createWinner = async (body: object) => {
+  await fetch(winners, {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  });
+};
 export const stopMotor = async (id: number):Promise<void> => (await fetch(`${engine}?id=${id}&status=stopped`, { method: 'PATCH' })).json();
 export const driveMotor = async (id: number):Promise<boolean> => {
   const res = await fetch(`${engine}?id=${id}&status=drive`, { method: 'PATCH' }).catch();
   // return res.status !== 200 ? { success: false } : { ...(await res.json()) };
-  return res.status !== 200 ? false  : true;
+  return res.status === 200;
 };
 
 export const startMotor = async (id: number):Promise<{ velocity:number, distance:number }>  => {

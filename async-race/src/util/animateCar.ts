@@ -1,6 +1,6 @@
 import State from '../state';
 import {getElementOfDocument} from "./index";
-import {getCarById} from "../service/api";
+import {createWinner, getAllWinners, getCarById, updateWinner} from "../service/api";
 
 const animateCar = (time: number, idCar: number, state:State, btnStart: HTMLButtonElement, btnStop: HTMLButtonElement): Animation => {
   const carImage = <HTMLDivElement>document.getElementById(`car-${idCar}`);
@@ -27,11 +27,30 @@ const animateCar = (time: number, idCar: number, state:State, btnStart: HTMLButt
     btnStop.setAttribute('disabled', 'disabled');
     btnStart.removeAttribute('disabled');
     if (state.startRace !== 0) {
-      const millis = Date.now() - state.startRace;
+      let wins = 1;
+      const millis = ((Date.now() - state.startRace)/1000).toFixed(2);
+      let timeWin = millis.toString()
       state.startRace = 0;
-      const car = await getCarById(idCar);
-      noticeWinner.innerHTML = `${car.name} win in ${millis / 1000} ms !`;
-      console.log(`${car} win in ${millis / 1000} ms`);
+      const winner = await getCarById(idCar);
+      noticeWinner.innerHTML = `${winner.name} win in ${millis} ms !`;
+      //update winners table
+      getAllWinners().then((winnerApiResponse) => {
+        const {winners, count} = winnerApiResponse;
+        winners.forEach((item) => {
+          if (Number(item.id) === idCar) {
+            wins = item.wins + 1;
+            timeWin = (Number(item.time) < Number(millis) ? item.time : millis).toString();
+          }
+        });
+      }).then(() => {
+        if (wins > 1) {
+          updateWinner({ 'wins': wins, 'time': timeWin }, idCar);
+        } else {
+          createWinner({ 'id': idCar, 'wins': wins, 'time': timeWin });
+        }
+      });
+
+      console.log(`${winner} win in ${millis} ms`);
     }
     const index = state.raceArr.indexOf(idCar);
     state.raceArr.splice(index, 1);
