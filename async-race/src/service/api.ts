@@ -1,5 +1,5 @@
 import { Car, CarApiResponse, Winner, WinnerApiResponse } from '../types';
-import { engine, garage, winners } from '../constants';
+import { carPerPage, engine, garage, winnerPerPage, winners } from '../constants';
 
 export const updateWinner = async (body: object, id: number):Promise<void>  => {
   await fetch(`${winners}/${id}`, {
@@ -52,7 +52,7 @@ export const getAllWinners = async ():Promise<WinnerApiResponse> => {
   return data;
 };
 
-export const getWinners = async (page = 1, limit = 10):Promise<WinnerApiResponse> => {
+export const getWinners = async (page = 1, limit = winnerPerPage):Promise<WinnerApiResponse> => {
   const response = await fetch(`${winners}?_page=${page}&_limit=${limit}`, { method: 'GET' });
   const data = {
     winners: (await response.json()) as Winner[],
@@ -63,7 +63,7 @@ export const getWinners = async (page = 1, limit = 10):Promise<WinnerApiResponse
 export const getCarById = async (id: number): Promise<Car> =>
   (await fetch(`${garage}/${id}`)).json();
 
-export const getAllCars = async (page = 1, limit = 7): Promise<CarApiResponse> => {
+export const getAllCars = async (page = 1, limit = carPerPage): Promise<CarApiResponse> => {
   const response = await fetch(`${garage}?_page=${page}&_limit=${limit}`);
   const data = {
     cars: (await response.json()) as Car[],

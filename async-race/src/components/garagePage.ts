@@ -2,7 +2,7 @@ import { getElementOfDocument } from '../util';
 import { getAllCars } from '../service/api';
 import { createCarImage } from '../util/createCarImage';
 import State from '../state';
-import { DEFAULT_COLOR_CREATE, DEFAULT_COLOR_UPDATE } from '../constants';
+import { carPerPage, DEFAULT_COLOR_CREATE, DEFAULT_COLOR_UPDATE } from '../constants';
 
 
 export const createCarTable = (id: number, name: string, color: string):string =>
@@ -90,7 +90,7 @@ export default class GaragePage {
 
     if (this.curGaragePage === 1) {
       btnPrevCars.setAttribute('disabled', 'disabled');
-    } else if (this.curGaragePage  * 7 >= count) {
+    } else if (this.curGaragePage  * carPerPage >= count) {
       btnNextCars.setAttribute('disabled', 'disabled');
     } else {
       btnPrevCars.removeAttribute('disabled');

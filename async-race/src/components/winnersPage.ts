@@ -2,6 +2,7 @@ import { getElementOfDocument } from '../util';
 import { getCarById, getWinners } from '../service/api';
 import { createCarImage } from '../util/createCarImage';
 import State from '../state';
+import { winnerPerPage } from '../constants';
 
 export const createWinnerTable = (num: number, color: string, name: string, wins: number, bestTime: number):string =>
   `<tr">
@@ -78,7 +79,7 @@ export default class WinnersPage {
     //countWinners.innerText = ` (${winners.length.toString()} winner(s))`;
     if (this.curWinnersPage === 1) {
       btnPrevWinners.setAttribute('disabled', 'disabled');
-    } else if (this.curWinnersPage  * 10 >= count) {
+    } else if (this.curWinnersPage  * winnerPerPage >= count) {
       btnNextWinners.setAttribute('disabled', 'disabled');
     } else {
       btnPrevWinners.removeAttribute('disabled');
