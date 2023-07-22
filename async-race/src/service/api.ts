@@ -1,21 +1,21 @@
 import { Car, CarApiResponse, Winner, WinnerApiResponse } from '../types';
 import { engine, garage, winners } from '../constants';
 
-export const updateWinner = async (body: object, id: number) => {
+export const updateWinner = async (body: object, id: number):Promise<void>  => {
   await fetch(`${winners}/${id}`, {
     method: 'PUT',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
   });
 };
-export const createWinner = async (body: object) => {
+export const createWinner = async (body: object):Promise<void>  => {
   await fetch(winners, {
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
   });
 };

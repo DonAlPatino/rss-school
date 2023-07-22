@@ -57,7 +57,7 @@ export default class WinnersPage {
     const containerWinners = getElementOfDocument('.container-win');
     const countWinners = getElementOfDocument('.count-winners');
     containerWinners.innerHTML = '';
-    const { winners, count } = await getAllWinners();
+    const { winners } = await getAllWinners();
     let num = 0;
     for (const car of winners) {
       const currentCar = await getCarById(car.id);

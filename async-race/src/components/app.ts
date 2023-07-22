@@ -12,14 +12,14 @@ import {
   getAllCars,
   getAllWinners,
   getCarById,
-  updateCarAPI
+  updateCarAPI,
 } from '../service/api';
 import State from '../state';
 import { DEFAULT_COLOR_UPDATE } from '../constants';
 import { startCar } from '../service/startCar';
 import { stopCar } from '../service/stopCar';
 import { startRace } from '../service/startRace';
-import {stopRace} from "../service/stopRace";
+import { stopRace } from '../service/stopRace';
 
 export default class App {
   private garage: GaragePage;
@@ -116,7 +116,7 @@ export default class App {
     });
 
     btnNextCars.addEventListener('click', async () => {
-      const {cars, count} = await getAllCars();
+      const { cars, count } = await getAllCars();
       if (this.curGaragePage * 7 >= count) {
         btnNextCars.setAttribute('disabled', 'disabled');
       } else {
@@ -209,7 +209,7 @@ export default class App {
       if (btn.classList.contains('car-options_remove')) {
         const idButton = Number(btn.dataset.remove);
         await deleteCar(idButton);
-        const { winners} = await getAllWinners();
+        const { winners } = await getAllWinners();
         winners.forEach((item: Winner) => {
           if (Number(item.id) === idButton) deleteWinner(idButton);
         });

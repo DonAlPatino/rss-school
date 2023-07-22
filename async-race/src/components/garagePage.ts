@@ -1,5 +1,5 @@
 import { getElementOfDocument } from '../util';
-import { deleteCar, getAllCars, getCarById } from '../service/api';
+import { getAllCars } from '../service/api';
 import { createCarImage } from '../util/createCarImage';
 import State from '../state';
 import { DEFAULT_COLOR_CREATE, DEFAULT_COLOR_UPDATE } from '../constants';
