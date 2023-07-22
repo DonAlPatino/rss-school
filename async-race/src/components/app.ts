@@ -114,6 +114,18 @@ export default class App {
       }
       this.winners.updateWinners();
     });
+
+    btnPrevWinners.addEventListener('click', () => {
+      if (this.curWinnersPage === 1) {
+        btnPrevWinners.setAttribute('disabled', 'disabled');
+      } else {
+        btnNextWinners.removeAttribute('disabled');
+        this.curWinnersPage--;
+        this.state.setCurWinnersPage(this.curWinnersPage);
+        curWinnersPage.textContent = `${this.curWinnersPage}`;
+      }
+      this.winners.updateWinners();
+    });
   }
 
   btnLoadGarage(): void {
@@ -160,16 +172,12 @@ export default class App {
     });
     raceBtn.addEventListener('click', () => {
       startRace(this.state).then(()=>{
-        /*raceBtn.disabled = false;
-        rasetBtn.disabled = true;*/
       });
       raceBtn.disabled = true;
       rasetBtn.disabled = false;
     });
     rasetBtn.addEventListener('click', () => {
       stopRace(this.state).then(()=>{
-        /*raceBtn.disabled = true;
-        rasetBtn.disabled = false;*/
       });
       raceBtn.disabled = false;
       rasetBtn.disabled = true;
