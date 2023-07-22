@@ -29,8 +29,11 @@ export default class GaragePage {
 
   private state: State;
 
+  private curGaragePage: number;
+
   constructor(state: State) {
     this.state = state;
+    this.curGaragePage = this.state.getCurGaragePage();
     this.container = document.createElement('div');
     this.container.className = 'page garage-page';
     this.template = `
@@ -72,9 +75,11 @@ export default class GaragePage {
   }
 
   updateGarage = async (): Promise<void> => {
-    console.log('update garage');
+    this.curGaragePage = this.state.getCurGaragePage();
     const containerCars = getElementOfDocument('.container-car');
     const countGarage = getElementOfDocument('.count-garage');
+    const btnPrevCars = <HTMLButtonElement>document.querySelector('.btn-prev');
+    const btnNextCars = <HTMLButtonElement>document.querySelector('.btn-next');
     containerCars.innerHTML = '';
     const { cars, count } = await getAllCars(this.state.getCurGaragePage());
     for (const car of cars) {
@@ -82,5 +87,14 @@ export default class GaragePage {
       containerCars.innerHTML += oneCar;
     }
     countGarage.innerText = ` (${count.toString()} cars)`;
+
+    if (this.curGaragePage === 1) {
+      btnPrevCars.setAttribute('disabled', 'disabled');
+    } else if (this.curGaragePage  * 7 >= count) {
+      btnNextCars.setAttribute('disabled', 'disabled');
+    } else {
+      btnPrevCars.removeAttribute('disabled');
+    }
+
   };
 }
