@@ -1,5 +1,5 @@
 import { getElementOfDocument } from '../util';
-import { getAllWinners, getCarById } from '../service/api';
+import {getAllWinners, getCarById, getWinners} from '../service/api';
 import { createCarImage } from '../util/createCarImage';
 
 export const createWinnerTable = (num: number, color: string, name: string, wins: number, bestTime: number):string =>
@@ -57,7 +57,7 @@ export default class WinnersPage {
     const containerWinners = getElementOfDocument('.container-win');
     const countWinners = getElementOfDocument('.count-winners');
     containerWinners.innerHTML = '';
-    const { winners } = await getAllWinners();
+    const { winners, count } = await getWinners();
     let num = 0;
     for (const car of winners) {
       const currentCar = await getCarById(car.id);
@@ -65,8 +65,8 @@ export default class WinnersPage {
       const oneWinner = `${createWinnerTable(num, currentCar.color, currentCar.name, car.wins, car.time)}`;
       containerWinners.innerHTML += oneWinner;
     }
-    //countWinners.innerText = ` (${count.toString()} winner(s))`;
-    countWinners.innerText = ` (${winners.length.toString()} winner(s))`;
+    countWinners.innerText = ` (${count.toString()} winner(s))`;
+    //countWinners.innerText = ` (${winners.length.toString()} winner(s))`;
   };
 }
 

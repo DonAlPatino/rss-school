@@ -52,7 +52,7 @@ export const getAllWinners = async ():Promise<WinnerApiResponse> => {
   return data;
 };
 
-export const getWinners = async (page = 1, limit = 7):Promise<WinnerApiResponse> => {
+export const getWinners = async (page = 1, limit = 10):Promise<WinnerApiResponse> => {
   const response = await fetch(`${winners}?_page=${page}&_limit=${limit}`, { method: 'GET' });
   const data = {
     winners: (await response.json()) as Winner[],
