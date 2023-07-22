@@ -1,6 +1,7 @@
 import { getElementOfDocument } from '../util';
-import {getAllWinners, getCarById, getWinners} from '../service/api';
+import { getCarById, getWinners } from '../service/api';
 import { createCarImage } from '../util/createCarImage';
+import State from '../state';
 
 export const createWinnerTable = (num: number, color: string, name: string, wins: number, bestTime: number):string =>
   `<tr">
@@ -17,8 +18,11 @@ export default class WinnersPage {
 
   private readonly container: HTMLDivElement;
 
+  private state: State;
 
-  constructor() {
+
+  constructor(state: State) {
+    this.state = state;
     this.container = document.createElement('div');
     this.container.className = 'page winners-page';
     this.template = `
@@ -57,7 +61,7 @@ export default class WinnersPage {
     const containerWinners = getElementOfDocument('.container-win');
     const countWinners = getElementOfDocument('.count-winners');
     containerWinners.innerHTML = '';
-    const { winners, count } = await getWinners();
+    const { winners, count } = await getWinners(this.state.getCurWinnersPage());
     let num = 0;
     for (const car of winners) {
       const currentCar = await getCarById(car.id);

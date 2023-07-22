@@ -11,7 +11,7 @@ import {
   deleteWinner,
   getAllCars,
   getAllWinners,
-  getCarById,
+  getCarById, getWinners,
   updateCarAPI,
 } from '../service/api';
 import State from '../state';
@@ -36,6 +36,8 @@ export default class App {
 
   private curGaragePage: number;
 
+  private curWinnersPage: number;
+
   constructor() {
 
     this.state = new State();
@@ -43,8 +45,9 @@ export default class App {
     this.garage = new GaragePage(this.state);
     this.header = new Header((activePage: Pages) => this.update(activePage));
     this.footer = new Footer();
-    this.winners = new WinnersPage();
+    this.winners = new WinnersPage(this.state);
     this.curGaragePage = this.state.getCurGaragePage();
+    this.curWinnersPage = this.state.getCurWinnersPage();
 
   }
 
@@ -63,6 +66,7 @@ export default class App {
       case Pages.WINNERS: {
         appContainer.append(this.winners.render());
         this.winners.updateWinners();
+        this.btnLoadWinners();
         break;
       }
     }
@@ -87,9 +91,29 @@ export default class App {
         appContainer.insertBefore(this.winners.render(), garageContainer);
         garageContainer.remove();
         this.winners.updateWinners();
+        this.btnLoadWinners();
         break;
       }
     }
+  }
+
+  btnLoadWinners():void {
+    const btnPrevWinners = <HTMLButtonElement>document.querySelector('.btn-prev-win');
+    const btnNextWinners = <HTMLButtonElement>document.querySelector('.btn-next-win');
+    const curWinnersPage = <HTMLElement>document.querySelector('.count-page_winners');
+
+    btnNextWinners.addEventListener('click', async () => {
+      const { count } = await getWinners();
+      if (this.curWinnersPage  * 10 >= count) {
+        btnNextWinners.setAttribute('disabled', 'disabled');
+      } else {
+        btnPrevWinners.removeAttribute('disabled');
+        this.curWinnersPage++;
+        this.state.setCurWinnersPage(this.curWinnersPage);
+        curWinnersPage.textContent = `${this.curWinnersPage}`;
+      }
+      this.winners.updateWinners();
+    });
   }
 
   btnLoadGarage(): void {
@@ -100,7 +124,7 @@ export default class App {
     const rasetBtn = <HTMLButtonElement>getElementOfDocument('.btn-reset');
     const btnPrevCars = <HTMLButtonElement>document.querySelector('.btn-prev');
     const btnNextCars = <HTMLButtonElement>document.querySelector('.btn-next');
-    const curPage = <HTMLSpanElement>document.querySelector('.count-page');
+    const curGaragePage = <HTMLSpanElement>document.querySelector('.count-page');
 
     btnPrevCars.addEventListener('click', () => {
       if (this.curGaragePage  === 1) {
@@ -109,7 +133,7 @@ export default class App {
         btnNextCars.removeAttribute('disabled');
         this.curGaragePage--;
         this.state.setCurGaragePage(this.curGaragePage);
-        curPage.textContent = `${this.curGaragePage}`;
+        curGaragePage.textContent = `${this.curGaragePage}`;
       }
       this.garage.updateGarage();
       stopRace(this.state);
@@ -123,7 +147,7 @@ export default class App {
         btnPrevCars.removeAttribute('disabled');
         this.curGaragePage++;
         this.state.setCurGaragePage(this.curGaragePage);
-        curPage.textContent = `${this.curGaragePage}`;
+        curGaragePage.textContent = `${this.curGaragePage}`;
       }
       this.garage.updateGarage();
       stopRace(this.state);

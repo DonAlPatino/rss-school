@@ -9,6 +9,8 @@ export default class State {
 
   curGaragePage:number;
 
+  curWinnersPage:number;
+
   raceArr: number [];
 
   startRace: number;
@@ -18,8 +20,17 @@ export default class State {
     this.infoAnimation = [];
     this.activePage = Pages.GARAGE;
     this.curGaragePage = 1;
+    this.curWinnersPage = 1;
     this.raceArr = [];
     this.startRace = 0;
+  }
+
+  setCurWinnersPage(curGaragePage: number):void {
+    this.curWinnersPage = curGaragePage;
+  }
+
+  getCurWinnersPage():number {
+    return this.curWinnersPage;
   }
 
   setCurGaragePage(curGaragePage: number):void {
