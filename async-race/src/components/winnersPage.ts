@@ -20,9 +20,11 @@ export default class WinnersPage {
 
   private state: State;
 
+  private curWinnersPage: number;
 
   constructor(state: State) {
     this.state = state;
+    this.curWinnersPage = this.state.getCurWinnersPage();
     this.container = document.createElement('div');
     this.container.className = 'page winners-page';
     this.template = `
@@ -58,8 +60,11 @@ export default class WinnersPage {
   }
 
   updateWinners = async (): Promise<void> => {
+    this.curWinnersPage = this.state.getCurWinnersPage();
     const containerWinners = getElementOfDocument('.container-win');
     const countWinners = getElementOfDocument('.count-winners');
+    const btnPrevWinners = <HTMLButtonElement>document.querySelector('.btn-prev-win');
+    const btnNextWinners = <HTMLButtonElement>document.querySelector('.btn-next-win');
     containerWinners.innerHTML = '';
     const { winners, count } = await getWinners(this.state.getCurWinnersPage());
     let num = 0;
@@ -71,6 +76,13 @@ export default class WinnersPage {
     }
     countWinners.innerText = ` (${count.toString()} winner(s))`;
     //countWinners.innerText = ` (${winners.length.toString()} winner(s))`;
+    if (this.curWinnersPage === 1) {
+      btnPrevWinners.setAttribute('disabled', 'disabled');
+    } else if (this.curWinnersPage  * 10 >= count) {
+      btnNextWinners.setAttribute('disabled', 'disabled');
+    } else {
+      btnPrevWinners.removeAttribute('disabled');
+    }
   };
 }
 
