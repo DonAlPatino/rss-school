@@ -102,6 +102,19 @@ export default class App {
     const btnNextCars = <HTMLButtonElement>document.querySelector('.btn-next');
     const curPage = <HTMLSpanElement>document.querySelector('.count-page');
 
+    btnPrevCars.addEventListener('click', () => {
+      if (this.curGaragePage  === 1) {
+        btnPrevCars.setAttribute('disabled', 'disabled');
+      } else {
+        btnNextCars.removeAttribute('disabled');
+        this.curGaragePage--;
+        this.state.setCurGaragePage(this.curGaragePage);
+        curPage.textContent = `${this.curGaragePage}`;
+      }
+      this.garage.updateGarage();
+      stopRace(this.state);
+    });
+
     btnNextCars.addEventListener('click', async () => {
       const {cars, count} = await getAllCars();
       if (this.curGaragePage * 7 >= count) {
@@ -109,7 +122,7 @@ export default class App {
       } else {
         btnPrevCars.removeAttribute('disabled');
         this.curGaragePage++;
-        this.state.setCurGaragePage(this.curGaragePage)
+        this.state.setCurGaragePage(this.curGaragePage);
         curPage.textContent = `${this.curGaragePage}`;
       }
       this.garage.updateGarage();
