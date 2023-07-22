@@ -76,7 +76,7 @@ export default class GaragePage {
     const containerCars = getElementOfDocument('.container-car');
     const countGarage = getElementOfDocument('.count-garage');
     containerCars.innerHTML = '';
-    const { cars, count } = await getAllCars();
+    const { cars, count } = await getAllCars(this.state.getCurGaragePage());
     for (const car of cars) {
       const oneCar = `${createCarTable(car.id, car.name, car.color)}`;
       containerCars.innerHTML += oneCar;

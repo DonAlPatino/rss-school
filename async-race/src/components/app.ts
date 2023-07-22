@@ -5,7 +5,15 @@ import WinnersPage from './winnersPage';
 import { getElementOfDocument }  from '../util';
 import { Pages, Winner } from '../types';
 import { create100Cars } from '../util/createRandomCars';
-import { createCarAPI, deleteCar, deleteWinner, getAllWinners, getCarById, updateCarAPI } from '../service/api';
+import {
+  createCarAPI,
+  deleteCar,
+  deleteWinner,
+  getAllCars,
+  getAllWinners,
+  getCarById,
+  updateCarAPI
+} from '../service/api';
 import State from '../state';
 import { DEFAULT_COLOR_UPDATE } from '../constants';
 import { startCar } from '../service/startCar';
@@ -90,6 +98,24 @@ export default class App {
     const updateCarBtn = <HTMLButtonElement>getElementOfDocument('.btn-update');
     const raceBtn = <HTMLButtonElement>getElementOfDocument('.btn-race');
     const rasetBtn = <HTMLButtonElement>getElementOfDocument('.btn-reset');
+    const btnPrevCars = <HTMLButtonElement>document.querySelector('.btn-prev');
+    const btnNextCars = <HTMLButtonElement>document.querySelector('.btn-next');
+    const curPage = <HTMLSpanElement>document.querySelector('.count-page');
+
+    btnNextCars.addEventListener('click', async () => {
+      const {cars, count} = await getAllCars();
+      if (this.curGaragePage * 7 >= count) {
+        btnNextCars.setAttribute('disabled', 'disabled');
+      } else {
+        btnPrevCars.removeAttribute('disabled');
+        this.curGaragePage++;
+        this.state.setCurGaragePage(this.curGaragePage)
+        curPage.textContent = `${this.curGaragePage}`;
+      }
+      this.garage.updateGarage();
+      stopRace(this.state);
+    });
+
     //100 new cars
     btnGenerateCards.addEventListener('click', async () => {
       await create100Cars();
