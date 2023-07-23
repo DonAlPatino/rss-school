@@ -1,4 +1,5 @@
 import { Pages } from '../types';
+import State from '../state';
 
 export default class Header {
   private readonly container: HTMLElement;
@@ -9,7 +10,13 @@ export default class Header {
 
   updateView: (activePage: Pages) => void;
 
-  constructor(update: (activePage: Pages) => void) {
+  private state: State;
+
+  private activePage: Pages;
+
+  constructor(state: State, update: (activePage: Pages) => void) {
+    this.state = state;
+    this.activePage = this.state.getActivePage();
     this.container = document.createElement('header');
     this.container.className = 'header';
     this.btnToGarage = document.createElement('button');
@@ -26,6 +33,7 @@ export default class Header {
     this.container.append(this.btnToWinners);
     this.btnToGarage.addEventListener('click', () => this.togglePage(Pages.GARAGE));
     this.btnToWinners.addEventListener('click', () => this.togglePage(Pages.WINNERS));
+    this.buttonsManagement(this.activePage);
     return this.container;
   }
 

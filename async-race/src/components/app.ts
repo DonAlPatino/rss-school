@@ -43,7 +43,7 @@ export default class App {
     this.state = new State();
     this.activePage = this.state.getActivePage();
     this.garage = new GaragePage(this.state);
-    this.header = new Header((activePage: Pages) => this.update(activePage));
+    this.header = new Header(this.state, (activePage: Pages) => this.update(activePage));
     this.footer = new Footer();
     this.winners = new WinnersPage(this.state);
     this.curGaragePage = this.state.getCurGaragePage();
@@ -53,10 +53,14 @@ export default class App {
 
   start(): void {
     const appContainer = getElementOfDocument('.app-container');
+    this.activePage = this.state.getActivePage();
     appContainer.append(this.header.render());
     switch (this.activePage) {
       case Pages.GARAGE: {
         appContainer.append(this.garage.render());
+        this.curGaragePage = this.state.getCurGaragePage();
+        const curGaragePage = <HTMLSpanElement>document.querySelector('.count-page');
+        curGaragePage.textContent = `${this.curGaragePage}`;
         this.header.buttonsManagement(Pages.GARAGE);
         this.garage.updateGarage();
         this.btnLoadGarage();
@@ -66,6 +70,9 @@ export default class App {
       case Pages.WINNERS: {
         appContainer.append(this.winners.render());
         this.winners.updateWinners();
+        this.curWinnersPage = this.state.getCurWinnersPage();
+        const curWinnersPage = <HTMLElement>document.querySelector('.count-page_winners');
+        curWinnersPage.textContent = `${this.curWinnersPage}`;
         this.btnLoadWinners();
         break;
       }
@@ -75,6 +82,7 @@ export default class App {
 
   update(activePage: Pages): void {
     const appContainer = getElementOfDocument('.app-container');
+    this.activePage = this.state.getActivePage();
     switch (activePage) {
       case Pages.GARAGE: {
         this.state.setActivePage(Pages.GARAGE);
@@ -82,6 +90,9 @@ export default class App {
         appContainer.insertBefore(this.garage.render(), winnersContainer);
         winnersContainer.remove();
         this.garage.updateGarage();
+        this.curGaragePage = this.state.getCurGaragePage();
+        const curGaragePage = <HTMLSpanElement>document.querySelector('.count-page');
+        curGaragePage.textContent = `${this.curGaragePage}`;
         this.btnLoadGarage();
         break;
       }
@@ -91,6 +102,9 @@ export default class App {
         appContainer.insertBefore(this.winners.render(), garageContainer);
         garageContainer.remove();
         this.winners.updateWinners();
+        this.curWinnersPage = this.state.getCurWinnersPage();
+        const curWinnersPage = <HTMLElement>document.querySelector('.count-page_winners');
+        curWinnersPage.textContent = `${this.curWinnersPage}`;
         this.btnLoadWinners();
         break;
       }
