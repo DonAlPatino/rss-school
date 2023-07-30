@@ -161,6 +161,34 @@ docker push donalpatino/node-web-app
             </code></pre>
         </section>
         <section>
+            <h2>Docker compose</h2>
+            <pre><code data-trim data-noescape>
+version: '2'
+services:
+  web:
+    build: .
+    command: npm run dev
+    volumes:
+      - .:/usr/app/
+      - /usr/app/node_modules
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://todoapp@postgres/todos
+  postgres:
+    image: postgres:9.6.2-alpine
+    environment:
+      POSTGRES_USER: todoapp
+      POSTGRES_DB: todos
+            </code></pre>
+        </section>
+        <section>
+            <h3>Kubernetes</h3>
+            <img src="images/Kubernetes-Logo.jpg" alt="">
+        </section>
+        <section>
             <h2>Links</h2>
             <ul>
                 <li><a href="https://www.docker.com/" target="_blank">Docker Company</a></li>
