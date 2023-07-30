@@ -20,7 +20,7 @@
 
     <title>Introduction to Docker</title>
 
-    <meta name="description" content="YOUR DESCIPTION HERE.">
+    <meta name="description" content="Introduction to Docker">
     <meta name="author" content="Viacheslav Alpatov">
 
     <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -80,35 +80,93 @@
             </ul>
         </section>
         <section>
-            <h2>Containers vs Virtual Machines</h2>
-            <div style = "display: flex;flex-direction: row ">
-                <img src ="images/vm.webp" alt="">
-                <img src ="images/container.webp" alt="">
-            </div>
+            <section>
+                <h2>Containers vs Virtual Machines</h2>
+            </section>
+            <section>
+                <h3>Virtual Machines</h3>
+                <img src="images/vm.webp" alt="">
+            </section>
+            <section>
+                <h3>Containers</h3>
+                <img src="images/container.webp" alt="">
+            </section>
         </section>
         <section>
-            <h1>Docker</h1>
-            <p>
-                Docker is a containerisation platform – it is a toolkit that allows you to build, deploy and manage containerised applications. There are alternative containerisation platforms, such as podman, however, Docker is the leading player in this space.
-            </p>
+            <section>
+                <h1>Docker</h1>
+                <p>
+                    Docker is a containerisation platform – it is a toolkit that allows you to build, deploy and manage
+                    containerised applications. There are alternative containerisation platforms, such as podman,
+                    however, Docker is the leading player in this space.
+                </p>
+            </section>
             <section>
                 <h2>Docker terminology</h2>
                 <ul>
                     <li>Images</li>
                     <li>Containers</li>
                     <li>Docker Daemon</li>
-                    <li>Containers</li>
                     <li>Docker Client</li>
                     <li>Docker Hub</li>
                 </ul>
             </section>
         </section>
         <section>
+            <h2>Building container</h2>
+            <pre><code data-trim data-noescape>
+'use strict';
+const express = require('express');
+const PORT = 8080;
+const HOST = '0.0.0.0';
+// App
+const app = express();
+app.get('/', (req, res) => {
+  res.send('Hello World');
+});
+app.listen(PORT, HOST, () => {
+  console.log(`Running on http://${HOST}:${PORT}`);
+});
+  </code></pre>
+        </section>
+        <section>
+            <h2>Dockerfile</h2>
+            <pre><code data-trim data-noescape>
+FROM node:18
+# Create app directory
+WORKDIR /usr/src/app
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY package*.json ./
+RUN npm install
+# If you are building your code for production
+# RUN npm ci --omit=dev
+# Bundle app source
+COPY . .
+EXPOSE 8080
+CMD [ "node", "server.js" ]
+  </code></pre>
+        </section>
+        <section>
+            <h2>Docker build, run, deploy</h2>
+            <pre><code data-trim data-noescape>
+
+docker build . -t donalpatino/node-web-app
+
+docker run -p 49160:8080 -d donalpatino/node-web-app
+
+docker push donalpatino/node-web-app
+
+            </code></pre>
+        </section>
+        <section>
             <h2>Links</h2>
-                <ul>
-                        <li><a href="https://www.docker.com/" target="_blank">Docker Company</a></li>
-                        <li><a href="https://hub.docker.com/" target="_blank">Docker Hub</a></li>
-                </ul>
+            <ul>
+                <li><a href="https://www.docker.com/" target="_blank">Docker Company</a></li>
+                <li><a href="https://hub.docker.com/" target="_blank">Docker Hub</a></li>
+                <li><a href="https://nodejs.org/en/docs/guides/nodejs-docker-webapp" target="_blank">Dockerizing a Node.js web app</a></li>
+            </ul>
         </section>
 
         <section data-background="images/questions.png">
